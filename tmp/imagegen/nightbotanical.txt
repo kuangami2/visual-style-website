@@ -1,0 +1,10 @@
+Use case: stylized-concept
+Asset type: website project case-study image
+Primary request: a nocturnal blue botanical silhouette with thin silver stems and a small glowing amber sun inside a dark greenhouse
+Style/medium: cinematic digital collage, poetic and modern
+Composition/framing: landscape 4:3 crop, layered foreground and background, no text
+Lighting/mood: deep midnight blue with amber glow, contemplative
+Color palette: midnight blue, indigo, silver, amber
+Materials/textures: translucent leaves, glass reflections, subtle film grain
+Constraints: no logos, no watermark, no text
+Avoid: people, UI, photoreal clutter

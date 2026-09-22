@@ -1,0 +1,10 @@
+Use case: stylized-concept
+Asset type: website style card thumbnail
+Primary request: an abstract paper landscape with folded cream planes, a terracotta sun and long graphic shadows
+Style/medium: tactile paper sculpture, editorial art direction
+Composition/framing: square crop, geometric layers, no text
+Lighting/mood: warm late-afternoon light, quiet and tactile
+Color palette: cream, sand, terracotta, charcoal
+Materials/textures: uncoated paper, soft fiber texture, gentle grain
+Constraints: no logos, no watermark, no text
+Avoid: people, UI, photoreal landscapes

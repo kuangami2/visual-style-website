@@ -1,0 +1,92 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e10]:
+        - generic [ref=e11]:
+          - generic [ref=e12]: New sign-ups and upgrades to the ChatGPT Pro $200 plan are temporarily paused.
+          - generic [ref=e13]:
+            - text: Existing Pro $200 subscriptions will continue to renew as usual.
+            - link "Learn more" [ref=e14] [cursor=pointer]:
+              - /url: https://help.openai.com/articles/9793128
+            - text: .
+        - button "Dismiss" [ref=e16] [cursor=pointer]
+      - generic [ref=e21]:
+        - link [ref=e22] [cursor=pointer]:
+          - /url: /en
+          - img "OpenAI" [ref=e23]
+        - generic [ref=e24]:
+          - generic [ref=e25]:
+            - generic [ref=e26]: Language
+            - button "Language" [ref=e27] [cursor=pointer]:
+              - generic [ref=e30]: English
+          - link "Login" [ref=e31] [cursor=pointer]:
+            - /url: /auth/login?redirectTo=%2Fauth%2Flogin-success%3FreturnTo%3D%252Fen%252Farticles%252F4936850-where-do-i-find-my-openai-api-key
+      - searchbox "Search for articles..." [ref=e33]
+    - generic [ref=e35]:
+      - navigation "Breadcrumb" [ref=e36]:
+        - list [ref=e37]:
+          - listitem [ref=e38]:
+            - link "All Collections" [ref=e39] [cursor=pointer]:
+              - /url: /en
+          - listitem [ref=e42]:
+            - link "API" [ref=e43] [cursor=pointer]:
+              - /url: /en/collections/3675931-api
+          - listitem [ref=e46]:
+            - link "General FAQ" [ref=e47] [cursor=pointer]:
+              - /url: /en/collections/6864532-general-faq
+          - listitem [ref=e50]:
+            - generic [ref=e51]: Where do I find my OpenAI API Key?
+      - generic [ref=e52]:
+        - generic [ref=e53]:
+          - article [ref=e54]:
+            - heading "Where do I find my OpenAI API Key?" [level=1] [ref=e55]
+            - paragraph [ref=e56]: Find, create, manage, and delete your OpenAI API keys while keeping them secure.
+            - generic [ref=e57]: "Updated: 27天前"
+            - paragraph [ref=e60]:
+              - text: You can create and manage your API keys on the
+              - link "API key page" [ref=e61] [cursor=pointer]:
+                - /url: https://platform.openai.com/api-keys
+              - text: . For security, a full secret key is only shown when you create it. If you lose it or did not save it, create a new key and update your application to use the new key. To delete a key, select the trash can icon next to it on the API key page; deleted keys cannot be used, so applications that rely on them may stop working.Check out our
+              - link "Best Practices for API Key Safety" [ref=e62] [cursor=pointer]:
+                - /url: /en/articles/5112595
+              - text: to learn how you can keep your API key protected.
+              - emphasis [ref=e63]: "Reminder: Do not share your API key with anyone!"
+          - generic [ref=e64]:
+            - heading "Related articles" [level=2] [ref=e65]
+            - list [ref=e66]:
+              - listitem [ref=e67]:
+                - link "Using OpenAI models in Cursor" [ref=e68] [cursor=pointer]:
+                  - /url: /en/articles/20001506-using-openai-models-in-cursor
+              - listitem [ref=e74]:
+                - link "How can I view the users or organizations associated with an API key? Identify the user and organizations associated with an OpenAI API key by calling the account information endpoint." [ref=e75] [cursor=pointer]:
+                  - /url: /en/articles/9132009-how-can-i-view-the-users-or-organizations-associated-with-an-api-key
+                  - generic [ref=e76]:
+                    - generic [ref=e77]: How can I view the users or organizations associated with an API key?
+                    - generic [ref=e78]: Identify the user and organizations associated with an OpenAI API key by calling the account information endpoint.
+              - listitem [ref=e82]:
+                - link "EKM (External Keys) in the Management API Manage external keys for EKM using the Management API" [ref=e83] [cursor=pointer]:
+                  - /url: /en/articles/20000953-ekm-external-keys-in-the-management-api
+                  - generic [ref=e84]:
+                    - generic [ref=e85]: EKM (External Keys) in the Management API
+                    - generic [ref=e86]: Manage external keys for EKM using the Management API
+          - generic [ref=e90]:
+            - heading "Was this article helpful?" [level=2] [ref=e91]
+            - generic [ref=e92]:
+              - generic [ref=e93]:
+                - button "Thumbs up" [ref=e94] [cursor=pointer]
+                - button "Thumbs down" [ref=e97] [cursor=pointer]
+              - textbox "Additional feedback (optional)" [ref=e100]
+              - button "Submit" [disabled] [ref=e102]
+        - navigation "Table of contents":
+          - list
+    - contentinfo [ref=e105]:
+      - img "OpenAI logo" [ref=e106]
+      - navigation [ref=e107]:
+        - link "ChatGPT" [ref=e108] [cursor=pointer]:
+          - /url: https://chatgpt.com
+        - link "API" [ref=e109] [cursor=pointer]:
+          - /url: https://platform.openai.com/docs/
+        - link "Service Status" [ref=e110] [cursor=pointer]:
+          - /url: https://status.openai.com
+        - button "Open cookie preferences dialog" [ref=e111] [cursor=pointer]: Cookie Preferences
+  - button "Open chat" [ref=e112] [cursor=pointer]

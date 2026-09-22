@@ -1,0 +1,17 @@
+[    2412ms] [ERROR] Recoverable hydrateRoot error Error: Minified React error #418; visit https://react.dev/errors/418?args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at zl (https://help-center-cdn.oaistatic.com/assets/entry.client-Db6otDem.js:24:30904)
+    at _y (https://help-center-cdn.oaistatic.com/assets/entry.client-Db6otDem.js:24:106899)
+    at Lu (https://help-center-cdn.oaistatic.com/assets/entry.client-Db6otDem.js:24:116527)
+    at Po (https://help-center-cdn.oaistatic.com/assets/entry.client-Db6otDem.js:24:115793)
+    at Ry (https://help-center-cdn.oaistatic.com/assets/entry.client-Db6otDem.js:24:115705)
+    at zy (https://help-center-cdn.oaistatic.com/assets/entry.client-Db6otDem.js:24:115563)
+    at ko (https://help-center-cdn.oaistatic.com/assets/entry.client-Db6otDem.js:24:111363)
+    at cd (https://help-center-cdn.oaistatic.com/assets/entry.client-Db6otDem.js:24:121306)
+    at MessagePort.I (https://help-center-cdn.oaistatic.com/assets/entry.client-Db6otDem.js:9:1609) {componentStack: 
+    at cr (https://help-center-cdn.oaistatic.com/…atic.com/assets/entry.client-Db6otDem.js:42:4151)} @ https://help-center-cdn.oaistatic.com/assets/entry.client-Db6otDem.js:37
+[    2976ms] [INFO] [Support chat] backend=not yet selected auth=guest thread=none requested=default @ https://help-center-cdn.oaistatic.com/assets/entry.client-Db6otDem.js:37
+[    2978ms] [WARNING]   WARN  [Statsig] The user does not have the required id_type "conversation_id" for Dynamic config "quartz_support_disclosure" @ https://help-center-cdn.oaistatic.com/assets/entry.client-Db6otDem.js:37
+[    3492ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://help.openai.com/favicon.png:0
+[  365136ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://help.openai.com/resources/status-page-banners:0
+[  546260ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://help.openai.com/resources/status-page-banners:0
+[  606412ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://help.openai.com/resources/status-page-banners:0

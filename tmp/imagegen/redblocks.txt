@@ -1,0 +1,10 @@
+Use case: stylized-concept
+Asset type: website project case-study image
+Primary request: a bold poster-like composition of red lacquer geometric blocks, a black sphere and a thin ivory line on a warm off-white field
+Style/medium: contemporary graphic design still life, museum poster sensibility
+Composition/framing: landscape 4:3 crop, asymmetric composition with clear focal hierarchy, no text
+Lighting/mood: directional hard light with precise shadows, confident and graphic
+Color palette: vermilion, black, ivory, muted rust
+Materials/textures: lacquer, paper, soft grain
+Constraints: no logos, no watermark, no text
+Avoid: people, UI, random letters

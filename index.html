@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0d0d0e" />
+    <meta name="description" content="把 libuv 与 Redis 的事件循环、调用图和异步回调链，转译成可读的视觉路径。" />
+    <title>事件流视觉化实验室 · libuv / Redis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="事件流视觉化实验室首页">
+        <span class="brand-mark"><i></i><i></i><i></i></span>
+        <span class="brand-copy"><strong>事件流视觉化</strong><small>REVERSE LAB / 01</small></span>
+      </a>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#explore">解析模块</a>
+        <a href="#cases">分析案例</a>
+        <a href="#process">工作方法</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="切换主题" title="切换主题">
+          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 15.2A8.5 8.5 0 0 1 8.8 3.6 8.5 8.5 0 1 0 20.4 15.2Z"></path></svg>
+        </button>
+        <a class="header-cta" href="#explore">打开分析库 <span>↗</span></a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero section-shell" aria-labelledby="hero-title">
+        <div class="hero-copy reveal">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> CODE REVERSE / LIBUV × REDIS</p>
+          <h1 id="hero-title">看见代码<br /><em>如何流动。</em></h1>
+          <p class="hero-intro">把 uv_run 事件循环、调用图与异步回调链，转译成一眼能读懂的视觉路径。先定位入口，再追踪一次事件的完整旅程。</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#explore">浏览分析模块 <span>↓</span></a>
+            <a class="text-link" href="#process">了解逆向方法 <span>↗</span></a>
+          </div>
+          <div class="hero-meta"><span>01 / 04</span><span class="meta-line"></span><span>curated by studio</span></div>
+        </div>
+        <div class="hero-visual reveal reveal-delay-1">
+          <div class="hero-image-wrap">
+            <img src="assets/generated/hero-event-loop.png" alt="以光线和轨迹表现 uv_run 事件循环" class="hero-image" />
+            <div class="image-fallback hero-fallback" aria-hidden="true"><span>FORM<br /><b>&amp;</b><br />LIGHT</span></div>
+            <div class="hero-stamp"><span>TRACE.</span><strong>01</strong><span>EVENT<br />STUDIES</span></div>
+            <div class="hero-caption"><span>uv_run / 01</span><span>event-loop / 26</span></div>
+          </div>
+          <div class="orb orb-one"></div><div class="orb orb-two"></div>
+        </div>
+      </section>
+
+      <section class="ticker" aria-label="实验室宣言">
+        <div class="ticker-track"><span>FOLLOW THE EVENT</span><b>✳</b><span>追踪一次回调</span><b>✳</b><span>FOLLOW THE EVENT</span><b>✳</b><span>追踪一次回调</span><b>✳</b></div>
+      </section>
+
+      <section class="explore section-shell" id="explore" aria-labelledby="explore-title">
+        <div class="section-heading reveal">
+          <div><p class="eyebrow">02 / ANALYSIS INDEX</p><h2 id="explore-title">代码路径索引</h2></div>
+          <p class="heading-note">精选一组可被追踪、重组、再验证的分析视角。<br />每一张图，都是一次进入源码的入口。</p>
+        </div>
+        <div class="filter-row" role="toolbar" aria-label="筛选分析模块">
+          <span class="filter-label">FILTER BY</span>
+          <button class="filter-chip is-active" data-filter="all" type="button">全部 <span>06</span></button>
+          <button class="filter-chip" data-filter="event-loop" type="button">事件循环 <span>01</span></button>
+          <button class="filter-chip" data-filter="call-graph" type="button">调用图 <span>01</span></button>
+          <button class="filter-chip" data-filter="callback" type="button">异步回调 <span>01</span></button>
+          <button class="filter-chip" data-filter="macro" type="button">宏差异 <span>01</span></button>
+          <button class="filter-chip" data-filter="redis" type="button">Redis 事件驱动 <span>02</span></button>
+        </div>
+        <div class="style-grid" id="style-grid">
+          <article class="style-card style-card-large reveal" data-category="event-loop" data-title="uv_run 事件环">
+            <div class="card-media"><img src="assets/generated/style-event-loop.png" alt="以轨迹和脉冲表现 uv_run 事件循环" /><div class="image-fallback fallback-still"><span>UV_RUN<br /><i>EVENT LOOP</i></span></div><span class="card-index">A / 01</span><button class="card-expand" type="button" aria-label="查看 uv_run 事件环提示词">↗</button></div>
+            <div class="card-info"><div><h3>uv_run 事件环</h3><p>EVENT LOOP / UV_RUN</p></div><span class="card-arrow">↗</span></div>
+          </article>
+          <article class="style-card reveal reveal-delay-1" data-category="call-graph" data-title="调用图折线">
+            <div class="card-media"><img src="assets/generated/style-call-graph.png" alt="函数调用图的分叉与汇聚" /><div class="image-fallback fallback-polarized"><span>CALL<br /><i>GRAPH</i></span></div><span class="card-index">A / 02</span><button class="card-expand" type="button" aria-label="查看调用图折线提示词">↗</button></div>
+            <div class="card-info"><div><h3>调用图折线</h3><p>CALL GRAPH / CONTROL FLOW</p></div><span class="card-arrow">↗</span></div>
+          </article>
+          <article class="style-card reveal reveal-delay-2" data-category="callback" data-title="异步回调链">
+            <div class="card-media"><img src="assets/generated/style-callback-chain.png" alt="异步回调链的层叠节点" /><div class="image-fallback fallback-tactile"><span>ASYNC<br /><i>CALLBACK</i></span></div><span class="card-index">A / 03</span><button class="card-expand" type="button" aria-label="查看异步回调链提示词">↗</button></div>
+            <div class="card-info"><div><h3>异步回调链</h3><p>CALLBACK / QUEUE</p></div><span class="card-arrow">↗</span></div>
+          </article>
+          <article class="style-card reveal" data-category="macro" data-title="宏展开差异">
+            <div class="card-media"><img src="assets/generated/style-macro-diff.png" alt="宏展开前后的代码差异层" /><div class="image-fallback fallback-space"><span>MACRO<br /><i>DIFF</i></span></div><span class="card-index">A / 04</span><button class="card-expand" type="button" aria-label="查看宏展开差异提示词">↗</button></div>
+            <div class="card-info"><div><h3>宏展开差异</h3><p>MACRO / BEFORE &amp; AFTER</p></div><span class="card-arrow">↗</span></div>
+          </article>
+          <article class="style-card reveal reveal-delay-1" data-category="redis" data-title="Redis 事件驱动">
+            <div class="card-media"><img src="assets/generated/style-redis-event.png" alt="Redis 事件驱动模型中的队列和脉冲" /><div class="image-fallback fallback-sunset"><span>REDIS<br /><i>EVENTED</i></span></div><span class="card-index">A / 05</span><button class="card-expand" type="button" aria-label="查看 Redis 事件驱动提示词">↗</button></div>
+            <div class="card-info"><div><h3>Redis 事件驱动</h3><p>REDIS / AE EVENT</p></div><span class="card-arrow">↗</span></div>
+          </article>
+          <article class="style-card reveal reveal-delay-2" data-category="redis" data-title="跨层路径">
+            <div class="card-media"><img src="assets/generated/style-cross-layer.png" alt="从系统调用到 Redis 事件的跨层路径" /><div class="image-fallback fallback-paper"><span>CROSS<br /><i>LAYER</i></span></div><span class="card-index">A / 06</span><button class="card-expand" type="button" aria-label="查看跨层路径提示词">↗</button></div>
+            <div class="card-info"><div><h3>跨层路径</h3><p>LIBUV / REDIS / TRACE</p></div><span class="card-arrow">↗</span></div>
+          </article>
+        </div>
+        <div class="empty-state" id="empty-state" hidden>这个筛选暂时还在采样中，换一个方向试试。</div>
+        <div class="section-footer"><span>SHOWING <b id="visible-count">06</b> OF 06 MODULES</span><a class="text-link" href="#cases">查看分析案例 <span>↗</span></a></div>
+      </section>
+
+      <section class="cases section-shell" id="cases" aria-labelledby="cases-title">
+        <div class="section-heading reveal"><div><p class="eyebrow">03 / IN PRACTICE</p><h2 id="cases-title">分析如何落地</h2></div><p class="heading-note">调用链从来不是终点。<br />它会在不同线程与模块里长出新的形状。</p></div>
+        <div class="case-grid">
+          <article class="case-feature reveal"><div class="case-image"><img src="assets/generated/case-uv-run.png" alt="uv_run 事件循环调用路径分析" /><div class="image-fallback fallback-case-one"><span>UV_RUN<br /><i>TRACE</i></span></div><span class="case-tag">CALL CHAIN</span></div><div class="case-copy"><p class="case-number">01</p><div><h3>uv_run / 事件循环</h3><p>从入口函数开始，标记 poll、prepare、check、idle 阶段，复原一次事件如何穿过循环。</p><a class="text-link" href="#process">查看分析 <span>↗</span></a></div></div></article>
+          <article class="case-feature case-feature-offset reveal reveal-delay-1"><div class="case-image"><img src="assets/generated/case-redis-ae.png" alt="Redis ae 事件驱动模型分析" /><div class="image-fallback fallback-case-two"><span>REDIS<br /><i>AE EVENT</i></span></div><span class="case-tag">SYSTEM MAP</span></div><div class="case-copy"><p class="case-number">02</p><div><h3>Redis / ae 事件驱动</h3><p>把 aeCreateFileEvent 到 aeProcessEvents 的异步路径摊开，观察回调如何回到主循环。</p><a class="text-link" href="#process">查看分析 <span>↗</span></a></div></div></article>
+        </div>
+      </section>
+
+      <section class="process section-shell" id="process" aria-labelledby="process-title">
+        <div class="process-copy reveal"><p class="eyebrow">04 / THE METHOD</p><h2 id="process-title">从入口<br /><em>到证据。</em></h2><p>一张调用图不提供答案，它提供一个可以继续验证的角度。用静态分析和生图模型快速打开路径，再用源码与运行时证据收拢它。</p><a class="button button-dark" href="#explore">开始一次追踪 <span>↗</span></a></div>
+        <div class="process-steps reveal reveal-delay-1"><div class="process-step"><span>01</span><div><h3>Locate</h3><p>从 uv_run、aeProcessEvents 等入口函数开始，锁定主循环。</p></div></div><div class="process-step"><span>02</span><div><h3>Trace</h3><p>沿调用图和异步队列前进，标出每一次回调与状态变化。</p></div></div><div class="process-step"><span>03</span><div><h3>Verify</h3><p>对照宏展开、版本差异和运行时日志，让视觉路径回到源码证据。</p></div></div></div>
+      </section>
+    </main>
+
+    <footer class="site-footer section-shell"><a class="brand" href="#top"><span class="brand-mark"><i></i><i></i><i></i></span><span class="brand-copy"><strong>事件流视觉化</strong><small>REVERSE LAB / 01</small></span></a><p>Made for the curious reverse engineers.</p><span class="footer-year">© 2026</span></footer>
+
+    <dialog class="prompt-dialog" id="prompt-dialog"><button class="dialog-close" type="button" aria-label="关闭">×</button><p class="eyebrow">PROMPT STUDY</p><h2 id="dialog-title">uv_run 事件环</h2><p class="dialog-subtitle">把这张分析图的视觉方向带进你的下一次生图。</p><div class="prompt-box" id="prompt-text">visual systems diagram of libuv uv_run event loop, poll prepare check idle phases orbiting a central loop, glowing traces and precise nodes, charcoal, electric orange and warm ivory, editorial technical illustration, no text</div><button class="button button-primary dialog-copy" id="copy-prompt" type="button">复制提示词 <span>⌘ C</span></button><p class="copy-status" id="copy-status" role="status"></p></dialog>
+    <script src="script.js"></script>
+  </body>
+</html>

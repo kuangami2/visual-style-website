@@ -1,0 +1,10 @@
+Use case: stylized-concept
+Asset type: website style card thumbnail
+Primary request: a sculptural still life of a cobalt blue ceramic vessel, chrome ribbon and pale peach orb on a matte blue plinth
+Style/medium: contemporary 3D product art, gallery catalog
+Composition/framing: square crop, centered object with breathing room, no text
+Lighting/mood: crisp studio light, soft shadow, calm and precise
+Color palette: cobalt, powder blue, peach, silver
+Materials/textures: glazed ceramic, polished chrome, matte stone
+Constraints: no logos, no watermark, no text
+Avoid: people, UI, busy background
