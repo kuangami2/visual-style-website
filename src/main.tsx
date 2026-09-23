@@ -1,0 +1,400 @@
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { createRoot } from 'react-dom/client'
+import JSZip from 'jszip'
+import { AmbientWind } from './ambient'
+import './styles.css'
+
+type Companion = 'tang' | 'he' | 'xi'
+
+type Chapter = {
+  id: string
+  chapter: string
+  title: string
+  eyebrow: string
+  line: string
+  prompt: string
+  image: string
+  tint: string
+}
+
+type Shot = {
+  index: number
+  title: string
+  subtitle: string
+  image: string
+  duration: number
+  movement: string
+  sound: string
+}
+
+type DuskActivity = 'wind' | 'wreath' | 'story'
+
+const base = import.meta.env.BASE_URL
+const asset = (name: string) => `${base}assets/${name}`
+
+const chapters: Chapter[] = [
+  {
+    id: 'flower',
+    chapter: '一 / 遇花',
+    title: '先别走，花还没看完',
+    eyebrow: '花田 · 午后四时',
+    line: '风从花梢里穿过去，大家便都慢下来。',
+    prompt: '在花田里找到三朵愿意同行的花',
+    image: asset('generated/flower-field-v4.webp'),
+    tint: '#c77a35',
+  },
+  {
+    id: 'wreath',
+    chapter: '二 / 编环',
+    title: '把今天编在一起',
+    eyebrow: '花田 · 风变轻了',
+    line: '青禾说，花环不用对称，像我们这样就很好。',
+    prompt: '点选花材，把花环慢慢编好',
+    image: asset('generated/wreath-garden-v4.webp'),
+    tint: '#d99a8d',
+  },
+  {
+    id: 'plum',
+    chapter: '三 / 分梅',
+    title: '这一颗，给谁？',
+    eyebrow: '林下 · 日影西斜',
+    line: '一颗青梅在掌心滚了滚，甜味还没有决定去处。',
+    prompt: '把青梅递给一位朋友',
+    image: asset('generated/plum-forest-v4.webp'),
+    tint: '#f2b55b',
+  },
+  {
+    id: 'dusk',
+    chapter: '四 / 等夕阳',
+    title: '再坐一会儿',
+    eyebrow: '湖畔 · 天快黑了',
+    line: '回去也没有什么要紧的事。你想和谁并肩？',
+    prompt: '约上想同行的人，一起看完落日',
+    image: asset('generated/dusk-lake-v4.webp'),
+    tint: '#7e9bae',
+  },
+]
+
+const companions: { id: Companion; name: string; note: string; color: string; image: string; portrait: string }[] = [
+  { id: 'tang', name: '阿棠', note: '把寻常小事讲得有趣', color: '#d99a8d', image: asset('generated/flower-field-v4.webp'), portrait: asset('generated/portrait-tang-v4.webp') },
+  { id: 'he', name: '青禾', note: '手很巧，会把花编得刚刚好', color: '#849f89', image: asset('generated/wreath-garden-v4.webp'), portrait: asset('generated/portrait-he-v4.webp') },
+  { id: 'xi', name: '闻溪', note: '总是先听见风和鸟鸣', color: '#96aebe', image: asset('generated/plum-forest-v4.webp'), portrait: asset('generated/portrait-xi-v4.webp') },
+]
+
+const flowers = [
+  { name: '杏花', color: '#ff93ac', symbol: '✿', note: '胭脂 · 五瓣' },
+  { name: '栀子', color: '#fff6d9', symbol: '✽', note: '月白 · 重瓣' },
+  { name: '桔梗', color: '#80c9f5', symbol: '❀', note: '天青 · 星瓣' },
+  { name: '金盏', color: '#ffc04a', symbol: '✾', note: '暖金 · 细瓣' },
+  { name: '紫藤', color: '#ca9bf2', symbol: '✽', note: '藤紫 · 花穗' },
+]
+
+const duskActivities: { id: DuskActivity; title: string; note: string; symbol: string }[] = [
+  { id: 'wind', title: '听一会儿风', note: '不说话也很好', symbol: '≈' },
+  { id: 'wreath', title: '交换花环', note: '把下午戴到天黑', symbol: '✿' },
+  { id: 'story', title: '讲一件小事', note: '只讲给同行的人听', symbol: '∿' },
+]
+
+const shotsFor = (chosen: Companion, group: Companion[] = [], activity: DuskActivity = 'wind'): Shot[] => {
+  const friend = companions.find((item) => item.id === chosen) ?? companions[1]
+  const names = [chosen, ...group.filter((id) => id !== chosen)].map((id) => companions.find((item) => item.id === id)?.name).filter(Boolean) as string[]
+  const groupLabel = names.length > 1 ? `${names.slice(0, -1).join('、')}和${names[names.length - 1]}` : friend.name
+  const activityLine = duskActivities.find((item) => item.id === activity)?.title ?? '听一会儿风'
+  return [
+    { index: 1, title: '花枝擦过镜头', subtitle: '她们在花田里等你，没人急着往前走。', image: asset('generated/flower-field-v4.webp'), duration: 5, movement: '前景花叶轻晃，镜头慢慢推近', sound: '风穿过草叶' },
+    { index: 2, title: '手里的花环', subtitle: '青禾说：不用编得太整齐。', image: asset('generated/wreath-garden-v4.webp'), duration: 5, movement: '从花环移到笑起来的眼睛', sound: '衣料与花梗的细响' },
+    { index: 3, title: '一颗青梅', subtitle: '酸意先到，笑声随后才来。', image: asset('generated/plum-forest-v4.webp'), duration: 4, movement: '手部特写，浅景深摇向树影', sound: '树上鸟鸣' },
+    { index: 4, title: '有人回头', subtitle: `${friend.name}在喊你，夕阳已经落到肩上。`, image: friend.image, duration: 5, movement: '逆光中定格一个回头', sound: '远处溪水' },
+    { index: 5, title: '坐到天快黑', subtitle: `你和${groupLabel}一起${activityLine}，谁也没有催谁。`, image: asset('generated/dusk-lake-v4.webp'), duration: 6, movement: '从并肩的人拉到湖面与山线', sound: '湖面水声与晚风' },
+    { index: 6, title: '晚些回去', subtitle: '把今天收好，明天还可以再打开。', image: asset('generated/dusk-lake-v4.webp'), duration: 5, movement: '夕光压低，字幕慢慢浮现', sound: '风声渐远' },
+  ]
+}
+
+function App() {
+  const [chapterIndex, setChapterIndex] = useState(0)
+  const [furthestChapter, setFurthestChapter] = useState(0)
+  const [petals, setPetals] = useState<number[]>([])
+  const [woven, setWoven] = useState<number[]>([])
+  const [plumChoice, setPlumChoice] = useState<Companion | null>(null)
+  const [companion, setCompanion] = useState<Companion | null>(null)
+  const [duskFriends, setDuskFriends] = useState<Companion[]>([])
+  const [duskActivity, setDuskActivity] = useState<DuskActivity | null>(null)
+  const [isFinished, setIsFinished] = useState(false)
+  const [isSoundOn, setIsSoundOn] = useState(false)
+  const [exporting, setExporting] = useState(false)
+  const [exportError, setExportError] = useState('')
+  const [exportUrl, setExportUrl] = useState<string | null>(null)
+  const ambientRef = useRef<AmbientWind | null>(null)
+  const exportGenerationRef = useRef(0)
+
+  const current = chapters[chapterIndex]
+  const progress = isFinished ? 100 : Math.round(((Math.min(petals.length / 3, 1) + woven.length / 4 + (plumChoice ? 1 : 0) + (duskFriends.length && duskActivity ? 1 : 0)) / chapters.length) * 100)
+  const selectedFriend = duskFriends[0] ?? companion ?? plumChoice ?? 'he'
+  const selectedFriends = duskFriends.length > 0 ? duskFriends : [selectedFriend]
+  const shots = useMemo(() => shotsFor(selectedFriend, selectedFriends, duskActivity ?? 'wind'), [selectedFriend, duskFriends, duskActivity])
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const linkedFriends = [...new Set((params.get('friends') ?? params.get('friend') ?? '').split(',').filter((id): id is Companion => companions.some((item) => item.id === id)))]
+    const linkedActivity = params.get('activity') as DuskActivity | null
+    if (linkedFriends.length > 0) {
+      setDuskFriends(linkedFriends)
+      setCompanion(linkedFriends[0])
+      const linkedFlowers = [...new Set((params.get('flowers') ?? '').split(',').filter(Boolean).map(Number).filter((index) => Number.isInteger(index) && index >= 0 && index < flowers.length))].slice(0, 3)
+      setPetals(linkedFlowers)
+      const linkedPlum = params.get('plum') as Companion | null
+      if (linkedPlum && companions.some((friend) => friend.id === linkedPlum)) setPlumChoice(linkedPlum)
+      if (linkedActivity && duskActivities.some((item) => item.id === linkedActivity)) setDuskActivity(linkedActivity)
+      setIsFinished(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    document.getElementById('journey-title')?.focus({ preventScroll: true })
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [chapterIndex, isFinished])
+
+  useEffect(() => () => { ambientRef.current?.dispose() }, [])
+
+  useEffect(() => () => { if (exportUrl) URL.revokeObjectURL(exportUrl) }, [exportUrl])
+
+  const toggleSound = async () => {
+    if (!ambientRef.current) ambientRef.current = new AmbientWind(setIsSoundOn)
+    await ambientRef.current.toggle()
+  }
+
+  const nextChapter = () => {
+    if (chapterIndex < chapters.length - 1) {
+      setFurthestChapter((value) => Math.max(value, chapterIndex + 1))
+      setChapterIndex((value) => value + 1)
+      return
+    }
+    setIsFinished(true)
+    const friends = duskFriends.length > 0 ? duskFriends : [companion ?? plumChoice ?? 'he']
+    window.history.replaceState({}, '', `${window.location.pathname}?friends=${friends.join(',')}&activity=${duskActivity ?? 'wind'}`)
+  }
+
+  const reset = () => {
+    exportGenerationRef.current += 1
+    setChapterIndex(0)
+    setFurthestChapter(0)
+    setPetals([])
+    setWoven([])
+    setPlumChoice(null)
+    setCompanion(null)
+    setDuskFriends([])
+    setDuskActivity(null)
+    setIsFinished(false)
+    setExportUrl(null)
+    setExporting(false)
+    setExportError('')
+    window.history.replaceState({}, '', window.location.pathname)
+  }
+
+  const choosePlum = (id: Companion) => {
+    setPlumChoice(id)
+  }
+
+  const choosePetal = (index: number) => {
+    setPetals((items) => items.includes(index) ? items.filter((item) => item !== index) : items.length < 3 ? [...items, index] : items)
+    setWoven([])
+    setFurthestChapter(0)
+  }
+
+  const chooseDuskFriend = (id: Companion) => setDuskFriends((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id])
+  const chooseDuskActivity = (id: DuskActivity) => setDuskActivity(id)
+  const finishDusk = () => {
+    const friends: Companion[] = duskFriends.length > 0 ? duskFriends : ['he']
+    setDuskFriends(friends)
+    setCompanion(friends[0])
+    setIsFinished(true)
+    const params = new URLSearchParams({ friends: friends.join(','), activity: duskActivity ?? 'wind', flowers: petals.join(','), ...(plumChoice ? { plum: plumChoice } : {}) })
+    window.history.replaceState({}, '', `${window.location.pathname}?${params}`)
+  }
+
+  const exportStoryboard = async () => {
+    const generation = ++exportGenerationRef.current
+    setExporting(true)
+    setExportError('')
+    try {
+    if (exportUrl) URL.revokeObjectURL(exportUrl)
+    const zip = new JSZip()
+    const imageFolder = zip.folder('images')
+    for (const shot of shots) {
+      const image = await loadImage(shot.image)
+      const horizontal = renderCrop(image, 1920, 1080, false)
+      const portrait = await loadImage(shot.image.replace('-v4.webp', '-mobile-v4.webp'))
+      const vertical = renderCrop(portrait, 1080, 1920, true)
+      imageFolder?.file(`horizontal-${String(shot.index).padStart(2, '0')}.jpg`, await blobToArrayBuffer(await horizontal))
+      imageFolder?.file(`vertical-${String(shot.index).padStart(2, '0')}.jpg`, await blobToArrayBuffer(await vertical))
+    }
+    const metadata = shots.map((shot) => ({ ...shot,
+      sourceImage: shot.image,
+      image: `images/horizontal-${String(shot.index).padStart(2, '0')}.jpg`,
+      horizontalFile: `images/horizontal-${String(shot.index).padStart(2, '0')}.jpg`,
+      verticalFile: `images/vertical-${String(shot.index).padStart(2, '0')}.jpg`,
+      companions: selectedFriends.map((id) => companions.find((item) => item.id === id)?.name).filter(Boolean),
+      activity: duskActivity ?? 'wind',
+    }))
+    zip.file('storyboard.json', JSON.stringify({ version: 2, title: '晚些回去', companions: selectedFriends, activity: duskActivity ?? 'wind', flowerIds: petals, flowers: petals.map((index) => flowers[index].name), plumRecipient: plumChoice, shots: metadata }, null, 2))
+    zip.file('storyboard.csv', `\ufeff序号,镜头,字幕,时长(秒),运镜,声音,横版文件,竖版文件\n${metadata.map((shot) => [shot.index, shot.title, shot.subtitle, shot.duration, shot.movement, shot.sound, shot.horizontalFile, shot.verticalFile].map(csvCell).join(',')).join('\n')}`)
+    zip.file('subtitles.srt', shots.map((shot, index) => `${String(index + 1).padStart(2, '0')}\n${timecode(shots.slice(0, index).reduce((sum, item) => sum + item.duration, 0))} --> ${timecode(shots.slice(0, index + 1).reduce((sum, item) => sum + item.duration, 0))}\n${shot.subtitle}\n`).join('\n'))
+    zip.file('README.txt', '《晚些回去》短视频分镜包\n横屏 1920×1080 与竖屏 1080×1920 各六张 JPG。竖版来自单独生成的竖构图；画面为静态分镜，运镜和声音为后期制作建议。图片路径均相对本 ZIP 根目录。字幕、镜头运动和声音提示见 storyboard.csv / storyboard.json。\n素材由互动游记根据同行选择整理。')
+    const blob = await zip.generateAsync({ type: 'blob', compression: 'STORE' })
+    if (generation === exportGenerationRef.current) setExportUrl(URL.createObjectURL(blob))
+    } catch {
+      if (generation === exportGenerationRef.current) setExportError('有一个片刻还没装进信封，请稍后再试一次。')
+    } finally {
+      if (generation === exportGenerationRef.current) setExporting(false)
+    }
+  }
+
+  if (isFinished) {
+    return <FinishScreen companions={selectedFriends} activity={duskActivity ?? 'wind'} petals={petals} plumChoice={plumChoice} shots={shots} exporting={exporting} exportUrl={exportUrl} exportError={exportError} isSoundOn={isSoundOn} onToggleSound={toggleSound} onExport={exportStoryboard} onReset={reset} />
+  }
+
+  return (
+    <main className="app-shell" style={{ '--chapter-tint': current.tint } as CSSProperties}>
+      <div className="grain" aria-hidden="true" />
+      <section className={`scene scene-${current.id}`} style={{ '--scene-image': `url(${current.image})`, '--scene-image-mobile': `url(${current.image.replace('-v4.webp', '-mobile-v4.webp')})` } as CSSProperties} aria-labelledby="journey-title">
+        <div className="scene-shade" />
+        <header className="topbar">
+          <button className="wordmark" onClick={reset} aria-label="回到开头"><span>花朝</span><strong>晚些回去</strong></button>
+          <div className="top-actions">
+            <button className="quiet-button" onClick={toggleSound} aria-pressed={isSoundOn}><span className="sound-dot" />{isSoundOn ? '自然声已开' : '打开自然声'}</button>
+            <button className="quiet-button" onClick={reset}>重新游历</button>
+          </div>
+        </header>
+
+        <aside className="chapter-rail" aria-label="游记章节">
+          <div className="rail-label">游记进度</div>
+          {chapters.map((item, index) => <button key={item.id} className={`chapter-marker ${index === chapterIndex ? 'active' : ''} ${index < furthestChapter ? 'done' : ''}`} disabled={index > furthestChapter} aria-current={index === chapterIndex ? 'step' : undefined} aria-label={item.chapter} onClick={() => setChapterIndex(index)}><span>0{index + 1}</span><i>{item.chapter.split(' / ')[1]}</i></button>)}
+          <div className="rail-line" role="progressbar" aria-label="游记完成度" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100}><span style={{ height: `${progress}%` }} /></div>
+        </aside>
+
+        <div className="scene-copy">
+          <div className="chapter-kicker"><span className="sun-mark" />{current.eyebrow}</div>
+          <div className="chapter-count">{current.chapter}</div>
+          <h1 id="journey-title" tabIndex={-1}>{current.title}</h1>
+          <p className="scene-line">{current.line}</p>
+          <Interaction chapter={chapterIndex} petals={petals} woven={woven} plumChoice={plumChoice} duskFriends={duskFriends} duskActivity={duskActivity} onPetal={choosePetal} onWoven={(index) => setWoven((items) => items.includes(index) ? items : [...items, index])} onPlum={choosePlum} onDuskFriend={chooseDuskFriend} onDuskActivity={chooseDuskActivity} onAllFriends={() => setDuskFriends(duskFriends.length === companions.length ? [] : companions.map((friend) => friend.id))} onFinishDusk={finishDusk} onAdvance={nextChapter} />
+        </div>
+
+        <div className="scene-footer"><span>一段关于花、朋友和落日的古风互动游记</span><span>{String(chapterIndex + 1).padStart(2, '0')} / 04</span></div>
+      </section>
+    </main>
+  )
+}
+
+function FlowerMark({ index }: { index: number }) {
+  const flower = flowers[index]
+  return <svg className={`flower-mark flower-mark-${index}`} viewBox="0 0 64 64" aria-hidden="true" style={{ color: flower.color }}>
+    {index === 0 && <>{[0, 72, 144, 216, 288].map((angle) => <ellipse key={angle} cx="32" cy="20" rx="10" ry="14" fill="currentColor" transform={`rotate(${angle} 32 32)`} />)}<circle cx="32" cy="32" r="6" fill="#8f3d50" /><circle cx="32" cy="32" r="3" fill="#ffdfa2" /></>}
+    {index === 1 && <>{[0, 60, 120, 180, 240, 300].map((angle) => <ellipse key={angle} cx="32" cy="20" rx="8" ry="15" fill="currentColor" transform={`rotate(${angle} 32 32)`} />)}{[30, 90, 150, 210, 270, 330].map((angle) => <ellipse key={angle} cx="32" cy="26" rx="5" ry="9" fill="#e8d697" transform={`rotate(${angle} 32 32)`} />)}<circle cx="32" cy="32" r="4" fill="#826d38" /></>}
+    {index === 2 && <><path d="M32 4 40 23 61 24 45 38 50 59 32 47 14 59 19 38 3 24 24 23Z" fill="currentColor" /><path d="m32 14 0 30m-20-17 29 10m11-10-29 10" fill="none" stroke="#4c96c2" strokeWidth="2" /><circle cx="32" cy="32" r="6" fill="#ecf6f7" /></>}
+    {index === 3 && <>{Array.from({ length: 12 }, (_, item) => <ellipse key={item} cx="32" cy="18" rx="4" ry="14" fill="currentColor" transform={`rotate(${item * 30} 32 32)`} />)}<circle cx="32" cy="32" r="10" fill="#6f4320" /><circle cx="29" cy="29" r="3" fill="#d58b30" /></>}
+    {index === 4 && <><path d="M32 5v51" stroke="#91b590" strokeWidth="3" />{[[24, 14], [39, 18], [24, 28], [39, 32], [27, 42], [35, 47], [32, 57]].map(([x, y], item) => <ellipse key={item} cx={x} cy={y} rx={item === 6 ? 5 : 8} ry="7" fill="currentColor" opacity={1 - item * .035} />)}</>}
+  </svg>
+}
+
+const plumReplies: Record<Companion, string> = {
+  tang: '阿棠眯着眼笑：这颗酸得正好，醒一醒春困。',
+  he: '青禾接过青梅，把花环往你这边轻轻推了推。',
+  xi: '闻溪先分了一半给你：好东西，要一起尝。',
+}
+
+function Interaction({ chapter, petals, woven, plumChoice, duskFriends, duskActivity, onPetal, onWoven, onPlum, onDuskFriend, onDuskActivity, onAllFriends, onFinishDusk, onAdvance }: { chapter: number; petals: number[]; woven: number[]; plumChoice: Companion | null; duskFriends: Companion[]; duskActivity: DuskActivity | null; onPetal: (index: number) => void; onWoven: (index: number) => void; onPlum: (id: Companion) => void; onDuskFriend: (id: Companion) => void; onDuskActivity: (id: DuskActivity) => void; onAllFriends: () => void; onFinishDusk: () => void; onAdvance: () => void }) {
+  if (chapter === 0) return <div className="interaction">
+    <p className="prompt"><span aria-hidden="true">✦</span> 选三朵，装进口袋 <em aria-live="polite">{petals.length} / 3</em></p>
+    <div className="petal-field">{flowers.map((flower, item) => <button key={flower.name} className={`petal petal-${item} ${petals.includes(item) ? 'picked' : ''}`} style={{ '--flower-color': flower.color } as CSSProperties} onClick={() => onPetal(item)} disabled={petals.length === 3 && !petals.includes(item)} aria-pressed={petals.includes(item)} aria-label={`${flower.name}，${flower.note}${petals.includes(item) ? '，已采下，再点可放回' : ''}`}><FlowerMark index={item} /><strong>{flower.name}</strong><small>{flower.note}</small><i aria-hidden="true">{petals.includes(item) ? '✓' : '+'}</i></button>)}</div>
+    <p className="interaction-hint">{petals.length === 3 ? '三朵刚刚好。再点已选的花，也可以换一种。' : '每一种花，都有自己的颜色和模样。'}</p>
+    <button className="next-button" disabled={petals.length < 3} onClick={onAdvance}>{petals.length < 3 ? `还差${3 - petals.length}朵花` : '带着花，继续走'} <span aria-hidden="true">↗</span></button>
+  </div>
+  if (chapter === 1) return <div className="interaction">
+    <p className="prompt"><span aria-hidden="true">✦</span> 点一下空位，把花编进去 <em aria-live="polite">{woven.length} / 4</em></p>
+    <div className="wreath-board"><div className="wreath-ring"><span className="wreath-center">{woven.length === 4 ? '今日花事' : '慢慢来'}</span>{[0, 1, 2, 3].map((item) => {
+      const flowerIndex = petals[item % Math.max(petals.length, 1)] ?? item
+      const flower = flowers[flowerIndex]
+      return <button key={item} className={`wreath-slot slot-${item} ${woven.includes(item) ? 'filled' : ''}`} style={{ '--flower-color': flower.color } as CSSProperties} onClick={() => onWoven(item)} aria-pressed={woven.includes(item)} aria-label={woven.includes(item) ? `第${item + 1}处已编入${flower.name}` : `在第${item + 1}处编入${flower.name}`}><span className="slot-flower">{woven.includes(item) ? <FlowerMark index={flowerIndex} /> : '+'}</span><small>{flower.name}</small></button>
+    })}</div></div>
+    <div className="wreath-legend">{petals.map((index) => <span key={index}><i style={{ background: flowers[index].color }} />{flowers[index].name} · {flowers[index].note.split(' · ')[0]}</span>)}</div>
+    <p className="interaction-hint">{woven.length === 4 ? '不用对称，今天本来就各有各的好。' : '用刚才采下的三种花，为花环添四笔颜色。'}</p>
+    <button className="next-button" disabled={woven.length < 4} onClick={onAdvance}>{woven.length < 4 ? '花环还差一点' : '戴上花环，去林下'} <span aria-hidden="true">↗</span></button>
+  </div>
+  if (chapter === 2) return <div className="interaction">
+    <p className="prompt"><span aria-hidden="true">✦</span> 这一颗青梅，给谁？</p>
+    <div className="friend-row plum-row">{companions.map((friend) => <button key={friend.id} className={`friend-card plum-friend-card friend-${friend.id} ${plumChoice === friend.id ? 'chosen' : ''}`} onClick={() => onPlum(friend.id)} aria-pressed={plumChoice === friend.id}><span className="avatar" style={{ backgroundImage: `url(${friend.portrait})`, borderColor: friend.color }} aria-hidden="true" /><span><strong>{friend.name}</strong><small>{friend.note}</small></span><i aria-hidden="true">{plumChoice === friend.id ? '✓' : '↗'}</i></button>)}</div>
+    <p className="choice-reply" aria-live="polite">{plumChoice ? plumReplies[plumChoice] : '选一位朋友，听听她会说些什么。'}</p>
+    <button className="next-button" disabled={!plumChoice} onClick={onAdvance}>带着笑意，去湖边 <span aria-hidden="true">↗</span></button>
+  </div>
+  const duskNames = duskFriends.map((id) => companions.find((friend) => friend.id === id)!.name).join('、')
+  const duskReply = duskActivity === 'wind' ? '风把湖水吹出细纹。大家安静下来，听见同一阵晚风。' : duskActivity === 'wreath' ? '花环传了一圈，最后谁戴着哪一朵，已经不重要。' : duskActivity === 'story' ? '一句“我跟你说”，把这个傍晚又悄悄拉长了一点。' : '等夕阳的时候，你们想做些什么？'
+  return <div className="interaction">
+    <p className="prompt"><span aria-hidden="true">✦</span> 和谁并肩？可以都选 <em aria-live="polite">{duskFriends.length} 人</em></p>
+    <button className="group-button" onClick={onAllFriends} aria-pressed={duskFriends.length === companions.length}>{duskFriends.length === companions.length ? '已约上所有人 ✓' : '把大家都叫来 +'}</button>
+    <div className="friend-row final-row">{companions.map((friend) => <button key={friend.id} className={`friend-card large-friend-card friend-${friend.id} ${duskFriends.includes(friend.id) ? 'chosen' : ''}`} onClick={() => onDuskFriend(friend.id)} aria-pressed={duskFriends.includes(friend.id)}><span className="avatar" style={{ backgroundImage: `url(${friend.portrait})`, borderColor: friend.color }} aria-hidden="true" /><span><strong>{friend.name}</strong><small>{friend.note}</small></span><i aria-hidden="true">{duskFriends.includes(friend.id) ? '✓' : '+'}</i></button>)}</div>
+    <div className="activity-row" role="group" aria-label="选择一起做的事">{duskActivities.map((item) => <button key={item.id} className={`activity-card ${duskActivity === item.id ? 'chosen' : ''}`} onClick={() => onDuskActivity(item.id)} aria-pressed={duskActivity === item.id}><b aria-hidden="true">{item.symbol}</b><span><strong>{item.title}</strong><small>{item.note}</small></span></button>)}</div>
+    <p className="choice-reply" aria-live="polite">{duskFriends.length > 0 && duskActivity ? `${duskNames}坐到身边。${duskReply}` : duskReply}</p>
+    <button className="next-button" disabled={duskFriends.length === 0 || !duskActivity} onClick={onFinishDusk}>{duskFriends.length === 0 ? '先选同行的人' : !duskActivity ? '再选一件小事' : '坐到天快黑'} <span aria-hidden="true">↗</span></button>
+  </div>
+}
+
+function FinishScreen({ companions: selectedCompanions, activity, petals, plumChoice, shots, exporting, exportUrl, exportError, isSoundOn, onToggleSound, onExport, onReset }: { companions: Companion[]; activity: DuskActivity; petals: number[]; plumChoice: Companion | null; shots: Shot[]; exporting: boolean; exportUrl: string | null; exportError: string; isSoundOn: boolean; onToggleSound: () => void; onExport: () => void; onReset: () => void }) {
+  const [shareMessage, setShareMessage] = useState('')
+  const names = selectedCompanions.map((id) => companions.find((item) => item.id === id)?.name).filter(Boolean) as string[]
+  const groupLabel = names.length > 1 ? `${names.slice(0, -1).join('、')}和${names[names.length - 1]}` : names[0] ?? '青禾'
+  const activityName = duskActivities.find((item) => item.id === activity)?.title ?? '听一会儿风'
+  const plumFriend = companions.find((friend) => friend.id === plumChoice)
+  const share = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      setShareMessage('游记链接已复制，发给想同行的人吧。')
+    } catch {
+      setShareMessage('复制浏览器地址栏，就能把这页游记分享出去。')
+    }
+  }
+  return <main className="finish-shell"><div className="grain" aria-hidden="true" />
+    <header className="topbar finish-top"><button className="wordmark" onClick={onReset} aria-label="重新开始游记"><span>花朝</span><strong>晚些回去</strong></button><div className="finish-top-actions"><span className="finish-tag">游记完成</span><button className="quiet-button" onClick={onToggleSound} aria-pressed={isSoundOn}><span className="sound-dot" />{isSoundOn ? '自然声已开' : '打开自然声'}</button></div></header>
+    <div className="finish-grid"><section className="finish-copy"><div className="chapter-kicker"><span className="sun-mark" />你的花朝游记已经写好</div><h1 id="journey-title" tabIndex={-1}>晚些回去，<br /><i>也没有关系。</i></h1><p>你和{groupLabel}一起{activityName}，坐到了天快黑。六个片刻，收好这一日的光。</p>
+      {petals.length > 0 && <div className="memory-flowers" aria-label="今天采下的花">{petals.map((index) => <span key={index}><FlowerMark index={index} />{flowers[index].name}</span>)}</div>}
+      {plumFriend && <p className="memory-line">那颗青梅给了{plumFriend.name}，花环里留着你的配色。</p>}
+      <div className="finish-actions">{exportUrl ? <a className="primary-action" href={exportUrl} download="wan-late-home-storyboard.zip">保存双版分镜包 <span>↓</span></a> : <button className="primary-action" onClick={onExport} disabled={exporting}>{exporting ? '正在整理六个片刻…' : '收好今天的六个片刻'} <span>{exporting ? '·' : '↓'}</span></button>}<button className="secondary-action" onClick={share}>分享这页游记 <span>↗</span></button><button className="text-action" onClick={onReset}>再走一遍</button></div>
+      <p className="export-error" role="alert">{exportError}</p><p className="share-feedback" role="status">{shareMessage}</p>
+      <div className="share-note">{selectedCompanions.length} 位同行者 · {activityName}<br />可保存横竖双版图片、字幕和分镜说明。链接会记住你的选择。</div>
+    </section><section className="storyboard-preview" aria-label="游记分镜预览"><div className="preview-label"><span>把日子，留在光里</span><span>01 — 06</span></div><div className="shot-stack">{shots.slice(0, 3).map((shot, index) => <div className={`shot-card shot-${index}`} key={shot.index} style={{ backgroundImage: `url(${shot.image})` }}><span>0{shot.index}</span><strong>{shot.title}</strong></div>)}</div><div className="preview-bottom">风从花梢里穿过去<br /><em>大家便都慢下来。</em></div></section></div>
+  </main>
+}
+
+function loadImage(src: string) {
+  return new Promise<HTMLImageElement>((resolve, reject) => {
+    const image = new Image()
+    const timer = window.setTimeout(() => { image.src = ''; reject(new Error('Image timeout')) }, 30_000)
+    image.crossOrigin = 'anonymous'
+    image.onload = () => { window.clearTimeout(timer); resolve(image) }
+    image.onerror = () => { window.clearTimeout(timer); reject(new Error('Image unavailable')) }
+    image.src = src
+  })
+}
+function csvCell(value: string | number) { return `"${String(value).replace(/"/g, '""')}"` }
+function renderCrop(image: HTMLImageElement, width: number, height: number, vertical: boolean) {
+  const canvas = document.createElement('canvas')
+  canvas.width = width
+  canvas.height = height
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return Promise.reject(new Error('Canvas unavailable'))
+  const scale = Math.max(width / image.naturalWidth, height / image.naturalHeight)
+  const drawWidth = image.naturalWidth * scale
+  const drawHeight = image.naturalHeight * scale
+  // Keep upper faces intact in landscape; portrait masters have central safe margins.
+  const x = (width - drawWidth) / 2
+  const y = (height - drawHeight) * (vertical ? 0.5 : 0.15)
+  ctx.drawImage(image, x, y, drawWidth, drawHeight)
+  return new Promise<Blob>((resolve, reject) => canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('Canvas encode failed')), 'image/jpeg', 0.9))
+}
+async function blobToArrayBuffer(blob: Blob) { return await blob.arrayBuffer() }
+function timecode(seconds: number) { const minutes = Math.floor(seconds / 60); const remainder = seconds % 60; return `00:${String(minutes).padStart(2, '0')}:${String(remainder).padStart(2, '0')},000` }
+
+export default App
+
+createRoot(document.getElementById('root')!).render(<App />)
+

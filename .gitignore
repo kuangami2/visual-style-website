@@ -1,3 +1,18 @@
 .env
 .env.*
 !.env.example
+
+node_modules
+dist
+
+# Local archives, reference originals, and verification output are never deployed.
+tmp/
+work/
+.playwright-mcp/
+*.tsbuildinfo
+__pycache__/
+*.pyc
+assets/*.jpg
+assets/index-*.js
+assets/index-*.css
+

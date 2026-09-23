@@ -1,0 +1,25 @@
+{
+  "name": "wan-late-home",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "images:check": "node scripts/generate-images.mjs --dry-run",
+    "assets:prepare": "python scripts/prepare-assets.py"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "jszip": "^3.10.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^6.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "typescript": "^5.7.2"
+  }
+}

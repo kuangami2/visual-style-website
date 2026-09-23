@@ -1,0 +1,9 @@
+Use case: photorealistic-natural
+Asset type: interactive chapter background, wide 3:2
+Primary request: three young women friends sitting together on a lakeside stone bank at sunset, all three visible with relaxed different poses, one holds a flower wreath, one leans toward the others, one looks across the water, contemporary hanfu-inspired linen clothing in persimmon red, jade green, indigo blue, believable East Asian features
+Scene/backdrop: quiet lake, low blue hills, reeds and fireflies, willow branch framing foreground
+Composition/framing: wide landscape, trio clearly separated on the right half, open luminous lake and dusk sky to the left for interface copy
+Lighting/mood: peach and amber sunset fading to indigo blue, tender unhurried companionship
+Color palette: coral sky, amber, lake teal, ink blue, jade, cream
+Constraints: three distinct people, no one cropped, faces readable even at small screen size, no duplicated faces
+Avoid: subtitles, Chinese characters, logo, watermark, border, black bars, collage, split panels, UI, nightclub lighting, fantasy palace

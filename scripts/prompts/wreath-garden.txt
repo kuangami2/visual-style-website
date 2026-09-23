@@ -1,0 +1,9 @@
+Use case: photorealistic-natural
+Asset type: interactive chapter background, wide 3:2
+Primary request: two of the same three young women friends weaving a handmade flower wreath under a garden arbor, one holds a circular wreath with distinct peach, ivory, yellow, violet, and green flowers, the third friend visible softly in the background, contemporary hanfu-inspired linen clothes in persimmon red, jade green, indigo blue, believable East Asian features, candid hands and smiles
+Scene/backdrop: old garden arbor, vine leaves, wooden table with loose flower stems, distant meadow
+Composition/framing: medium-wide landscape, wreath and hands sharp in the right half, calm negative space left for interface copy
+Lighting/mood: filtered golden sunlight through leaves, gentle breeze, tactile and playful
+Color palette: jade, persimmon, ivory, marigold, lilac, moss
+Constraints: every flower color visually distinct, wreath circular and readable, no duplicated limbs
+Avoid: subtitles, Chinese characters, logo, watermark, border, black bars, collage, split panels, UI, fantasy armor, glossy fashion photography

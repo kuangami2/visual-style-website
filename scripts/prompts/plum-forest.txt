@@ -1,0 +1,9 @@
+Use case: photorealistic-natural
+Asset type: interactive chapter background, wide 3:2
+Primary request: three young women friends resting beneath a plum tree in a forest clearing, one extends a fresh green plum in her open palm toward a friend while the third watches and smiles, contemporary hanfu-inspired linen clothes in persimmon red, jade green, indigo blue, believable East Asian features, close readable hands and faces
+Scene/backdrop: dappled woodland, moss, low stone ledge, green plum branches in foreground
+Composition/framing: medium landscape shot, offering hand and faces on right two thirds, soft empty shadowed space on left for interface copy
+Lighting/mood: slanting afternoon light, intimate teasing moment, shallow depth of field
+Color palette: plum green, bark brown, jade, muted red, blue, gold
+Constraints: the plum is clearly visible and not oversized, natural anatomy, three distinct people
+Avoid: subtitles, Chinese characters, logo, watermark, border, black bars, collage, split panels, UI, extra fingers, distorted hands

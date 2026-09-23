@@ -1,0 +1,9 @@
+Use case: photorealistic-natural
+Asset type: interactive chapter background, wide 3:2
+Primary request: a sunlit spring flower field in a Chinese countryside garden for the chapter “遇花”, three young women friends arriving together and noticing flowers, contemporary hanfu-inspired linen clothing in persimmon red, jade green, and indigo blue, believable East Asian features, candid expressions, foreground stems softly framing the image, no readable text
+Scene/backdrop: low flower meadow, willow and distant tiled garden wall, quiet hills in haze
+Composition/framing: wide landscape, generous darkened negative space on the left for interface copy, group placed right of center, cinematic depth
+Lighting/mood: warm late-afternoon gold with cool teal shadows, calm and intimate
+Color palette: amber, leaf green, muted coral, ink blue, cream
+Constraints: natural proportions, clear separation between three people and flowers, no duplicated faces
+Avoid: subtitles, Chinese characters, logo, watermark, border, black bars, collage, split panels, UI, plastic skin, exaggerated costume
