@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { createRoot } from 'react-dom/client'
 import JSZip from 'jszip'
-import { AmbientWind, QuietMusic, playPickingSound, playWeavingSound } from './ambient'
+import { BackgroundMusic } from './music'
+import { MusicControl } from './MusicControl'
+import { playPickingSound, playWeavingSound } from './interaction-sounds'
 import './styles.css'
 
 type Companion = 'tang' | 'he' | 'xi'
@@ -129,13 +131,12 @@ function App() {
   const [duskFriends, setDuskFriends] = useState<Companion[]>([])
   const [duskActivity, setDuskActivity] = useState<DuskActivity | null>(null)
   const [isFinished, setIsFinished] = useState(false)
-  const [isSoundOn, setIsSoundOn] = useState(false)
   const [isMusicOn, setIsMusicOn] = useState(false)
+  const [musicError, setMusicError] = useState('')
   const [exporting, setExporting] = useState(false)
   const [exportError, setExportError] = useState('')
   const [exportUrl, setExportUrl] = useState<string | null>(null)
-  const ambientRef = useRef<AmbientWind | null>(null)
-  const musicRef = useRef<QuietMusic | null>(null)
+  const musicRef = useRef<BackgroundMusic | null>(null)
   const exportGenerationRef = useRef(0)
 
   const current = chapters[chapterIndex]
@@ -165,17 +166,12 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }, [chapterIndex, isFinished])
 
-  useEffect(() => () => { ambientRef.current?.dispose(); musicRef.current?.dispose() }, [])
+  useEffect(() => () => { musicRef.current?.dispose() }, [])
 
   useEffect(() => () => { if (exportUrl) URL.revokeObjectURL(exportUrl) }, [exportUrl])
 
-  const toggleSound = async () => {
-    if (!ambientRef.current) ambientRef.current = new AmbientWind(setIsSoundOn)
-    await ambientRef.current.toggle()
-  }
-
   const toggleMusic = async () => {
-    if (!musicRef.current) musicRef.current = new QuietMusic(setIsMusicOn)
+    if (!musicRef.current) musicRef.current = new BackgroundMusic(setIsMusicOn, setMusicError)
     await musicRef.current.toggle()
   }
 
@@ -270,7 +266,7 @@ function App() {
   }
 
   if (isFinished) {
-    return <FinishScreen companions={selectedFriends} activity={duskActivity ?? 'wind'} petals={petals} plumChoice={plumChoice} shots={shots} exporting={exporting} exportUrl={exportUrl} exportError={exportError} isSoundOn={isSoundOn} isMusicOn={isMusicOn} onToggleSound={toggleSound} onToggleMusic={toggleMusic} onExport={exportStoryboard} onReset={reset} />
+    return <FinishScreen companions={selectedFriends} activity={duskActivity ?? 'wind'} petals={petals} plumChoice={plumChoice} shots={shots} exporting={exporting} exportUrl={exportUrl} exportError={exportError} isMusicOn={isMusicOn} musicError={musicError} onToggleMusic={toggleMusic} onExport={exportStoryboard} onReset={reset} />
   }
 
   return (
@@ -281,8 +277,8 @@ function App() {
         <header className="topbar">
           <button className="wordmark" onClick={reset} aria-label="回到开头"><span>花朝</span><strong>晚些回去</strong></button>
           <div className="top-actions">
-            <button className="quiet-button" onClick={toggleSound} aria-pressed={isSoundOn}><span className="sound-dot" />{isSoundOn ? '自然声已开' : '打开自然声'}</button>
-            <button className="quiet-button" onClick={toggleMusic} aria-pressed={isMusicOn}><span className="music-dot" />{isMusicOn ? '安静音乐已开' : '打开安静音乐'}</button>
+
+            <MusicControl enabled={isMusicOn} error={musicError} onToggle={toggleMusic} />
             <button className="quiet-button" onClick={reset}>重新游历</button>
           </div>
         </header>
@@ -371,7 +367,7 @@ function Interaction({ chapter, petals, woven, wovenFlowers, plumChoice, duskFri
   </div>
 }
 
-function FinishScreen({ companions: selectedCompanions, activity, petals, plumChoice, shots, exporting, exportUrl, exportError, isSoundOn, isMusicOn, onToggleSound, onToggleMusic, onExport, onReset }: { companions: Companion[]; activity: DuskActivity; petals: number[]; plumChoice: Companion | null; shots: Shot[]; exporting: boolean; exportUrl: string | null; exportError: string; isSoundOn: boolean; isMusicOn: boolean; onToggleSound: () => void; onToggleMusic: () => void; onExport: () => void; onReset: () => void }) {
+function FinishScreen({ companions: selectedCompanions, activity, petals, plumChoice, shots, exporting, exportUrl, exportError, isMusicOn, musicError, onToggleMusic, onExport, onReset }: { companions: Companion[]; activity: DuskActivity; petals: number[]; plumChoice: Companion | null; shots: Shot[]; exporting: boolean; exportUrl: string | null; exportError: string; isMusicOn: boolean; musicError: string; onToggleMusic: () => void; onExport: () => void; onReset: () => void }) {
   const [shareMessage, setShareMessage] = useState('')
   const [previewShot, setPreviewShot] = useState<Shot | null>(null)
   const names = selectedCompanions.map((id) => companions.find((item) => item.id === id)?.name).filter(Boolean) as string[]
@@ -387,7 +383,7 @@ function FinishScreen({ companions: selectedCompanions, activity, petals, plumCh
     }
   }
   return <main className="finish-shell" style={{ '--finish-image': `url(${shots[5].image})` } as CSSProperties}><div className="grain" aria-hidden="true" />
-    <header className="topbar finish-top"><button className="wordmark" onClick={onReset} aria-label="重新开始游记"><span>花朝</span><strong>晚些回去</strong></button><div className="finish-top-actions"><span className="finish-tag">游记完成</span><button className="quiet-button" onClick={onToggleSound} aria-pressed={isSoundOn}><span className="sound-dot" />{isSoundOn ? '自然声已开' : '打开自然声'}</button><button className="quiet-button" onClick={onToggleMusic} aria-pressed={isMusicOn}><span className="music-dot" />{isMusicOn ? '安静音乐已开' : '打开安静音乐'}</button></div></header>
+    <header className="topbar finish-top"><button className="wordmark" onClick={onReset} aria-label="重新开始游记"><span>花朝</span><strong>晚些回去</strong></button><div className="finish-top-actions"><span className="finish-tag">游记完成</span><MusicControl enabled={isMusicOn} error={musicError} onToggle={onToggleMusic} /></div></header>
     <div className="finish-grid"><section className="finish-copy"><div className="chapter-kicker"><span className="sun-mark" />你的花朝游记已经写好</div><h1 id="journey-title" tabIndex={-1}>晚些回去，<br /><i>也没有关系。</i></h1><p>你和{groupLabel}一起{activityName}，坐到了天快黑。六个片刻，收好这一日的光。</p>
       {petals.length > 0 && <div className="memory-flowers" aria-label="今天采下的花">{petals.map((index) => <span key={index}><FlowerMark index={index} />{flowers[index].name}</span>)}</div>}
       {plumFriend && <p className="memory-line">那颗青梅给了{plumFriend.name}，花环里留着你的配色。</p>}

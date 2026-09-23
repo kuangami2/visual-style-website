@@ -26,7 +26,7 @@ GitHub Pages 由 `.github/workflows/deploy.yml` 构建并发布 `dist/`。推送
 ## 验收与说明
 
 - `docs/design-review.md`：本轮复盘、已实施优化与测试范围。
-- `docs/audio-design.md`：原创程序风叶声、授权音乐取舍和声学验证。
+- `docs/audio-design.md`：背景音乐来源、CC0 授权和播放说明。
 - `docs/project-research.md`：设计研究及项目定位。
 
 原错误代码分析网站和素材归档在本机 `tmp/archive-wrong-code-analysis/`；参考图和旧运行素材归档在 `tmp/archive-reference-runtime/`。这些本地备份不进入 Git 或公开站点。

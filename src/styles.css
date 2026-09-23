@@ -210,3 +210,11 @@ button:disabled { cursor: default; }
 @media (prefers-reduced-motion: reduce) {
   .selection-memory, .selection-memory img, .selection-memory figcaption { animation: none; }
 }
+
+.music-control { position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+.music-control .quiet-button { display: inline-flex; align-items: center; }
+.music-credit { color: rgba(243,235,221,.72); font-size: 9px; text-decoration: none; max-width: 220px; text-align: right; }
+.music-credit:hover { text-decoration: underline; }
+.music-error { position: absolute; top: 100%; right: 0; width: 210px; padding: 8px; background: #0b2630; font-size: 12px; }
+.quiet-button[aria-pressed='false'] .music-dot { background: #b3b9b2; }
+@media (max-width: 600px) { .music-credit { max-width: 160px; font-size: 8px; } .finish-top-actions { gap: 8px; } .finish-top-actions .finish-tag { display: none; } }
