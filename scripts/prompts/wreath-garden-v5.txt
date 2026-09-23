@@ -1,0 +1,7 @@
+Use case: photorealistic-natural
+Asset type: full-bleed cinematic landscape 3:2 for an interactive Chinese garden story.
+Scene: beside the flower meadow, Qing-he sits closest to camera and carefully lifts an irregular handmade wildflower wreath toward her own hair. A-tang sits one step behind at left, holding loose stems and laughing toward Qing-he. Wen-xi stands farther back at right, tying a small ribbon and watching them. The wreath and hands are the action focus; use foreground leaves, middle-ground friends and a softly receding garden path to create three depth planes. 50mm candid three-quarter view, asymmetrical composition.
+Character bible: A-tang is lively, soft round face, coral-pink skirt and coral flower at half-up bun. Qing-he is calm and precise, oval face, celadon-green skirt and jade ribbon in low bun. Wen-xi is quiet and observant, longer oval face, deep azure skirt and blue ribbon in long half-up hair. Keep faces, hair ornaments and clothing colors unmistakably different.
+Wardrobe: airy ivory ramie-and-silk gauze hanfu with delicate woven flower motifs, fully clothed.
+Lighting and skin: warm sidelight through the raised sleeve, cool blue-green shade behind. Matte realistic skin with subtle pores and fine texture; no oily shine, waxy skin, beauty smoothing, plastic skin or excessive retouching.
+Constraints: believable hands and wreath, all three faces readable, no extra people, text, logos, watermark, borders, collage, poster, interface or fantasy effects. Edge-to-edge image.

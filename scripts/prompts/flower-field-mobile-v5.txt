@@ -1,0 +1,6 @@
+Use case: photorealistic-natural
+Asset type: full-bleed cinematic portrait 2:3 for a phone screen.
+Scene: a real vertical composition in a spring flower meadow. A-tang in coral pink crouches in the lower foreground gathering a few flowers; Qing-he in celadon stands just behind her, leaning toward the flowers; Wen-xi in deep azure stands farther back near a low wall, turned in profile toward them. Arrange the three at clearly different depths in a loose diagonal, not a row. Fill the lower third with layered blooms and keep all faces fully inside the central 80 percent with room above hair.
+Character bible: A-tang has a soft round face, smiling eyes and a coral flower at her half-up bun; Qing-he has an oval face, gently arched brows and a jade ribbon in a loose low bun; Wen-xi has a longer oval face, almond eyes and a blue ribbon in long half-up hair. Coral, celadon and azure skirts remain distinct.
+Style: candid cinematic photorealism, ivory ramie-and-silk gauze hanfu, natural believable hands, fine skin texture and matte skin. Directional warm sunlight with cool open shadows; no oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.
+Constraints: no extra people, text, logos, watermark, borders, collage, poster, interface, fantasy effects, orange haze. Edge-to-edge image.

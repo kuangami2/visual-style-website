@@ -1,0 +1,12 @@
+{
+  "file": "wreath-garden-v5.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic landscape 3:2 for an interactive Chinese garden story.\nScene: beside the flower meadow, Qing-he sits closest to camera and carefully lifts an irregular handmade wildflower wreath toward her own hair. A-tang sits one step behind at left, holding loose stems and laughing toward Qing-he. Wen-xi stands farther back at right, tying a small ribbon and watching them. The wreath and hands are the action focus; use foreground leaves, middle-ground friends and a softly receding garden path to create three depth planes. 50mm candid three-quarter view, asymmetrical composition.\nCharacter bible: A-tang is lively, soft round face, coral-pink skirt and coral flower at half-up bun. Qing-he is calm and precise, oval face, celadon-green skirt and jade ribbon in low bun. Wen-xi is quiet and observant, longer oval face, deep azure skirt and blue ribbon in long half-up hair. Keep faces, hair ornaments and clothing colors unmistakably different.\nWardrobe: airy ivory ramie-and-silk gauze hanfu with delicate woven flower motifs, fully clothed.\nLighting and skin: warm sidelight through the raised sleeve, cool blue-green shade behind. Matte realistic skin with subtle pores and fine texture; no oily shine, waxy skin, beauty smoothing, plastic skin or excessive retouching.\nConstraints: believable hands and wreath, all three faces readable, no extra people, text, logos, watermark, borders, collage, poster, interface or fantasy effects. Edge-to-edge image.",
+  "model": "gpt-image-2.5",
+  "size": "1536x1024",
+  "quality": "high",
+  "generatedAt": "2026-09-23T10:07:31.417Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "b34233475a4e77369bc4d7ae9ab5020d7701b881ccaa79b6360910101f90758b"
+}

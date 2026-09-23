@@ -1,0 +1,6 @@
+Use case: photorealistic-natural
+Asset type: full-bleed cinematic landscape 3:2 quiet environmental scene.
+Scene: at the lake before sunset, the three friends sit on a low stone bank at staggered distances. Wen-xi in azure sits farthest left looking over the water; Qing-he in celadon is closer and turns toward A-tang; A-tang in coral sits nearest right with a wildflower wreath in her lap. Show their profiles and backs naturally, with reeds in the foreground, the trio in the middle ground and lake, pavilion and low hills behind. 40mm environmental medium shot, asymmetrical spacing, wide breathing room.
+Character bible: A-tang soft round face and coral flower at half-up bun; Qing-he oval face and jade ribbon in low bun; Wen-xi longer oval face, almond eyes and blue ribbon in long half-up hair. Their clothing colors stay separate and visible.
+Style and skin: cinematic photorealism, quiet observed moment, ivory gauze hanfu, warm rim light on hair and sleeves with cool blue facial shadows. Matte realistic skin with subtle texture; no oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.
+Constraints: no extra people, no tiny silhouettes, no night, no text, logo, watermark, border, collage, poster, interface or fantasy effects. Edge-to-edge image.

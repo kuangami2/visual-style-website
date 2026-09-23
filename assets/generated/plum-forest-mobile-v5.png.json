@@ -1,0 +1,12 @@
+{
+  "file": "plum-forest-mobile-v5.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic portrait 2:3 intimate action scene.\nScene: vertical orchard composition. A-tang in coral is lower left with an open palm holding a green plum; Wen-xi in azure leans down from upper right to take it; Qing-he in celadon is a step behind in the center, visible through leaves. Foreground leaves and hanging plums frame the edges without covering faces or hands. Triangular depth, shared action centered, no row of portraits.\nCharacter bible: A-tang soft round face and coral flower; Qing-he oval face and jade ribbon; Wen-xi longer oval face, almond eyes and blue ribbon. Distinct coral, celadon and azure clothing.\nStyle and light: intimate candid cinematic photorealism, dappled warm sun and cool orchard shade, matte skin with subtle pores and fine texture. No oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.\nConstraints: believable fingers, plum readable, all faces inside frame, no extra people, no text or watermark. Edge-to-edge image.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1536",
+  "quality": "high",
+  "generatedAt": "2026-09-23T10:07:58.916Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "4c983e541acca4999763eac7274e5b39ac405b0137f48e9c1057c1b54af0afc9"
+}

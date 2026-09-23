@@ -1,0 +1,12 @@
+{
+  "file": "flower-field-mobile-v5.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic portrait 2:3 for a phone screen.\nScene: a real vertical composition in a spring flower meadow. A-tang in coral pink crouches in the lower foreground gathering a few flowers; Qing-he in celadon stands just behind her, leaning toward the flowers; Wen-xi in deep azure stands farther back near a low wall, turned in profile toward them. Arrange the three at clearly different depths in a loose diagonal, not a row. Fill the lower third with layered blooms and keep all faces fully inside the central 80 percent with room above hair.\nCharacter bible: A-tang has a soft round face, smiling eyes and a coral flower at her half-up bun; Qing-he has an oval face, gently arched brows and a jade ribbon in a loose low bun; Wen-xi has a longer oval face, almond eyes and a blue ribbon in long half-up hair. Coral, celadon and azure skirts remain distinct.\nStyle: candid cinematic photorealism, ivory ramie-and-silk gauze hanfu, natural believable hands, fine skin texture and matte skin. Directional warm sunlight with cool open shadows; no oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.\nConstraints: no extra people, text, logos, watermark, borders, collage, poster, interface, fantasy effects, orange haze. Edge-to-edge image.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1536",
+  "quality": "high",
+  "generatedAt": "2026-09-23T10:07:26.357Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "8dbe4f6c08e95ddba53e40d0ca44ff6e554a6284f5022d7bb1151480f7fe3b3c"
+}

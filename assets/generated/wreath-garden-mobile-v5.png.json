@@ -1,0 +1,12 @@
+{
+  "file": "wreath-garden-mobile-v5.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic portrait 2:3 for a phone screen.\nScene: vertical close environmental scene in a flower garden. Qing-he in celadon occupies the lower center, raising an uneven wildflower wreath; A-tang in coral leans in from the left to pass a flower stem; Wen-xi in azure appears higher and farther back on the right, tying a ribbon. Their positions form a triangular depth arrangement, not a horizontal row. Keep the full wreath, hands and all three faces inside frame, with flowers and gauze filling the lower third.\nCharacter bible: A-tang soft round face and coral flower hair ornament; Qing-he oval face and jade ribbon; Wen-xi longer oval face, almond eyes and blue ribbon. Distinct coral, celadon and azure clothing.\nStyle and light: candid cinematic photorealism, warm filtered sunlight, cool green-blue shadows, matte skin with visible fine texture. No oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.\nConstraints: believable anatomy, no extra people, no text or watermark, no collage or interface. Edge-to-edge image.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1536",
+  "quality": "high",
+  "generatedAt": "2026-09-23T10:07:23.807Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "c0f2f49d3674f4957a63898adf64551ad242664320080419277d9bf3d518919f"
+}

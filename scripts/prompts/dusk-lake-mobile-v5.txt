@@ -1,0 +1,6 @@
+Use case: photorealistic-natural
+Asset type: full-bleed cinematic portrait 2:3 quiet lake scene.
+Scene: vertical composition at the lake before sunset. Wen-xi in azure sits farthest and higher in frame looking at the water; Qing-he in celadon sits between, turning toward A-tang; A-tang in coral sits nearest with a wreath in her lap. Their staggered shoulders and profiles create a diagonal depth arrangement. Reeds and one blurred flower frame the bottom, sunset lake and hills remain visible above and behind. No tiny silhouettes or horizontal lineup.
+Character bible: A-tang soft round face and coral flower; Qing-he oval face and jade ribbon; Wen-xi longer oval face, almond eyes and blue ribbon. Distinct coral, celadon and azure clothing.
+Style and light: candid cinematic photorealism, warm low sun, cool open blue shadows, matte skin with subtle pores and fine texture. No oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.
+Constraints: all three visible, no extra people, no text, logo or watermark, no collage or interface. Edge-to-edge image.

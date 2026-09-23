@@ -1,0 +1,12 @@
+{
+  "file": "dusk-lake-mobile-v5.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic portrait 2:3 quiet lake scene.\nScene: vertical composition at the lake before sunset. Wen-xi in azure sits farthest and higher in frame looking at the water; Qing-he in celadon sits between, turning toward A-tang; A-tang in coral sits nearest with a wreath in her lap. Their staggered shoulders and profiles create a diagonal depth arrangement. Reeds and one blurred flower frame the bottom, sunset lake and hills remain visible above and behind. No tiny silhouettes or horizontal lineup.\nCharacter bible: A-tang soft round face and coral flower; Qing-he oval face and jade ribbon; Wen-xi longer oval face, almond eyes and blue ribbon. Distinct coral, celadon and azure clothing.\nStyle and light: candid cinematic photorealism, warm low sun, cool open blue shadows, matte skin with subtle pores and fine texture. No oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.\nConstraints: all three visible, no extra people, no text, logo or watermark, no collage or interface. Edge-to-edge image.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1536",
+  "quality": "high",
+  "generatedAt": "2026-09-23T10:07:25.362Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "bc10f6db6b6714be93f8630f63937914365dd7bef1ea4a5b70b8930ad6ea11ba"
+}

@@ -1,0 +1,6 @@
+Use case: photorealistic-natural
+Asset type: full-bleed cinematic portrait 2:3 for a phone screen.
+Scene: vertical close environmental scene in a flower garden. Qing-he in celadon occupies the lower center, raising an uneven wildflower wreath; A-tang in coral leans in from the left to pass a flower stem; Wen-xi in azure appears higher and farther back on the right, tying a ribbon. Their positions form a triangular depth arrangement, not a horizontal row. Keep the full wreath, hands and all three faces inside frame, with flowers and gauze filling the lower third.
+Character bible: A-tang soft round face and coral flower hair ornament; Qing-he oval face and jade ribbon; Wen-xi longer oval face, almond eyes and blue ribbon. Distinct coral, celadon and azure clothing.
+Style and light: candid cinematic photorealism, warm filtered sunlight, cool green-blue shadows, matte skin with visible fine texture. No oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.
+Constraints: believable anatomy, no extra people, no text or watermark, no collage or interface. Edge-to-edge image.

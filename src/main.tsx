@@ -40,7 +40,7 @@ const chapters: Chapter[] = [
     eyebrow: '花田 · 午后四时',
     line: '风从花梢里穿过去，大家便都慢下来。',
     prompt: '在花田里找到三朵愿意同行的花',
-    image: asset('generated/flower-field-v4.webp'),
+    image: asset('generated/flower-field-v5.webp'),
     tint: '#c77a35',
   },
   {
@@ -50,7 +50,7 @@ const chapters: Chapter[] = [
     eyebrow: '花田 · 风变轻了',
     line: '青禾说，花环不用对称，像我们这样就很好。',
     prompt: '点选花材，把花环慢慢编好',
-    image: asset('generated/wreath-garden-v4.webp'),
+    image: asset('generated/wreath-garden-v5.webp'),
     tint: '#d99a8d',
   },
   {
@@ -60,7 +60,7 @@ const chapters: Chapter[] = [
     eyebrow: '林下 · 日影西斜',
     line: '一颗青梅在掌心滚了滚，甜味还没有决定去处。',
     prompt: '把青梅递给一位朋友',
-    image: asset('generated/plum-forest-v4.webp'),
+    image: asset('generated/plum-forest-v5.webp'),
     tint: '#f2b55b',
   },
   {
@@ -70,15 +70,15 @@ const chapters: Chapter[] = [
     eyebrow: '湖畔 · 天快黑了',
     line: '回去也没有什么要紧的事。你想和谁并肩？',
     prompt: '约上想同行的人，一起看完落日',
-    image: asset('generated/dusk-lake-v4.webp'),
+    image: asset('generated/dusk-lake-v5.webp'),
     tint: '#7e9bae',
   },
 ]
 
 const companions: { id: Companion; name: string; note: string; color: string; image: string; portrait: string }[] = [
-  { id: 'tang', name: '阿棠', note: '把寻常小事讲得有趣', color: '#d99a8d', image: asset('generated/flower-field-v4.webp'), portrait: asset('generated/portrait-tang-v4.webp') },
-  { id: 'he', name: '青禾', note: '手很巧，会把花编得刚刚好', color: '#849f89', image: asset('generated/wreath-garden-v4.webp'), portrait: asset('generated/portrait-he-v4.webp') },
-  { id: 'xi', name: '闻溪', note: '总是先听见风和鸟鸣', color: '#96aebe', image: asset('generated/plum-forest-v4.webp'), portrait: asset('generated/portrait-xi-v4.webp') },
+  { id: 'tang', name: '阿棠', note: '把寻常小事讲得有趣', color: '#d99a8d', image: asset('generated/flower-field-v5.webp'), portrait: asset('generated/portrait-tang-v5.webp') },
+  { id: 'he', name: '青禾', note: '手很巧，会把花编得刚刚好', color: '#849f89', image: asset('generated/wreath-garden-v5.webp'), portrait: asset('generated/portrait-he-v5.webp') },
+  { id: 'xi', name: '闻溪', note: '总是先听见风和鸟鸣', color: '#96aebe', image: asset('generated/plum-forest-v5.webp'), portrait: asset('generated/portrait-xi-v5.webp') },
 ]
 
 const flowers = [
@@ -101,12 +101,12 @@ const shotsFor = (chosen: Companion, group: Companion[] = [], activity: DuskActi
   const groupLabel = names.length > 1 ? `${names.slice(0, -1).join('、')}和${names[names.length - 1]}` : friend.name
   const activityLine = duskActivities.find((item) => item.id === activity)?.title ?? '听一会儿风'
   return [
-    { index: 1, title: '花枝擦过镜头', subtitle: '她们在花田里等你，没人急着往前走。', image: asset('generated/flower-field-v4.webp'), duration: 5, movement: '前景花叶轻晃，镜头慢慢推近', sound: '风穿过草叶' },
-    { index: 2, title: '手里的花环', subtitle: '青禾说：不用编得太整齐。', image: asset('generated/wreath-garden-v4.webp'), duration: 5, movement: '从花环移到笑起来的眼睛', sound: '衣料与花梗的细响' },
-    { index: 3, title: '一颗青梅', subtitle: '酸意先到，笑声随后才来。', image: asset('generated/plum-forest-v4.webp'), duration: 4, movement: '手部特写，浅景深摇向树影', sound: '树上鸟鸣' },
+    { index: 1, title: '花枝擦过镜头', subtitle: '她们在花田里等你，没人急着往前走。', image: asset('generated/flower-field-v5.webp'), duration: 5, movement: '前景花叶轻晃，镜头慢慢推近', sound: '风穿过草叶' },
+    { index: 2, title: '手里的花环', subtitle: '青禾说：不用编得太整齐。', image: asset('generated/wreath-garden-v5.webp'), duration: 5, movement: '从花环移到笑起来的眼睛', sound: '衣料与花梗的细响' },
+    { index: 3, title: '一颗青梅', subtitle: '酸意先到，笑声随后才来。', image: asset('generated/plum-forest-v5.webp'), duration: 4, movement: '手部特写，浅景深摇向树影', sound: '树上鸟鸣' },
     { index: 4, title: '有人回头', subtitle: `${friend.name}在喊你，夕阳已经落到肩上。`, image: friend.image, duration: 5, movement: '逆光中定格一个回头', sound: '远处溪水' },
-    { index: 5, title: '坐到天快黑', subtitle: `你和${groupLabel}一起${activityLine}，谁也没有催谁。`, image: asset('generated/dusk-lake-v4.webp'), duration: 6, movement: '从并肩的人拉到湖面与山线', sound: '湖面水声与晚风' },
-    { index: 6, title: '晚些回去', subtitle: '把今天收好，明天还可以再打开。', image: asset('generated/dusk-lake-v4.webp'), duration: 5, movement: '夕光压低，字幕慢慢浮现', sound: '风声渐远' },
+    { index: 5, title: '坐到天快黑', subtitle: `你和${groupLabel}一起${activityLine}，谁也没有催谁。`, image: asset('generated/dusk-lake-v5.webp'), duration: 6, movement: '从并肩的人拉到湖面与山线', sound: '湖面水声与晚风' },
+    { index: 6, title: '晚些回去', subtitle: '把今天收好，明天还可以再打开。', image: asset('generated/dusk-lake-v5.webp'), duration: 5, movement: '夕光压低，字幕慢慢浮现', sound: '风声渐远' },
   ]
 }
 
@@ -223,7 +223,7 @@ function App() {
     for (const shot of shots) {
       const image = await loadImage(shot.image)
       const horizontal = renderCrop(image, 1920, 1080, false)
-      const portrait = await loadImage(shot.image.replace('-v4.webp', '-mobile-v4.webp'))
+      const portrait = await loadImage(shot.image.replace('-v5.webp', '-mobile-v5.webp'))
       const vertical = renderCrop(portrait, 1080, 1920, true)
       imageFolder?.file(`horizontal-${String(shot.index).padStart(2, '0')}.jpg`, await blobToArrayBuffer(await horizontal))
       imageFolder?.file(`vertical-${String(shot.index).padStart(2, '0')}.jpg`, await blobToArrayBuffer(await vertical))
@@ -256,7 +256,7 @@ function App() {
   return (
     <main className="app-shell" style={{ '--chapter-tint': current.tint } as CSSProperties}>
       <div className="grain" aria-hidden="true" />
-      <section className={`scene scene-${current.id}`} style={{ '--scene-image': `url(${current.image})`, '--scene-image-mobile': `url(${current.image.replace('-v4.webp', '-mobile-v4.webp')})` } as CSSProperties} aria-labelledby="journey-title">
+      <section className={`scene scene-${current.id}`} style={{ '--scene-image': `url(${current.image})`, '--scene-image-mobile': `url(${current.image.replace('-v5.webp', '-mobile-v5.webp')})` } as CSSProperties} aria-labelledby="journey-title">
         <div className="scene-shade" />
         <header className="topbar">
           <button className="wordmark" onClick={reset} aria-label="回到开头"><span>花朝</span><strong>晚些回去</strong></button>

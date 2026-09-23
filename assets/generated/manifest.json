@@ -1,6 +1,6 @@
 {
   "project": "wan-late-home",
-  "generatedAt": "2026-09-22T20:47:51.707Z",
+  "generatedAt": "2026-09-23T00:00:00.000Z",
   "assets": [
     {
       "file": "flower-field-v4.png",
@@ -97,6 +97,102 @@
       "source": "url",
       "mime": "image/png",
       "sha256": "4e03ab2b7e2441168f902da8cb489780bcfe3aa5d8f3ed220fb4ee5a62fe34e1"
+    },
+    {
+      "file": "dusk-lake-mobile-v5.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic portrait 2:3 quiet lake scene.\nScene: vertical composition at the lake before sunset. Wen-xi in azure sits farthest and higher in frame looking at the water; Qing-he in celadon sits between, turning toward A-tang; A-tang in coral sits nearest with a wreath in her lap. Their staggered shoulders and profiles create a diagonal depth arrangement. Reeds and one blurred flower frame the bottom, sunset lake and hills remain visible above and behind. No tiny silhouettes or horizontal lineup.\nCharacter bible: A-tang soft round face and coral flower; Qing-he oval face and jade ribbon; Wen-xi longer oval face, almond eyes and blue ribbon. Distinct coral, celadon and azure clothing.\nStyle and light: candid cinematic photorealism, warm low sun, cool open blue shadows, matte skin with subtle pores and fine texture. No oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.\nConstraints: all three visible, no extra people, no text, logo or watermark, no collage or interface. Edge-to-edge image.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1536",
+      "quality": "high",
+      "generatedAt": "2026-09-23T10:07:25.362Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "bc10f6db6b6714be93f8630f63937914365dd7bef1ea4a5b70b8930ad6ea11ba"
+    },
+    {
+      "file": "dusk-lake-v5.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic landscape 3:2 quiet environmental scene.\nScene: at the lake before sunset, the three friends sit on a low stone bank at staggered distances. Wen-xi in azure sits farthest left looking over the water; Qing-he in celadon is closer and turns toward A-tang; A-tang in coral sits nearest right with a wildflower wreath in her lap. Show their profiles and backs naturally, with reeds in the foreground, the trio in the middle ground and lake, pavilion and low hills behind. 40mm environmental medium shot, asymmetrical spacing, wide breathing room.\nCharacter bible: A-tang soft round face and coral flower at half-up bun; Qing-he oval face and jade ribbon in low bun; Wen-xi longer oval face, almond eyes and blue ribbon in long half-up hair. Their clothing colors stay separate and visible.\nStyle and skin: cinematic photorealism, quiet observed moment, ivory gauze hanfu, warm rim light on hair and sleeves with cool blue facial shadows. Matte realistic skin with subtle texture; no oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.\nConstraints: no extra people, no tiny silhouettes, no night, no text, logo, watermark, border, collage, poster, interface or fantasy effects. Edge-to-edge image.",
+      "model": "gpt-image-2.5",
+      "size": "1536x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T10:07:26.387Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "6025c90844fe7b7afc1956d48d9491032131109373ca30a6a7dc5a9713ca61ba"
+    },
+    {
+      "file": "flower-field-mobile-v5.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic portrait 2:3 for a phone screen.\nScene: a real vertical composition in a spring flower meadow. A-tang in coral pink crouches in the lower foreground gathering a few flowers; Qing-he in celadon stands just behind her, leaning toward the flowers; Wen-xi in deep azure stands farther back near a low wall, turned in profile toward them. Arrange the three at clearly different depths in a loose diagonal, not a row. Fill the lower third with layered blooms and keep all faces fully inside the central 80 percent with room above hair.\nCharacter bible: A-tang has a soft round face, smiling eyes and a coral flower at her half-up bun; Qing-he has an oval face, gently arched brows and a jade ribbon in a loose low bun; Wen-xi has a longer oval face, almond eyes and a blue ribbon in long half-up hair. Coral, celadon and azure skirts remain distinct.\nStyle: candid cinematic photorealism, ivory ramie-and-silk gauze hanfu, natural believable hands, fine skin texture and matte skin. Directional warm sunlight with cool open shadows; no oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.\nConstraints: no extra people, text, logos, watermark, borders, collage, poster, interface, fantasy effects, orange haze. Edge-to-edge image.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1536",
+      "quality": "high",
+      "generatedAt": "2026-09-23T10:07:26.357Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "8dbe4f6c08e95ddba53e40d0ca44ff6e554a6284f5022d7bb1151480f7fe3b3c"
+    },
+    {
+      "file": "flower-field-v5.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic landscape 3:2 for an interactive Chinese garden story.\nScene: a broad spring flower meadow beside a low garden wall. A-tang is nearest camera at left, gathering coral cosmos; Qing-he is in the middle distance, bending to inspect a small ivory daisy; Wen-xi stands several paces behind at right, listening to the wind. Make the depth between foreground flowers, the three friends and distant blue hills unmistakable. Camera at flower height, 35mm environmental view, varied natural poses, no lineup.\nCharacter bible: A-tang is a warm, lively adult East Asian woman with a soft round face, smiling eyes, coral-pink inner skirt and a small coral flower at her half-up bun. Qing-he is a calm adult East Asian woman with an oval face, gently arched brows, celadon-green skirt and a jade ribbon in a loose low bun. Wen-xi is a thoughtful adult East Asian woman with a longer oval face, almond eyes, deep azure skirt and a blue ribbon in long half-up hair. Keep these color and facial cues clearly distinct in every image.\nWardrobe: airy layered ivory ramie-and-silk gauze hanfu, delicate woven motifs, colored skirts and collars, loose fine hair, no modern accessories.\nLighting and skin: clear directional late-afternoon sun, warm highlights and cool green-blue shadows. Matte natural skin with subtle pores and fine texture; no oily shine, glassy highlights, waxy skin, beauty-filter smoothing, excessive airbrushing or over-sharpening.\nComposition: deep flower foreground, middle-ground people at different distances, layered tree line and distant mountains. Edge-to-edge, faces readable, believable hands and anatomy, no architecture dominating.\nConstraints: no extra people, text, letters, captions, calligraphy, logos, watermark, borders, collage, poster, interface, fantasy effects, orange haze or plastic skin.",
+      "model": "gpt-image-2.5",
+      "size": "1536x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T10:07:25.299Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "7f5e3abe1e14237cbe934076faaf8e046dc1d93f2f2797bd658919012dbc4711"
+    },
+    {
+      "file": "plum-forest-mobile-v5.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic portrait 2:3 intimate action scene.\nScene: vertical orchard composition. A-tang in coral is lower left with an open palm holding a green plum; Wen-xi in azure leans down from upper right to take it; Qing-he in celadon is a step behind in the center, visible through leaves. Foreground leaves and hanging plums frame the edges without covering faces or hands. Triangular depth, shared action centered, no row of portraits.\nCharacter bible: A-tang soft round face and coral flower; Qing-he oval face and jade ribbon; Wen-xi longer oval face, almond eyes and blue ribbon. Distinct coral, celadon and azure clothing.\nStyle and light: intimate candid cinematic photorealism, dappled warm sun and cool orchard shade, matte skin with subtle pores and fine texture. No oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.\nConstraints: believable fingers, plum readable, all faces inside frame, no extra people, no text or watermark. Edge-to-edge image.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1536",
+      "quality": "high",
+      "generatedAt": "2026-09-23T10:07:58.916Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "4c983e541acca4999763eac7274e5b39ac405b0137f48e9c1057c1b54af0afc9"
+    },
+    {
+      "file": "plum-forest-v5.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic landscape 3:2 intimate action scene.\nScene: beneath a plum orchard tree, A-tang in coral sits nearest left and offers one green plum in her open palm. Wen-xi in deep azure reaches from the right to accept it. Qing-he in celadon is clearly farther back between them, smiling and holding a small leaf. Hanging plums and a soft branch sit in the extreme foreground; the three friends occupy distinct near, middle and far planes. Focus on the shared hand action, not a posed group portrait. 50mm lens, close three-quarter view.\nCharacter bible: A-tang soft round face and coral flower at half-up bun; Qing-he oval face and jade ribbon in loose low bun; Wen-xi longer oval face, almond eyes and blue ribbon in long half-up hair. Keep their clothing colors and facial shapes consistent and unmistakable.\nStyle: candid period-film photorealism, ivory ramie-and-silk gauze hanfu, natural gestures and believable hands. Real dappled late-afternoon light, cool orchard shadows. Matte skin with subtle pores and fine texture; no oily shine, glassy highlights, waxy or plastic skin, beauty-filter smoothing or excessive airbrushing.\nConstraints: plum and hands clearly visible, no extra people, text, logos, watermark, borders, collage, poster, interface or fantasy effects. Edge-to-edge image.",
+      "model": "gpt-image-2.5",
+      "size": "1536x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T10:07:59.059Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "28bf09c3bccee8106367148feb1cd1c13bb7133fdb97a5c51ee1085895827dd5"
+    },
+    {
+      "file": "wreath-garden-mobile-v5.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic portrait 2:3 for a phone screen.\nScene: vertical close environmental scene in a flower garden. Qing-he in celadon occupies the lower center, raising an uneven wildflower wreath; A-tang in coral leans in from the left to pass a flower stem; Wen-xi in azure appears higher and farther back on the right, tying a ribbon. Their positions form a triangular depth arrangement, not a horizontal row. Keep the full wreath, hands and all three faces inside frame, with flowers and gauze filling the lower third.\nCharacter bible: A-tang soft round face and coral flower hair ornament; Qing-he oval face and jade ribbon; Wen-xi longer oval face, almond eyes and blue ribbon. Distinct coral, celadon and azure clothing.\nStyle and light: candid cinematic photorealism, warm filtered sunlight, cool green-blue shadows, matte skin with visible fine texture. No oily shine, glassy highlights, waxy or plastic skin, airbrushing or over-sharpening.\nConstraints: believable anatomy, no extra people, no text or watermark, no collage or interface. Edge-to-edge image.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1536",
+      "quality": "high",
+      "generatedAt": "2026-09-23T10:07:23.807Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "c0f2f49d3674f4957a63898adf64551ad242664320080419277d9bf3d518919f"
+    },
+    {
+      "file": "wreath-garden-v5.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: full-bleed cinematic landscape 3:2 for an interactive Chinese garden story.\nScene: beside the flower meadow, Qing-he sits closest to camera and carefully lifts an irregular handmade wildflower wreath toward her own hair. A-tang sits one step behind at left, holding loose stems and laughing toward Qing-he. Wen-xi stands farther back at right, tying a small ribbon and watching them. The wreath and hands are the action focus; use foreground leaves, middle-ground friends and a softly receding garden path to create three depth planes. 50mm candid three-quarter view, asymmetrical composition.\nCharacter bible: A-tang is lively, soft round face, coral-pink skirt and coral flower at half-up bun. Qing-he is calm and precise, oval face, celadon-green skirt and jade ribbon in low bun. Wen-xi is quiet and observant, longer oval face, deep azure skirt and blue ribbon in long half-up hair. Keep faces, hair ornaments and clothing colors unmistakably different.\nWardrobe: airy ivory ramie-and-silk gauze hanfu with delicate woven flower motifs, fully clothed.\nLighting and skin: warm sidelight through the raised sleeve, cool blue-green shade behind. Matte realistic skin with subtle pores and fine texture; no oily shine, waxy skin, beauty smoothing, plastic skin or excessive retouching.\nConstraints: believable hands and wreath, all three faces readable, no extra people, text, logos, watermark, borders, collage, poster, interface or fantasy effects. Edge-to-edge image.",
+      "model": "gpt-image-2.5",
+      "size": "1536x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T10:07:31.417Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "b34233475a4e77369bc4d7ae9ab5020d7701b881ccaa79b6360910101f90758b"
     }
   ]
 }

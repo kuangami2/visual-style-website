@@ -1,0 +1,6 @@
+Use case: photorealistic-natural
+Asset type: full-bleed cinematic landscape 3:2 intimate action scene.
+Scene: beneath a plum orchard tree, A-tang in coral sits nearest left and offers one green plum in her open palm. Wen-xi in deep azure reaches from the right to accept it. Qing-he in celadon is clearly farther back between them, smiling and holding a small leaf. Hanging plums and a soft branch sit in the extreme foreground; the three friends occupy distinct near, middle and far planes. Focus on the shared hand action, not a posed group portrait. 50mm lens, close three-quarter view.
+Character bible: A-tang soft round face and coral flower at half-up bun; Qing-he oval face and jade ribbon in loose low bun; Wen-xi longer oval face, almond eyes and blue ribbon in long half-up hair. Keep their clothing colors and facial shapes consistent and unmistakable.
+Style: candid period-film photorealism, ivory ramie-and-silk gauze hanfu, natural gestures and believable hands. Real dappled late-afternoon light, cool orchard shadows. Matte skin with subtle pores and fine texture; no oily shine, glassy highlights, waxy or plastic skin, beauty-filter smoothing or excessive airbrushing.
+Constraints: plum and hands clearly visible, no extra people, text, logos, watermark, borders, collage, poster, interface or fantasy effects. Edge-to-edge image.

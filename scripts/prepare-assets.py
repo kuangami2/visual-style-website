@@ -29,18 +29,18 @@ def save_web(image, name, source, crop=None):
 
 
 for scene in SCENES:
-    for variant in ('v4', 'mobile-v4'):
+    for variant in ('v5', 'mobile-v5'):
         source = master(f'{scene}-{variant}')
         with Image.open(source) as image:
             save_web(image, f'{scene}-{variant}.webp', source)
 
-source = master('flower-field-v4')
+source = master('flower-field-v5')
 with Image.open(source) as image:
-    # Manually reviewed face crops from this approved 1536 x 1024 master.
-    for person, box in {'tang': (510, 135, 880, 505), 'he': (795, 170, 1135, 510),
-                        'xi': (1136, 0, 1536, 400)}.items():
+    # Face crops from the approved v5 master, keeping the three character cues distinct.
+    for person, box in {'tang': (80, 70, 430, 420), 'he': (650, 120, 1030, 500),
+                        'xi': (1120, 70, 1500, 430)}.items():
         portrait = image.crop(box).resize((384, 384), Image.Resampling.LANCZOS)
-        save_web(portrait, f'portrait-{person}-v4.webp', source, box)
+        save_web(portrait, f'portrait-{person}-v5.webp', source, box)
 
 (ROOT / 'assets' / 'web-manifest.json').write_text(json.dumps(records, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 print(f'Prepared {len(records)} approved web assets; total {sum((DEST / r["file"]).stat().st_size for r in records) / 1024:.0f} KiB')
