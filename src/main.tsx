@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { createRoot } from 'react-dom/client'
 import JSZip from 'jszip'
-import { AmbientWind, QuietMusic } from './ambient'
+import { AmbientWind, QuietMusic, playPickingSound, playWeavingSound } from './ambient'
 import './styles.css'
 
 type Companion = 'tang' | 'he' | 'xi'
@@ -90,6 +90,13 @@ const flowers = [
   { name: '紫藤', color: '#ca9bf2', symbol: '✽', note: '藤紫 · 花穗' },
 ]
 
+const choiceLines = [
+  '花枝在指间轻轻一颤，春天便有了可以带走的形状。',
+  '把颜色一圈圈编进去，风也在花叶间慢了下来。',
+  '青梅落进掌心，酸意和笑声都分给了身边的人。',
+  '闻溪坐到身边。风把湖水吹出细纹。大家安静下来，听见同一阵晚风。',
+]
+
 const duskActivities: { id: DuskActivity; title: string; note: string; symbol: string }[] = [
   { id: 'wind', title: '听一会儿风', note: '不说话也很好', symbol: '≈' },
   { id: 'wreath', title: '交换花环', note: '把下午戴到天黑', symbol: '✿' },
@@ -116,6 +123,7 @@ function App() {
   const [furthestChapter, setFurthestChapter] = useState(0)
   const [petals, setPetals] = useState<number[]>([])
   const [woven, setWoven] = useState<number[]>([])
+  const [wovenFlowers, setWovenFlowers] = useState<Record<number, number>>({})
   const [plumChoice, setPlumChoice] = useState<Companion | null>(null)
   const [companion, setCompanion] = useState<Companion | null>(null)
   const [duskFriends, setDuskFriends] = useState<Companion[]>([])
@@ -188,6 +196,7 @@ function App() {
     setFurthestChapter(0)
     setPetals([])
     setWoven([])
+    setWovenFlowers({})
     setPlumChoice(null)
     setCompanion(null)
     setDuskFriends([])
@@ -204,8 +213,11 @@ function App() {
   }
 
   const choosePetal = (index: number) => {
+    const removing = petals.includes(index)
+    if (!removing) playPickingSound()
     setPetals((items) => items.includes(index) ? items.filter((item) => item !== index) : items.length < 3 ? [...items, index] : items)
     setWoven([])
+    setWovenFlowers({})
     setFurthestChapter(0)
   }
 
@@ -286,7 +298,7 @@ function App() {
           <div className="chapter-count">{current.chapter}</div>
           <h1 id="journey-title" tabIndex={-1}>{current.title}</h1>
           <p className="scene-line">{current.line}</p>
-          <Interaction chapter={chapterIndex} petals={petals} woven={woven} plumChoice={plumChoice} duskFriends={duskFriends} duskActivity={duskActivity} onPetal={choosePetal} onWoven={(index) => setWoven((items) => items.includes(index) ? items : [...items, index])} onPlum={choosePlum} onDuskFriend={chooseDuskFriend} onDuskActivity={chooseDuskActivity} onAllFriends={() => setDuskFriends(duskFriends.length === companions.length ? [] : companions.map((friend) => friend.id))} onFinishDusk={finishDusk} onAdvance={nextChapter} />
+          <Interaction chapter={chapterIndex} petals={petals} woven={woven} wovenFlowers={wovenFlowers} plumChoice={plumChoice} duskFriends={duskFriends} duskActivity={duskActivity} onPetal={choosePetal} onWoven={(slot) => { const previous = wovenFlowers[slot]; const options = petals.filter((index) => index !== previous); const choices = options.length ? options : petals; const flowerIndex = choices[Math.floor(Math.random() * choices.length)] ?? 0; playWeavingSound(); setWoven((items) => items.includes(slot) ? items : [...items, slot]); setWovenFlowers((items) => ({ ...items, [slot]: flowerIndex })) }} onPlum={choosePlum} onDuskFriend={chooseDuskFriend} onDuskActivity={chooseDuskActivity} onAllFriends={() => setDuskFriends(duskFriends.length === companions.length ? [] : companions.map((friend) => friend.id))} onFinishDusk={finishDusk} onAdvance={nextChapter} />
         </div>
 
         <div className="scene-footer"><span>一段关于花、朋友和落日的古风互动游记</span><span>{String(chapterIndex + 1).padStart(2, '0')} / 04</span></div>
@@ -312,29 +324,39 @@ const plumReplies: Record<Companion, string> = {
   xi: '闻溪先分了一半给你：好东西，要一起尝。',
 }
 
-function Interaction({ chapter, petals, woven, plumChoice, duskFriends, duskActivity, onPetal, onWoven, onPlum, onDuskFriend, onDuskActivity, onAllFriends, onFinishDusk, onAdvance }: { chapter: number; petals: number[]; woven: number[]; plumChoice: Companion | null; duskFriends: Companion[]; duskActivity: DuskActivity | null; onPetal: (index: number) => void; onWoven: (index: number) => void; onPlum: (id: Companion) => void; onDuskFriend: (id: Companion) => void; onDuskActivity: (id: DuskActivity) => void; onAllFriends: () => void; onFinishDusk: () => void; onAdvance: () => void }) {
+function SelectionMemory({ image, alt, label, line }: { image: string; alt: string; label: string; line: string }) {
+  return <figure className="selection-memory" key={`${label}-${line}`}>
+    <img src={image} alt={alt} />
+    <figcaption><span>{label}</span><p>{line}</p></figcaption>
+  </figure>
+}
+
+function Interaction({ chapter, petals, woven, wovenFlowers, plumChoice, duskFriends, duskActivity, onPetal, onWoven, onPlum, onDuskFriend, onDuskActivity, onAllFriends, onFinishDusk, onAdvance }: { chapter: number; petals: number[]; woven: number[]; wovenFlowers: Record<number, number>; plumChoice: Companion | null; duskFriends: Companion[]; duskActivity: DuskActivity | null; onPetal: (index: number) => void; onWoven: (index: number) => void; onPlum: (id: Companion) => void; onDuskFriend: (id: Companion) => void; onDuskActivity: (id: DuskActivity) => void; onAllFriends: () => void; onFinishDusk: () => void; onAdvance: () => void }) {
   if (chapter === 0) return <div className="interaction">
     <p className="prompt"><span aria-hidden="true">✦</span> 选三朵，装进口袋 <em aria-live="polite">{petals.length} / 3</em></p>
     <div className="petal-field">{flowers.map((flower, item) => <button key={flower.name} className={`petal petal-${item} ${petals.includes(item) ? 'picked' : ''}`} style={{ '--flower-color': flower.color } as CSSProperties} onClick={() => onPetal(item)} disabled={petals.length === 3 && !petals.includes(item)} aria-pressed={petals.includes(item)} aria-label={`${flower.name}，${flower.note}${petals.includes(item) ? '，已采下，再点可放回' : ''}`}><FlowerMark index={item} /><strong>{flower.name}</strong><small>{flower.note}</small><i aria-hidden="true">{petals.includes(item) ? '✓' : '+'}</i></button>)}</div>
     <p className="interaction-hint">{petals.length === 3 ? '三朵刚刚好。再点已选的花，也可以换一种。' : '每一种花，都有自己的颜色和模样。'}</p>
     <button className="next-button" disabled={petals.length < 3} onClick={onAdvance}>{petals.length < 3 ? `还差${3 - petals.length}朵花` : '带着花，继续走'} <span aria-hidden="true">↗</span></button>
+    {petals.length > 0 && <SelectionMemory image={asset('generated/flower-field-v5.webp')} alt={`花田里采下的${petals.map((index) => flowers[index].name).join('、')}`} label="掌心里的春色" line={`${petals.map((index) => flowers[index].name).join('、')}落在掌心。${choiceLines[0]}`} />}
   </div>
   if (chapter === 1) return <div className="interaction">
     <p className="prompt"><span aria-hidden="true">✦</span> 点一下空位，把花编进去 <em aria-live="polite">{woven.length} / 4</em></p>
     <div className="wreath-board"><div className="wreath-ring"><span className="wreath-center">{woven.length === 4 ? '今日花事' : '慢慢来'}</span>{[0, 1, 2, 3].map((item) => {
-      const flowerIndex = petals[item % Math.max(petals.length, 1)] ?? item
+      const flowerIndex = wovenFlowers[item] ?? petals[item % Math.max(petals.length, 1)] ?? item
       const flower = flowers[flowerIndex]
-      return <button key={item} className={`wreath-slot slot-${item} ${woven.includes(item) ? 'filled' : ''}`} style={{ '--flower-color': flower.color } as CSSProperties} onClick={() => onWoven(item)} aria-pressed={woven.includes(item)} aria-label={woven.includes(item) ? `第${item + 1}处已编入${flower.name}` : `在第${item + 1}处编入${flower.name}`}><span className="slot-flower">{woven.includes(item) ? <FlowerMark index={flowerIndex} /> : '+'}</span><small>{flower.name}</small></button>
+      return <button key={item} className={`wreath-slot slot-${item} ${woven.includes(item) ? 'filled' : ''}`} style={{ '--flower-color': flower.color } as CSSProperties} onClick={() => onWoven(item)} aria-pressed={woven.includes(item)} aria-label={woven.includes(item) ? `第${item + 1}处是${flower.name}，再点可换一种花` : `在第${item + 1}处编入花材`}><span className="slot-flower">{woven.includes(item) ? <FlowerMark index={flowerIndex} /> : '+'}</span><small>{woven.includes(item) ? flower.name : '添一朵'}</small></button>
     })}</div></div>
     <div className="wreath-legend">{petals.map((index) => <span key={index}><i style={{ background: flowers[index].color }} />{flowers[index].name} · {flowers[index].note.split(' · ')[0]}</span>)}</div>
     <p className="interaction-hint">{woven.length === 4 ? '不用对称，今天本来就各有各的好。' : '用刚才采下的三种花，为花环添四笔颜色。'}</p>
     <button className="next-button" disabled={woven.length < 4} onClick={onAdvance}>{woven.length < 4 ? '花环还差一点' : '戴上花环，去林下'} <span aria-hidden="true">↗</span></button>
+    {woven.length > 0 && <SelectionMemory image={asset('generated/wreath-garden-v5.webp')} alt={`由${Object.values(wovenFlowers).map((index) => flowers[index].name).join('、')}编成的花环`} label="编进今天的花" line={`${Object.values(wovenFlowers).map((index) => flowers[index].name).join('、')}沿着枝条缠绕。${choiceLines[1]}`} />}
   </div>
   if (chapter === 2) return <div className="interaction">
     <p className="prompt"><span aria-hidden="true">✦</span> 这一颗青梅，给谁？</p>
     <div className="friend-row plum-row">{companions.map((friend) => <button key={friend.id} className={`friend-card plum-friend-card friend-${friend.id} ${plumChoice === friend.id ? 'chosen' : ''}`} onClick={() => onPlum(friend.id)} aria-pressed={plumChoice === friend.id}><span className="avatar" style={{ backgroundImage: `url(${friend.portrait})`, borderColor: friend.color }} aria-hidden="true" /><span><strong>{friend.name}</strong><small>{friend.note}</small></span><i aria-hidden="true">{plumChoice === friend.id ? '✓' : '↗'}</i></button>)}</div>
     <p className="choice-reply" aria-live="polite">{plumChoice ? plumReplies[plumChoice] : '选一位朋友，听听她会说些什么。'}</p>
     <button className="next-button" disabled={!plumChoice} onClick={onAdvance}>带着笑意，去湖边 <span aria-hidden="true">↗</span></button>
+    {plumChoice && <SelectionMemory image={companions.find((friend) => friend.id === plumChoice)!.portrait} alt={`${companions.find((friend) => friend.id === plumChoice)!.name}的肖像`} label={`递给${companions.find((friend) => friend.id === plumChoice)!.name}`} line={choiceLines[2]} />}
   </div>
   const duskNames = duskFriends.map((id) => companions.find((friend) => friend.id === id)!.name).join('、')
   const duskReply = duskActivity === 'wind' ? '风把湖水吹出细纹。大家安静下来，听见同一阵晚风。' : duskActivity === 'wreath' ? '花环传了一圈，最后谁戴着哪一朵，已经不重要。' : duskActivity === 'story' ? '一句“我跟你说”，把这个傍晚又悄悄拉长了一点。' : '等夕阳的时候，你们想做些什么？'
@@ -345,6 +367,7 @@ function Interaction({ chapter, petals, woven, plumChoice, duskFriends, duskActi
     <div className="activity-row" role="group" aria-label="选择一起做的事">{duskActivities.map((item) => <button key={item.id} className={`activity-card ${duskActivity === item.id ? 'chosen' : ''}`} onClick={() => onDuskActivity(item.id)} aria-pressed={duskActivity === item.id}><b aria-hidden="true">{item.symbol}</b><span><strong>{item.title}</strong><small>{item.note}</small></span></button>)}</div>
     <p className="choice-reply" aria-live="polite">{duskFriends.length > 0 && duskActivity ? `${duskNames}坐到身边。${duskReply}` : duskReply}</p>
     <button className="next-button" disabled={duskFriends.length === 0 || !duskActivity} onClick={onFinishDusk}>{duskFriends.length === 0 ? '先选同行的人' : !duskActivity ? '再选一件小事' : '坐到天快黑'} <span aria-hidden="true">↗</span></button>
+    {(duskFriends.length > 0 || duskActivity) && <SelectionMemory image={asset('generated/dusk-lake-v5.webp')} alt="朋友们在湖畔并肩看落日" label={duskFriends.length ? `${duskNames} · ${duskActivities.find((item) => item.id === duskActivity)?.title ?? '湖边相聚'}` : '湖畔的约定'} line={`${duskFriends.length ? `${duskNames}坐到身边。` : ''}${duskActivity ? duskReply : '风把湖水吹出细纹。大家安静下来，听见同一阵晚风。'}`} />}
   </div>
 }
 

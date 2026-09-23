@@ -188,3 +188,25 @@ button:disabled { cursor: default; }
   .scene-copy { padding-top: min(54svh, 112vw); }
   .chapter-rail { top: 90px; }
 }
+
+.selection-memory { display: grid; grid-template-columns: 112px minmax(0, 1fr); min-height: 92px; margin: 20px 0 0; overflow: hidden; border-top: 1px solid rgba(243,235,221,.28); animation: memory-in .85s cubic-bezier(.2,.7,.2,1) both; }
+.selection-memory img { width: 112px; height: 92px; object-fit: cover; animation: memory-image-in 1.2s ease both; }
+.selection-memory figcaption { display: flex; flex-direction: column; justify-content: center; padding: 10px 0 10px 16px; animation: memory-copy-in .75s ease .16s both; }
+.selection-memory figcaption span { color: #f2b55b; font-size: 10px; line-height: 1.5; letter-spacing: .12em; }
+.selection-memory figcaption p { margin: 5px 0 0; color: rgba(243,235,221,.86); font-family: 'KaiTi', 'STKaiti', 'Kaiti SC', 'SimSun', serif; font-size: 13px; line-height: 1.8; }
+.wreath-slot .slot-flower { color: var(--flower-color); }
+.wreath-slot.filled { background: rgba(11,38,48,.8); color: var(--flower-color); border-color: var(--flower-color); }
+.wreath-slot .flower-mark { width: 25px; height: 25px; vertical-align: middle; }
+.wreath-slot small { position: absolute; top: calc(100% + 3px); left: 50%; transform: translateX(-50%); width: 65px; color: rgba(243,235,221,.8); text-shadow: 0 1px 4px #0b2630; font-size: 9px; pointer-events: none; }
+@keyframes memory-in { from { opacity: 0; transform: translateY(13px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes memory-image-in { from { opacity: 0; transform: scale(1.06); filter: saturate(.55); } to { opacity: 1; transform: scale(1); filter: saturate(1); } }
+@keyframes memory-copy-in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 430px) {
+  .selection-memory { grid-template-columns: 92px minmax(0, 1fr); min-height: 88px; }
+  .selection-memory img { width: 92px; height: 88px; }
+  .selection-memory figcaption { padding-left: 12px; }
+  .selection-memory figcaption p { font-size: 12px; line-height: 1.7; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .selection-memory, .selection-memory img, .selection-memory figcaption { animation: none; }
+}
