@@ -1,0 +1,12 @@
+{
+  "file": "portrait-tang-v6.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: character portrait 1:1 profile card.\nScene: A-tang, an adult East Asian woman with a soft round face and coral flowerpin, sits on a low garden wall in a flower meadow and ties a loose bundle of cosmos with both hands. She is turned three-quarter profile, eyes lowered to the flowers, not looking at camera. Coral-pink skirt, ivory gauze sleeves, warm meadow and soft mountain background, natural candid action.\nStyle: cinematic photorealism, matte skin with subtle pores and fine texture, clear warm light, no oily shine, plastic skin or beauty smoothing. No text, logo or watermark.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1024",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:35:00.328Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "3eec729174103a3e765739f65dfed3bc6ede2916bdab0e817959ffb7e90cc9fd"
+}

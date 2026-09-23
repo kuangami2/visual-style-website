@@ -1,0 +1,12 @@
+{
+  "file": "storyboard-06-walk-home-v6-mobile.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard portrait 2:3 image, shot 6 for phone.\nScene: vertical dusk departure. Qing-he in celadon carries a small warm lantern while walking along the lake path; Wen-xi in azure is ahead in profile; A-tang in coral trails behind with the wreath at her side. Dark blue lake, last peach horizon, grasses and tiny fireflies provide layered depth. Walking away, no direct camera gaze, clearly different from a seated sunset image.\nCharacter cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing colors and ivory gauze hanfu.\nConstraints: no extra people, text, logo, watermark or collage.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1536",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:35:22.362Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "a5bd1daee73dd5fc0b8cb6a22795e35a69f5bb39a7ddab9e3179a56632cb0ce1"
+}

@@ -1,0 +1,6 @@
+Use case: photorealistic-natural
+Asset type: unique storyboard landscape 3:2 image, shot 6.
+Scene: after sunset, the friends begin walking home along a narrow lakeside path. Their lantern is a small warm paper light held by Qing-he in celadon; Wen-xi in azure walks ahead in silhouette profile; A-tang in coral lingers behind, carrying the wreath at her side. The lake is dark blue with the last peach band on the horizon, fireflies and grasses create depth. This is a quiet departure scene, different from sitting at the lake, no one looks at camera.
+Character cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing colors and ivory gauze hanfu.
+Lighting and skin: soft dusk blue with small warm lantern light, faces remain believable and matte, no oily shine or plastic skin.
+Constraints: no extra people, text, logos, watermark, collage or interface, not a duplicate sunset sitting scene.

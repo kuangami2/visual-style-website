@@ -1,0 +1,12 @@
+{
+  "file": "storyboard-02-wreath-action-v6-mobile.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard portrait 2:3 image, shot 2 for phone.\nScene: vertical intimate garden composition. Qing-he in celadon fills the lower center, threading a flower into a crooked wreath; A-tang in coral leans in from the left offering a stem; Wen-xi in azure sits higher in the background tying ribbon, eyes lowered to the knot. Wreath and hands centered, triangular depth, no direct camera gaze.\nCharacter cues: coral flowerpin, jade ribbon and blue ribbon clearly distinguish the three women; ivory gauze hanfu, matte natural skin.\nConstraints: believable hands, no extra people, no text or watermark, no posed row.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1536",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:35:21.245Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "9169252b037b6054bcb1e5d03c0d05351c3b0c3978246cf2b3efb57c5c48bae2"
+}

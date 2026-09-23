@@ -1,0 +1,12 @@
+{
+  "file": "storyboard-05-lakeside-linger-v6.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard landscape 3:2 image, shot 5.\nScene: the three friends have just sat at the lakeside. Qing-he in celadon kneels at the water's edge trailing fingertips through the ripples; A-tang in coral sits nearby holding the wreath; Wen-xi in azure stands behind them watching the reflected sunset. Lake occupies much of the frame, reeds in foreground, pavilion and hills in distance. Each person has a different action and depth, no one looks at camera.\nCharacter cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing colors and ivory gauze hanfu.\nLighting: warm low sun across water, cool blue shadows, natural matte skin, no oily shine or plastic smoothing.\nConstraints: no extra people, text, watermark, collage or interface. Unique lakeside action, not a seated group portrait.",
+  "model": "gpt-image-2.5",
+  "size": "1536x1024",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:35:33.724Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "a49c723dc47455e2dea689cc3e79a6591c92d7384b6e5541e6a9b1a1f4fa9021"
+}

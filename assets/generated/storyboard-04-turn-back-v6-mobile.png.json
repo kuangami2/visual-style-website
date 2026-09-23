@@ -1,0 +1,12 @@
+{
+  "file": "storyboard-04-turn-back-v6-mobile.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard portrait 2:3 image, shot 4 for phone.\nScene: vertical garden path. A-tang in coral is nearest in three-quarter rear view, turning over her shoulder with a bright inviting smile and raised sleeve; Qing-he in celadon and Wen-xi in azure walk away ahead in staggered depth, seen from behind. Flower stems frame the lower edge, no one except A-tang faces the viewer.\nCharacter cues: coral flowerpin, jade ribbon and blue ribbon; distinct clothing colors, ivory gauze hanfu.\nConstraints: no extra people, text, logo, watermark, posed lineup or direct group gaze.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1536",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:35:10.977Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "da7f024f6f56003b0e18a506515cc55bf24aae0b1cb84ee2075e8198fcfebc9d"
+}

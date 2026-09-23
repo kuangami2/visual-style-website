@@ -1,0 +1,6 @@
+Use case: photorealistic-natural
+Asset type: unique storyboard landscape 3:2 image, shot 1.
+Scene: a low flower-height camera glides past tall cosmos in a spring meadow. A-tang in coral pink is closest, crouching to pick one flower; Qing-he in celadon is several steps behind, holding a small basket; Wen-xi in deep azure stands farther near the wall, turned toward the breeze. Foreground flowers partly veil the lens, three depth planes are obvious, candid movement, no one looks at camera.
+Character cues: A-tang soft round face and coral flower hairpin; Qing-he oval face and jade ribbon in low bun; Wen-xi longer oval face, almond eyes and blue ribbon in long half-up hair. Distinct coral, celadon and azure clothing, ivory gauze hanfu.
+Lighting: clear late-afternoon sun, cool green-blue shadows, matte skin with subtle pores; no oily shine or plastic skin.
+Constraints: no extra people, text, logo, watermark, collage or interface. Unique composition, not a posed row.

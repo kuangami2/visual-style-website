@@ -1,0 +1,6 @@
+Use case: photorealistic-natural
+Asset type: unique storyboard landscape 3:2 image, shot 5.
+Scene: the three friends have just sat at the lakeside. Qing-he in celadon kneels at the water's edge trailing fingertips through the ripples; A-tang in coral sits nearby holding the wreath; Wen-xi in azure stands behind them watching the reflected sunset. Lake occupies much of the frame, reeds in foreground, pavilion and hills in distance. Each person has a different action and depth, no one looks at camera.
+Character cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing colors and ivory gauze hanfu.
+Lighting: warm low sun across water, cool blue shadows, natural matte skin, no oily shine or plastic smoothing.
+Constraints: no extra people, text, watermark, collage or interface. Unique lakeside action, not a seated group portrait.

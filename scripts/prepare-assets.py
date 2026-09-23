@@ -9,6 +9,15 @@ SOURCE = ROOT / 'assets' / 'generated'
 DEST = ROOT / 'public' / 'assets' / 'generated'
 DEST.mkdir(parents=True, exist_ok=True)
 SCENES = ('flower-field', 'wreath-garden', 'plum-forest', 'dusk-lake')
+STORYBOARD = (
+    'storyboard-01-flower-field-v6', 'storyboard-01-flower-field-v6-mobile',
+    'storyboard-02-wreath-action-v6', 'storyboard-02-wreath-action-v6-mobile',
+    'storyboard-03-plum-action-v6', 'storyboard-03-plum-action-v6-mobile',
+    'storyboard-04-turn-back-v6', 'storyboard-04-turn-back-v6-mobile',
+    'storyboard-05-lakeside-linger-v6', 'storyboard-05-lakeside-linger-v6-mobile',
+    'storyboard-06-walk-home-v6', 'storyboard-06-walk-home-v6-mobile',
+)
+PORTRAITS = ('tang', 'he', 'xi')
 records = []
 
 
@@ -34,13 +43,15 @@ for scene in SCENES:
         with Image.open(source) as image:
             save_web(image, f'{scene}-{variant}.webp', source)
 
-source = master('flower-field-v5')
-with Image.open(source) as image:
-    # Face crops from the approved v5 master, keeping the three character cues distinct.
-    for person, box in {'tang': (80, 70, 430, 420), 'he': (650, 120, 1030, 500),
-                        'xi': (1120, 70, 1500, 430)}.items():
-        portrait = image.crop(box).resize((384, 384), Image.Resampling.LANCZOS)
-        save_web(portrait, f'portrait-{person}-v5.webp', source, box)
+for stem in STORYBOARD:
+    source = master(stem)
+    with Image.open(source) as image:
+        save_web(image, f'{stem}.webp', source)
+
+for person in PORTRAITS:
+    source = master(f'portrait-{person}-v6')
+    with Image.open(source) as image:
+        save_web(image, f'portrait-{person}-v6.webp', source)
 
 (ROOT / 'assets' / 'web-manifest.json').write_text(json.dumps(records, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 print(f'Prepared {len(records)} approved web assets; total {sum((DEST / r["file"]).stat().st_size for r in records) / 1024:.0f} KiB')

@@ -1,0 +1,12 @@
+{
+  "file": "storyboard-01-flower-field-v6-mobile.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard portrait 2:3 image, shot 1 for phone.\nScene: vertical low flower-height view through foreground cosmos. A-tang in coral crouches at the bottom picking a bloom; Qing-he in celadon bends behind her; Wen-xi in azure stands farther back in profile near a garden wall. Strong diagonal depth, no one looks at camera, all faces readable.\nCharacter cues: coral flowerpin for A-tang, jade ribbon for Qing-he, blue ribbon for Wen-xi; distinct clothing colors and ivory gauze hanfu.\nStyle: candid cinematic photorealism, natural matte skin, subtle pores, no oily shine or plastic smoothing. No text, logo, watermark, extra people.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1536",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:34:46.779Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "e86c0cf68337ef453bcc7e6d1c0698939401cc287a5219fa44d9784889718e02"
+}

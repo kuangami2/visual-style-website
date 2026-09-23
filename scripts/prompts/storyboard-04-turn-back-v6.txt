@@ -1,0 +1,6 @@
+Use case: photorealistic-natural
+Asset type: unique storyboard landscape 3:2 image, shot 4.
+Scene: on a garden path at golden hour, the friends are walking away through tall flowers. Wen-xi in azure is farthest ahead, then Qing-he in celadon; A-tang in coral is nearest and suddenly turns back over her shoulder toward the unseen viewer, one hand lifting her sleeve as if calling someone to follow. The other two continue forward and do not look back. Strong near-middle-far depth, moving fabric, rear three-quarter view, not a portrait.
+Character cues: A-tang coral flowerpin and soft round face; Qing-he jade ribbon and oval face; Wen-xi blue ribbon and long hair. Distinct clothing colors.
+Lighting: low sun rim light, cool shadows, natural matte skin and fine texture, no oily shine.
+Constraints: no extra people, text, watermark, collage or interface. One clear turning-back gesture.

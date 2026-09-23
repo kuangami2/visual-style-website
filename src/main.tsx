@@ -22,6 +22,7 @@ type Shot = {
   title: string
   subtitle: string
   image: string
+  mobileImage: string
   duration: number
   movement: string
   sound: string
@@ -76,9 +77,9 @@ const chapters: Chapter[] = [
 ]
 
 const companions: { id: Companion; name: string; note: string; color: string; image: string; portrait: string }[] = [
-  { id: 'tang', name: '阿棠', note: '把寻常小事讲得有趣', color: '#d99a8d', image: asset('generated/flower-field-v5.webp'), portrait: asset('generated/portrait-tang-v5.webp') },
-  { id: 'he', name: '青禾', note: '手很巧，会把花编得刚刚好', color: '#849f89', image: asset('generated/wreath-garden-v5.webp'), portrait: asset('generated/portrait-he-v5.webp') },
-  { id: 'xi', name: '闻溪', note: '总是先听见风和鸟鸣', color: '#96aebe', image: asset('generated/plum-forest-v5.webp'), portrait: asset('generated/portrait-xi-v5.webp') },
+  { id: 'tang', name: '阿棠', note: '把寻常小事讲得有趣', color: '#d99a8d', image: asset('generated/flower-field-v5.webp'), portrait: asset('generated/portrait-tang-v6.webp') },
+  { id: 'he', name: '青禾', note: '手很巧，会把花编得刚刚好', color: '#849f89', image: asset('generated/wreath-garden-v5.webp'), portrait: asset('generated/portrait-he-v6.webp') },
+  { id: 'xi', name: '闻溪', note: '总是先听见风和鸟鸣', color: '#96aebe', image: asset('generated/plum-forest-v5.webp'), portrait: asset('generated/portrait-xi-v6.webp') },
 ]
 
 const flowers = [
@@ -101,12 +102,12 @@ const shotsFor = (chosen: Companion, group: Companion[] = [], activity: DuskActi
   const groupLabel = names.length > 1 ? `${names.slice(0, -1).join('、')}和${names[names.length - 1]}` : friend.name
   const activityLine = duskActivities.find((item) => item.id === activity)?.title ?? '听一会儿风'
   return [
-    { index: 1, title: '花枝擦过镜头', subtitle: '她们在花田里等你，没人急着往前走。', image: asset('generated/flower-field-v5.webp'), duration: 5, movement: '前景花叶轻晃，镜头慢慢推近', sound: '风穿过草叶' },
-    { index: 2, title: '手里的花环', subtitle: '青禾说：不用编得太整齐。', image: asset('generated/wreath-garden-v5.webp'), duration: 5, movement: '从花环移到笑起来的眼睛', sound: '衣料与花梗的细响' },
-    { index: 3, title: '一颗青梅', subtitle: '酸意先到，笑声随后才来。', image: asset('generated/plum-forest-v5.webp'), duration: 4, movement: '手部特写，浅景深摇向树影', sound: '树上鸟鸣' },
-    { index: 4, title: '有人回头', subtitle: `${friend.name}在喊你，夕阳已经落到肩上。`, image: friend.image, duration: 5, movement: '逆光中定格一个回头', sound: '远处溪水' },
-    { index: 5, title: '坐到天快黑', subtitle: `你和${groupLabel}一起${activityLine}，谁也没有催谁。`, image: asset('generated/dusk-lake-v5.webp'), duration: 6, movement: '从并肩的人拉到湖面与山线', sound: '湖面水声与晚风' },
-    { index: 6, title: '晚些回去', subtitle: '把今天收好，明天还可以再打开。', image: asset('generated/dusk-lake-v5.webp'), duration: 5, movement: '夕光压低，字幕慢慢浮现', sound: '风声渐远' },
+    { index: 1, title: '花枝擦过镜头', subtitle: '她们在花田里等你，没人急着往前走。', image: asset('generated/storyboard-01-flower-field-v6.webp'), mobileImage: asset('generated/storyboard-01-flower-field-v6-mobile.webp'), duration: 5, movement: '前景花叶轻晃，镜头慢慢推近', sound: '风穿过草叶' },
+    { index: 2, title: '手里的花环', subtitle: '青禾说：不用编得太整齐。', image: asset('generated/storyboard-02-wreath-action-v6.webp'), mobileImage: asset('generated/storyboard-02-wreath-action-v6-mobile.webp'), duration: 5, movement: '镜头从递花的手移到歪歪的花环', sound: '衣料与花梗的细响' },
+    { index: 3, title: '一颗青梅', subtitle: '酸意先到，笑声随后才来。', image: asset('generated/storyboard-03-plum-action-v6.webp'), mobileImage: asset('generated/storyboard-03-plum-action-v6-mobile.webp'), duration: 4, movement: '从果篮摇到伸来的手', sound: '树上鸟鸣' },
+    { index: 4, title: '有人回头', subtitle: `${friend.name}在喊你，夕阳已经落到肩上。`, image: asset('generated/storyboard-04-turn-back-v6.webp'), mobileImage: asset('generated/storyboard-04-turn-back-v6-mobile.webp'), duration: 5, movement: '逆光中定格一个回头', sound: '远处溪水' },
+    { index: 5, title: '坐到天快黑', subtitle: `你和${groupLabel}一起${activityLine}，谁也没有催谁。`, image: asset('generated/storyboard-05-lakeside-linger-v6.webp'), mobileImage: asset('generated/storyboard-05-lakeside-linger-v6-mobile.webp'), duration: 6, movement: '从指尖的水纹拉到湖面与三个人', sound: '湖面水声与晚风' },
+    { index: 6, title: '晚些回去', subtitle: '把今天收好，明天还可以再打开。', image: asset('generated/storyboard-06-walk-home-v6.webp'), mobileImage: asset('generated/storyboard-06-walk-home-v6-mobile.webp'), duration: 5, movement: '跟着灯笼走远，最后停在湖边小路', sound: '风声渐远，灯笼纸穗轻响' },
   ]
 }
 
@@ -223,7 +224,7 @@ function App() {
     for (const shot of shots) {
       const image = await loadImage(shot.image)
       const horizontal = renderCrop(image, 1920, 1080, false)
-      const portrait = await loadImage(shot.image.replace('-v5.webp', '-mobile-v5.webp'))
+      const portrait = await loadImage(shot.mobileImage)
       const vertical = renderCrop(portrait, 1080, 1920, true)
       imageFolder?.file(`horizontal-${String(shot.index).padStart(2, '0')}.jpg`, await blobToArrayBuffer(await horizontal))
       imageFolder?.file(`vertical-${String(shot.index).padStart(2, '0')}.jpg`, await blobToArrayBuffer(await vertical))

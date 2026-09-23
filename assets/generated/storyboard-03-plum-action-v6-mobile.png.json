@@ -1,0 +1,12 @@
+{
+  "file": "storyboard-03-plum-action-v6-mobile.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard portrait 2:3 image, shot 3 for phone.\nScene: vertical plum orchard detail. A-tang in coral holds a small basket of green plums low at left; Wen-xi in azure reaches down from upper right; Qing-he in celadon is behind them between leaves, glancing toward the fruit. Foreground leaves frame but do not cover faces or hands. No one looks at camera.\nCharacter cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing and ivory gauze hanfu.\nConstraints: believable fingers, no extra people, no text, logo or watermark.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1536",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:35:13.933Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "f8dccf7948c9aedd1a54d819e99c3d908bc3de0bb1b3a5eed032d7a8f905cdc6"
+}

@@ -1,0 +1,6 @@
+Use case: photorealistic-natural
+Asset type: unique storyboard landscape 3:2 image, shot 3.
+Scene: under a plum tree, close action detail. A-tang in coral holds two green plums in a woven palm basket; Wen-xi in azure reaches toward one while smiling in profile; Qing-he in celadon is farther behind brushing leaves from her sleeve. Hanging plums frame the foreground, hands and fruit are sharp, faces react to one another, no direct camera gaze.
+Character cues: A-tang round face and coral flowerpin; Qing-he oval face and jade ribbon; Wen-xi longer oval face and blue ribbon. Distinct clothing colors.
+Lighting: dappled warm sunlight and cool orchard shade, realistic matte skin and fine texture, no oily shine or plastic skin.
+Constraints: no extra people, text, watermark, collage or interface.

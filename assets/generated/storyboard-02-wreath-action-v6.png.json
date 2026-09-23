@@ -1,0 +1,12 @@
+{
+  "file": "storyboard-02-wreath-action-v6.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard landscape 3:2 image, shot 2.\nScene: Qing-he in celadon sits closest beside a low stone table, carefully weaving the final stem into an irregular wildflower wreath. A-tang in coral reaches across from the left to pass her a flower, laughing toward Qing-he; Wen-xi in azure is farther back under a tree, tying loose stems and looking down at her hands. Full wreath and hands visible, layered foreground leaves, middle action, distant garden path. No one looks at camera.\nCharacter cues: A-tang soft round face and coral flower hairpin; Qing-he oval face and jade ribbon; Wen-xi longer oval face and blue ribbon. Distinct coral, celadon and azure clothing, ivory gauze hanfu.\nLighting: warm sidelight through translucent sleeves and cool woodland shade, matte textured skin, no oily shine, no plastic retouching.\nConstraints: no extra people, text, logos, watermarks, collage or interface. Unique action composition.",
+  "model": "gpt-image-2.5",
+  "size": "1536x1024",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:35:13.083Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "6aabff006f6caba7d489d83458c5c055ddb565e3e28ccacf0fcf9a5b29f91cf9"
+}

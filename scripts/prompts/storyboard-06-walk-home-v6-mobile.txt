@@ -1,0 +1,5 @@
+Use case: photorealistic-natural
+Asset type: unique storyboard portrait 2:3 image, shot 6 for phone.
+Scene: vertical dusk departure. Qing-he in celadon carries a small warm lantern while walking along the lake path; Wen-xi in azure is ahead in profile; A-tang in coral trails behind with the wreath at her side. Dark blue lake, last peach horizon, grasses and tiny fireflies provide layered depth. Walking away, no direct camera gaze, clearly different from a seated sunset image.
+Character cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing colors and ivory gauze hanfu.
+Constraints: no extra people, text, logo, watermark or collage.

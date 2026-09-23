@@ -1,0 +1,12 @@
+{
+  "file": "storyboard-04-turn-back-v6.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard landscape 3:2 image, shot 4.\nScene: on a garden path at golden hour, the friends are walking away through tall flowers. Wen-xi in azure is farthest ahead, then Qing-he in celadon; A-tang in coral is nearest and suddenly turns back over her shoulder toward the unseen viewer, one hand lifting her sleeve as if calling someone to follow. The other two continue forward and do not look back. Strong near-middle-far depth, moving fabric, rear three-quarter view, not a portrait.\nCharacter cues: A-tang coral flowerpin and soft round face; Qing-he jade ribbon and oval face; Wen-xi blue ribbon and long hair. Distinct clothing colors.\nLighting: low sun rim light, cool shadows, natural matte skin and fine texture, no oily shine.\nConstraints: no extra people, text, watermark, collage or interface. One clear turning-back gesture.",
+  "model": "gpt-image-2.5",
+  "size": "1536x1024",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:35:22.098Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "e548d09c5c56ba0d67c090692ff03df9d6376722fe974592eb9ed76c9343edd7"
+}

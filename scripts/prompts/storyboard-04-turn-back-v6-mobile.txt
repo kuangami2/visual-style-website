@@ -1,0 +1,5 @@
+Use case: photorealistic-natural
+Asset type: unique storyboard portrait 2:3 image, shot 4 for phone.
+Scene: vertical garden path. A-tang in coral is nearest in three-quarter rear view, turning over her shoulder with a bright inviting smile and raised sleeve; Qing-he in celadon and Wen-xi in azure walk away ahead in staggered depth, seen from behind. Flower stems frame the lower edge, no one except A-tang faces the viewer.
+Character cues: coral flowerpin, jade ribbon and blue ribbon; distinct clothing colors, ivory gauze hanfu.
+Constraints: no extra people, text, logo, watermark, posed lineup or direct group gaze.

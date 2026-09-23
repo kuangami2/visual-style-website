@@ -1,0 +1,5 @@
+Use case: photorealistic-natural
+Asset type: unique storyboard portrait 2:3 image, shot 5 for phone.
+Scene: vertical lakeside view. Qing-he in celadon kneels closest with fingertips in the water; A-tang in coral sits beside the wreath; Wen-xi in azure stands behind looking at the sunset reflection. Reeds frame the bottom and lake rises behind them. Staggered depth, separate actions, no one looks at camera.
+Character cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing, matte realistic skin.
+Constraints: no extra people, text, logo or watermark.

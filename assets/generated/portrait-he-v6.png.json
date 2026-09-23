@@ -1,0 +1,12 @@
+{
+  "file": "portrait-he-v6.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: character portrait 1:1 profile card.\nScene: Qing-he, an adult East Asian woman with an oval face, gently arched brows and a jade ribbon in a loose low bun, kneels beside a stone table in a garden and threads a tiny flower through a handmade wreath. She is in side profile with eyes focused on her hands, not looking at camera. Celadon-green skirt, ivory gauze sleeves, leafy garden and dappled shade, quiet precise action.\nStyle: cinematic photorealism, matte skin with subtle pores and fine texture, no oily shine, plastic skin or beauty smoothing. No text, logo or watermark.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1024",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:34:59.936Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "8046f5391c94feeedb35a1367e9d51e44ff81da63d05eac5986c9253ca7ab57e"
+}

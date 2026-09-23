@@ -1,0 +1,12 @@
+{
+  "file": "portrait-xi-v6.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: character portrait 1:1 profile card.\nScene: Wen-xi, an adult East Asian woman with a longer oval face, almond eyes and a blue ribbon in long half-up hair, stands beside a lake holding a small green plum near her nose while listening to the wind. She is in a quiet three-quarter profile looking toward the water, not at camera. Deep azure skirt, ivory gauze sleeves, reeds and blue lake behind, a few loose hairs moving in the breeze.\nStyle: cinematic photorealism, matte skin with subtle pores and fine texture, no oily shine, plastic skin or beauty smoothing. No text, logo or watermark.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1024",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:34:55.813Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "853872912a6facfba33030ca163f8ae5e6f70463744652f118a69931762c9aa6"
+}

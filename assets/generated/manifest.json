@@ -1,6 +1,6 @@
 {
   "project": "wan-late-home",
-  "generatedAt": "2026-09-23T00:00:00.000Z",
+  "generatedAt": "2026-09-23T12:00:00.000Z",
   "assets": [
     {
       "file": "flower-field-v4.png",
@@ -193,6 +193,186 @@
       "source": "url",
       "mime": "image/png",
       "sha256": "b34233475a4e77369bc4d7ae9ab5020d7701b881ccaa79b6360910101f90758b"
+    },
+    {
+      "file": "portrait-he-v6.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: character portrait 1:1 profile card.\nScene: Qing-he, an adult East Asian woman with an oval face, gently arched brows and a jade ribbon in a loose low bun, kneels beside a stone table in a garden and threads a tiny flower through a handmade wreath. She is in side profile with eyes focused on her hands, not looking at camera. Celadon-green skirt, ivory gauze sleeves, leafy garden and dappled shade, quiet precise action.\nStyle: cinematic photorealism, matte skin with subtle pores and fine texture, no oily shine, plastic skin or beauty smoothing. No text, logo or watermark.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:34:59.936Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "8046f5391c94feeedb35a1367e9d51e44ff81da63d05eac5986c9253ca7ab57e"
+    },
+    {
+      "file": "portrait-tang-v6.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: character portrait 1:1 profile card.\nScene: A-tang, an adult East Asian woman with a soft round face and coral flowerpin, sits on a low garden wall in a flower meadow and ties a loose bundle of cosmos with both hands. She is turned three-quarter profile, eyes lowered to the flowers, not looking at camera. Coral-pink skirt, ivory gauze sleeves, warm meadow and soft mountain background, natural candid action.\nStyle: cinematic photorealism, matte skin with subtle pores and fine texture, clear warm light, no oily shine, plastic skin or beauty smoothing. No text, logo or watermark.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:35:00.328Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "3eec729174103a3e765739f65dfed3bc6ede2916bdab0e817959ffb7e90cc9fd"
+    },
+    {
+      "file": "portrait-xi-v6.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: character portrait 1:1 profile card.\nScene: Wen-xi, an adult East Asian woman with a longer oval face, almond eyes and a blue ribbon in long half-up hair, stands beside a lake holding a small green plum near her nose while listening to the wind. She is in a quiet three-quarter profile looking toward the water, not at camera. Deep azure skirt, ivory gauze sleeves, reeds and blue lake behind, a few loose hairs moving in the breeze.\nStyle: cinematic photorealism, matte skin with subtle pores and fine texture, no oily shine, plastic skin or beauty smoothing. No text, logo or watermark.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:34:55.813Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "853872912a6facfba33030ca163f8ae5e6f70463744652f118a69931762c9aa6"
+    },
+    {
+      "file": "storyboard-01-flower-field-v6-mobile.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard portrait 2:3 image, shot 1 for phone.\nScene: vertical low flower-height view through foreground cosmos. A-tang in coral crouches at the bottom picking a bloom; Qing-he in celadon bends behind her; Wen-xi in azure stands farther back in profile near a garden wall. Strong diagonal depth, no one looks at camera, all faces readable.\nCharacter cues: coral flowerpin for A-tang, jade ribbon for Qing-he, blue ribbon for Wen-xi; distinct clothing colors and ivory gauze hanfu.\nStyle: candid cinematic photorealism, natural matte skin, subtle pores, no oily shine or plastic smoothing. No text, logo, watermark, extra people.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1536",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:34:46.779Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "e86c0cf68337ef453bcc7e6d1c0698939401cc287a5219fa44d9784889718e02"
+    },
+    {
+      "file": "storyboard-01-flower-field-v6.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard landscape 3:2 image, shot 1.\nScene: a low flower-height camera glides past tall cosmos in a spring meadow. A-tang in coral pink is closest, crouching to pick one flower; Qing-he in celadon is several steps behind, holding a small basket; Wen-xi in deep azure stands farther near the wall, turned toward the breeze. Foreground flowers partly veil the lens, three depth planes are obvious, candid movement, no one looks at camera.\nCharacter cues: A-tang soft round face and coral flower hairpin; Qing-he oval face and jade ribbon in low bun; Wen-xi longer oval face, almond eyes and blue ribbon in long half-up hair. Distinct coral, celadon and azure clothing, ivory gauze hanfu.\nLighting: clear late-afternoon sun, cool green-blue shadows, matte skin with subtle pores; no oily shine or plastic skin.\nConstraints: no extra people, text, logo, watermark, collage or interface. Unique composition, not a posed row.",
+      "model": "gpt-image-2.5",
+      "size": "1536x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:35:38.485Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "04febecce67ab52a75141f333a1930a7359e33a3950895d5655687d1b28902fc"
+    },
+    {
+      "file": "storyboard-02-wreath-action-v6-mobile.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard portrait 2:3 image, shot 2 for phone.\nScene: vertical intimate garden composition. Qing-he in celadon fills the lower center, threading a flower into a crooked wreath; A-tang in coral leans in from the left offering a stem; Wen-xi in azure sits higher in the background tying ribbon, eyes lowered to the knot. Wreath and hands centered, triangular depth, no direct camera gaze.\nCharacter cues: coral flowerpin, jade ribbon and blue ribbon clearly distinguish the three women; ivory gauze hanfu, matte natural skin.\nConstraints: believable hands, no extra people, no text or watermark, no posed row.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1536",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:35:21.245Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "9169252b037b6054bcb1e5d03c0d05351c3b0c3978246cf2b3efb57c5c48bae2"
+    },
+    {
+      "file": "storyboard-02-wreath-action-v6.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard landscape 3:2 image, shot 2.\nScene: Qing-he in celadon sits closest beside a low stone table, carefully weaving the final stem into an irregular wildflower wreath. A-tang in coral reaches across from the left to pass her a flower, laughing toward Qing-he; Wen-xi in azure is farther back under a tree, tying loose stems and looking down at her hands. Full wreath and hands visible, layered foreground leaves, middle action, distant garden path. No one looks at camera.\nCharacter cues: A-tang soft round face and coral flower hairpin; Qing-he oval face and jade ribbon; Wen-xi longer oval face and blue ribbon. Distinct coral, celadon and azure clothing, ivory gauze hanfu.\nLighting: warm sidelight through translucent sleeves and cool woodland shade, matte textured skin, no oily shine, no plastic retouching.\nConstraints: no extra people, text, logos, watermarks, collage or interface. Unique action composition.",
+      "model": "gpt-image-2.5",
+      "size": "1536x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:35:13.083Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "6aabff006f6caba7d489d83458c5c055ddb565e3e28ccacf0fcf9a5b29f91cf9"
+    },
+    {
+      "file": "storyboard-03-plum-action-v6-mobile.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard portrait 2:3 image, shot 3 for phone.\nScene: vertical plum orchard detail. A-tang in coral holds a small basket of green plums low at left; Wen-xi in azure reaches down from upper right; Qing-he in celadon is behind them between leaves, glancing toward the fruit. Foreground leaves frame but do not cover faces or hands. No one looks at camera.\nCharacter cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing and ivory gauze hanfu.\nConstraints: believable fingers, no extra people, no text, logo or watermark.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1536",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:35:13.933Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "f8dccf7948c9aedd1a54d819e99c3d908bc3de0bb1b3a5eed032d7a8f905cdc6"
+    },
+    {
+      "file": "storyboard-03-plum-action-v6.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard landscape 3:2 image, shot 3.\nScene: under a plum tree, close action detail. A-tang in coral holds two green plums in a woven palm basket; Wen-xi in azure reaches toward one while smiling in profile; Qing-he in celadon is farther behind brushing leaves from her sleeve. Hanging plums frame the foreground, hands and fruit are sharp, faces react to one another, no direct camera gaze.\nCharacter cues: A-tang round face and coral flowerpin; Qing-he oval face and jade ribbon; Wen-xi longer oval face and blue ribbon. Distinct clothing colors.\nLighting: dappled warm sunlight and cool orchard shade, realistic matte skin and fine texture, no oily shine or plastic skin.\nConstraints: no extra people, text, watermark, collage or interface.",
+      "model": "gpt-image-2.5",
+      "size": "1536x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:35:09.723Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "2c6412a0007a631b538d108fbfff99246fbf4a5136eaf7658207211a16074808"
+    },
+    {
+      "file": "storyboard-04-turn-back-v6-mobile.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard portrait 2:3 image, shot 4 for phone.\nScene: vertical garden path. A-tang in coral is nearest in three-quarter rear view, turning over her shoulder with a bright inviting smile and raised sleeve; Qing-he in celadon and Wen-xi in azure walk away ahead in staggered depth, seen from behind. Flower stems frame the lower edge, no one except A-tang faces the viewer.\nCharacter cues: coral flowerpin, jade ribbon and blue ribbon; distinct clothing colors, ivory gauze hanfu.\nConstraints: no extra people, text, logo, watermark, posed lineup or direct group gaze.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1536",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:35:10.977Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "da7f024f6f56003b0e18a506515cc55bf24aae0b1cb84ee2075e8198fcfebc9d"
+    },
+    {
+      "file": "storyboard-04-turn-back-v6.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard landscape 3:2 image, shot 4.\nScene: on a garden path at golden hour, the friends are walking away through tall flowers. Wen-xi in azure is farthest ahead, then Qing-he in celadon; A-tang in coral is nearest and suddenly turns back over her shoulder toward the unseen viewer, one hand lifting her sleeve as if calling someone to follow. The other two continue forward and do not look back. Strong near-middle-far depth, moving fabric, rear three-quarter view, not a portrait.\nCharacter cues: A-tang coral flowerpin and soft round face; Qing-he jade ribbon and oval face; Wen-xi blue ribbon and long hair. Distinct clothing colors.\nLighting: low sun rim light, cool shadows, natural matte skin and fine texture, no oily shine.\nConstraints: no extra people, text, watermark, collage or interface. One clear turning-back gesture.",
+      "model": "gpt-image-2.5",
+      "size": "1536x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:35:22.098Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "e548d09c5c56ba0d67c090692ff03df9d6376722fe974592eb9ed76c9343edd7"
+    },
+    {
+      "file": "storyboard-05-lakeside-linger-v6-mobile.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard portrait 2:3 image, shot 5 for phone.\nScene: vertical lakeside view. Qing-he in celadon kneels closest with fingertips in the water; A-tang in coral sits beside the wreath; Wen-xi in azure stands behind looking at the sunset reflection. Reeds frame the bottom and lake rises behind them. Staggered depth, separate actions, no one looks at camera.\nCharacter cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing, matte realistic skin.\nConstraints: no extra people, text, logo or watermark.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1536",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:34:45.478Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "aa37f3bae61fdf5511ffebb9448eb41f99a83261e2c38e8740e112882c972055"
+    },
+    {
+      "file": "storyboard-05-lakeside-linger-v6.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard landscape 3:2 image, shot 5.\nScene: the three friends have just sat at the lakeside. Qing-he in celadon kneels at the water's edge trailing fingertips through the ripples; A-tang in coral sits nearby holding the wreath; Wen-xi in azure stands behind them watching the reflected sunset. Lake occupies much of the frame, reeds in foreground, pavilion and hills in distance. Each person has a different action and depth, no one looks at camera.\nCharacter cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing colors and ivory gauze hanfu.\nLighting: warm low sun across water, cool blue shadows, natural matte skin, no oily shine or plastic smoothing.\nConstraints: no extra people, text, watermark, collage or interface. Unique lakeside action, not a seated group portrait.",
+      "model": "gpt-image-2.5",
+      "size": "1536x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:35:33.724Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "a49c723dc47455e2dea689cc3e79a6591c92d7384b6e5541e6a9b1a1f4fa9021"
+    },
+    {
+      "file": "storyboard-06-walk-home-v6-mobile.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard portrait 2:3 image, shot 6 for phone.\nScene: vertical dusk departure. Qing-he in celadon carries a small warm lantern while walking along the lake path; Wen-xi in azure is ahead in profile; A-tang in coral trails behind with the wreath at her side. Dark blue lake, last peach horizon, grasses and tiny fireflies provide layered depth. Walking away, no direct camera gaze, clearly different from a seated sunset image.\nCharacter cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing colors and ivory gauze hanfu.\nConstraints: no extra people, text, logo, watermark or collage.",
+      "model": "gpt-image-2.5",
+      "size": "1024x1536",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:35:22.362Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "a5bd1daee73dd5fc0b8cb6a22795e35a69f5bb39a7ddab9e3179a56632cb0ce1"
+    },
+    {
+      "file": "storyboard-06-walk-home-v6.png",
+      "role": "generated visual",
+      "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard landscape 3:2 image, shot 6.\nScene: after sunset, the friends begin walking home along a narrow lakeside path. Their lantern is a small warm paper light held by Qing-he in celadon; Wen-xi in azure walks ahead in silhouette profile; A-tang in coral lingers behind, carrying the wreath at her side. The lake is dark blue with the last peach band on the horizon, fireflies and grasses create depth. This is a quiet departure scene, different from sitting at the lake, no one looks at camera.\nCharacter cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing colors and ivory gauze hanfu.\nLighting and skin: soft dusk blue with small warm lantern light, faces remain believable and matte, no oily shine or plastic skin.\nConstraints: no extra people, text, logos, watermark, collage or interface, not a duplicate sunset sitting scene.",
+      "model": "gpt-image-2.5",
+      "size": "1536x1024",
+      "quality": "high",
+      "generatedAt": "2026-09-23T11:35:26.373Z",
+      "source": "url",
+      "mime": "image/png",
+      "sha256": "00368637a979fb9a67251894be939270f278cce78f8d5527a760eca7152193b1"
     }
   ]
 }

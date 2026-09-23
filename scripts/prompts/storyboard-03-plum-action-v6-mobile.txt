@@ -1,0 +1,5 @@
+Use case: photorealistic-natural
+Asset type: unique storyboard portrait 2:3 image, shot 3 for phone.
+Scene: vertical plum orchard detail. A-tang in coral holds a small basket of green plums low at left; Wen-xi in azure reaches down from upper right; Qing-he in celadon is behind them between leaves, glancing toward the fruit. Foreground leaves frame but do not cover faces or hands. No one looks at camera.
+Character cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing and ivory gauze hanfu.
+Constraints: believable fingers, no extra people, no text, logo or watermark.

@@ -1,0 +1,12 @@
+{
+  "file": "storyboard-05-lakeside-linger-v6-mobile.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard portrait 2:3 image, shot 5 for phone.\nScene: vertical lakeside view. Qing-he in celadon kneels closest with fingertips in the water; A-tang in coral sits beside the wreath; Wen-xi in azure stands behind looking at the sunset reflection. Reeds frame the bottom and lake rises behind them. Staggered depth, separate actions, no one looks at camera.\nCharacter cues: coral flowerpin, jade ribbon, blue ribbon; distinct clothing, matte realistic skin.\nConstraints: no extra people, text, logo or watermark.",
+  "model": "gpt-image-2.5",
+  "size": "1024x1536",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:34:45.478Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "aa37f3bae61fdf5511ffebb9448eb41f99a83261e2c38e8740e112882c972055"
+}

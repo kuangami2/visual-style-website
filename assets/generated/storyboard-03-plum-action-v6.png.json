@@ -1,0 +1,12 @@
+{
+  "file": "storyboard-03-plum-action-v6.png",
+  "role": "generated visual",
+  "prompt": "Use case: photorealistic-natural\nAsset type: unique storyboard landscape 3:2 image, shot 3.\nScene: under a plum tree, close action detail. A-tang in coral holds two green plums in a woven palm basket; Wen-xi in azure reaches toward one while smiling in profile; Qing-he in celadon is farther behind brushing leaves from her sleeve. Hanging plums frame the foreground, hands and fruit are sharp, faces react to one another, no direct camera gaze.\nCharacter cues: A-tang round face and coral flowerpin; Qing-he oval face and jade ribbon; Wen-xi longer oval face and blue ribbon. Distinct clothing colors.\nLighting: dappled warm sunlight and cool orchard shade, realistic matte skin and fine texture, no oily shine or plastic skin.\nConstraints: no extra people, text, watermark, collage or interface.",
+  "model": "gpt-image-2.5",
+  "size": "1536x1024",
+  "quality": "high",
+  "generatedAt": "2026-09-23T11:35:09.723Z",
+  "source": "url",
+  "mime": "image/png",
+  "sha256": "2c6412a0007a631b538d108fbfff99246fbf4a5136eaf7658207211a16074808"
+}

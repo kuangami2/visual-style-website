@@ -80,48 +80,153 @@
     "sha256": "43fabf60f2c7916b507c2bf23c90c75c2cb5ff3538097cbd9fd032f151b0c3d0"
   },
   {
-    "file": "portrait-tang-v5.webp",
-    "source": "assets/generated/flower-field-v5.png",
+    "file": "storyboard-01-flower-field-v6.webp",
+    "source": "assets/generated/storyboard-01-flower-field-v6.png",
     "size": [
-      384,
-      384
+      1536,
+      1024
     ],
-    "crop": [
-      80,
-      70,
-      430,
-      420
-    ],
-    "sha256": "754c3015ba23f7b256c76b490da3a7ea98ac7b82469643359344eeaacd1f6cbd"
+    "crop": null,
+    "sha256": "15d23891a00356145d3947dd425cdb8274c68e1d56dc4d4f96990327b8e32e5c"
   },
   {
-    "file": "portrait-he-v5.webp",
-    "source": "assets/generated/flower-field-v5.png",
+    "file": "storyboard-01-flower-field-v6-mobile.webp",
+    "source": "assets/generated/storyboard-01-flower-field-v6-mobile.png",
     "size": [
-      384,
-      384
+      1024,
+      1536
     ],
-    "crop": [
-      650,
-      120,
-      1030,
-      500
-    ],
-    "sha256": "e4f326c155de9e0d7ffac798f5742b635bb033058e969ca8ae4b0c2b5cbc93ba"
+    "crop": null,
+    "sha256": "f4a13abf33c6999bf934c394fc2a365844d392f2fe4c3d2c0746be98d9c4f7bf"
   },
   {
-    "file": "portrait-xi-v5.webp",
-    "source": "assets/generated/flower-field-v5.png",
+    "file": "storyboard-02-wreath-action-v6.webp",
+    "source": "assets/generated/storyboard-02-wreath-action-v6.png",
     "size": [
-      384,
-      384
+      1536,
+      1024
     ],
-    "crop": [
-      1120,
-      70,
-      1500,
-      430
+    "crop": null,
+    "sha256": "9c3693d5c92b13bb4ae7b38a70fd42dba0d57d7f87cef789c9796819186dcde1"
+  },
+  {
+    "file": "storyboard-02-wreath-action-v6-mobile.webp",
+    "source": "assets/generated/storyboard-02-wreath-action-v6-mobile.png",
+    "size": [
+      1024,
+      1536
     ],
-    "sha256": "2f3d4a280ed561e672af8eefa860f5b243a2928c1a61f8297662c6e626c4eea3"
+    "crop": null,
+    "sha256": "20011cdde5659db3965f250c14df81e818cc2f7b66282776fa46da1e4eca9ddf"
+  },
+  {
+    "file": "storyboard-03-plum-action-v6.webp",
+    "source": "assets/generated/storyboard-03-plum-action-v6.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "crop": null,
+    "sha256": "03b5b8ba904f98393fb002827d1e1694476c42674086fe6d96508c7e137ad274"
+  },
+  {
+    "file": "storyboard-03-plum-action-v6-mobile.webp",
+    "source": "assets/generated/storyboard-03-plum-action-v6-mobile.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "crop": null,
+    "sha256": "f0c5b9157325b29357393e0edcf73b1dfb07027c261523247ad2da19a358deb8"
+  },
+  {
+    "file": "storyboard-04-turn-back-v6.webp",
+    "source": "assets/generated/storyboard-04-turn-back-v6.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "crop": null,
+    "sha256": "23c7b90643a4843a6029456409e50ddb7556aabc773c593ff844406842669d53"
+  },
+  {
+    "file": "storyboard-04-turn-back-v6-mobile.webp",
+    "source": "assets/generated/storyboard-04-turn-back-v6-mobile.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "crop": null,
+    "sha256": "0befdbc8e95fa5fa5b09d62cd073bc9a4e1dd11d78cc916d562dec5ba86f5119"
+  },
+  {
+    "file": "storyboard-05-lakeside-linger-v6.webp",
+    "source": "assets/generated/storyboard-05-lakeside-linger-v6.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "crop": null,
+    "sha256": "3fabd7ce076a615f5c81ff8b49a3cf76eeca049d777304ee92225f9da61929cc"
+  },
+  {
+    "file": "storyboard-05-lakeside-linger-v6-mobile.webp",
+    "source": "assets/generated/storyboard-05-lakeside-linger-v6-mobile.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "crop": null,
+    "sha256": "48654774ec3fcd20bb15373eeb8af1f5b7bfabeef7618d6f76a9d28708c8e729"
+  },
+  {
+    "file": "storyboard-06-walk-home-v6.webp",
+    "source": "assets/generated/storyboard-06-walk-home-v6.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "crop": null,
+    "sha256": "c49cfd1708df757009d41688d72effe5b70aa7c88dbc8cc71be8e82338e62f2f"
+  },
+  {
+    "file": "storyboard-06-walk-home-v6-mobile.webp",
+    "source": "assets/generated/storyboard-06-walk-home-v6-mobile.png",
+    "size": [
+      1024,
+      1536
+    ],
+    "crop": null,
+    "sha256": "a955861aacbf49c527147bb86abc4766a86c8539ef468061d33e7798c0c0e83c"
+  },
+  {
+    "file": "portrait-tang-v6.webp",
+    "source": "assets/generated/portrait-tang-v6.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "crop": null,
+    "sha256": "4e59b7d398184b33c67a6171bf9927dfe10be2f3f30787407dd11eb450514524"
+  },
+  {
+    "file": "portrait-he-v6.webp",
+    "source": "assets/generated/portrait-he-v6.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "crop": null,
+    "sha256": "1be233c55bdca0f0f17f89bbd2299aff588b5de54c9f7228ec35875eaf71e142"
+  },
+  {
+    "file": "portrait-xi-v6.webp",
+    "source": "assets/generated/portrait-xi-v6.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "crop": null,
+    "sha256": "6b71e6b7f29e7a8d21c754760fdf2e4b3ba162a9cd3f7ecb3d19cf15d5eb272d"
   }
 ]
