@@ -341,6 +341,7 @@ function Interaction({ chapter, petals, woven, plumChoice, duskFriends, duskActi
 
 function FinishScreen({ companions: selectedCompanions, activity, petals, plumChoice, shots, exporting, exportUrl, exportError, isSoundOn, onToggleSound, onExport, onReset }: { companions: Companion[]; activity: DuskActivity; petals: number[]; plumChoice: Companion | null; shots: Shot[]; exporting: boolean; exportUrl: string | null; exportError: string; isSoundOn: boolean; onToggleSound: () => void; onExport: () => void; onReset: () => void }) {
   const [shareMessage, setShareMessage] = useState('')
+  const [previewShot, setPreviewShot] = useState<Shot | null>(null)
   const names = selectedCompanions.map((id) => companions.find((item) => item.id === id)?.name).filter(Boolean) as string[]
   const groupLabel = names.length > 1 ? `${names.slice(0, -1).join('、')}和${names[names.length - 1]}` : names[0] ?? '青禾'
   const activityName = duskActivities.find((item) => item.id === activity)?.title ?? '听一会儿风'
@@ -353,7 +354,7 @@ function FinishScreen({ companions: selectedCompanions, activity, petals, plumCh
       setShareMessage('复制浏览器地址栏，就能把这页游记分享出去。')
     }
   }
-  return <main className="finish-shell"><div className="grain" aria-hidden="true" />
+  return <main className="finish-shell" style={{ '--finish-image': `url(${shots[5].image})` } as CSSProperties}><div className="grain" aria-hidden="true" />
     <header className="topbar finish-top"><button className="wordmark" onClick={onReset} aria-label="重新开始游记"><span>花朝</span><strong>晚些回去</strong></button><div className="finish-top-actions"><span className="finish-tag">游记完成</span><button className="quiet-button" onClick={onToggleSound} aria-pressed={isSoundOn}><span className="sound-dot" />{isSoundOn ? '自然声已开' : '打开自然声'}</button></div></header>
     <div className="finish-grid"><section className="finish-copy"><div className="chapter-kicker"><span className="sun-mark" />你的花朝游记已经写好</div><h1 id="journey-title" tabIndex={-1}>晚些回去，<br /><i>也没有关系。</i></h1><p>你和{groupLabel}一起{activityName}，坐到了天快黑。六个片刻，收好这一日的光。</p>
       {petals.length > 0 && <div className="memory-flowers" aria-label="今天采下的花">{petals.map((index) => <span key={index}><FlowerMark index={index} />{flowers[index].name}</span>)}</div>}
@@ -361,7 +362,8 @@ function FinishScreen({ companions: selectedCompanions, activity, petals, plumCh
       <div className="finish-actions">{exportUrl ? <a className="primary-action" href={exportUrl} download="wan-late-home-storyboard.zip">保存双版分镜包 <span>↓</span></a> : <button className="primary-action" onClick={onExport} disabled={exporting}>{exporting ? '正在整理六个片刻…' : '收好今天的六个片刻'} <span>{exporting ? '·' : '↓'}</span></button>}<button className="secondary-action" onClick={share}>分享这页游记 <span>↗</span></button><button className="text-action" onClick={onReset}>再走一遍</button></div>
       <p className="export-error" role="alert">{exportError}</p><p className="share-feedback" role="status">{shareMessage}</p>
       <div className="share-note">{selectedCompanions.length} 位同行者 · {activityName}<br />可保存横竖双版图片、字幕和分镜说明。链接会记住你的选择。</div>
-    </section><section className="storyboard-preview" aria-label="游记分镜预览"><div className="preview-label"><span>把日子，留在光里</span><span>01 — 06</span></div><div className="shot-stack">{shots.slice(0, 3).map((shot, index) => <div className={`shot-card shot-${index}`} key={shot.index} style={{ backgroundImage: `url(${shot.image})` }}><span>0{shot.index}</span><strong>{shot.title}</strong></div>)}</div><div className="preview-bottom">风从花梢里穿过去<br /><em>大家便都慢下来。</em></div></section></div>
+    </section><section className="storyboard-preview" aria-label="游记分镜预览"><div className="preview-label"><span>把日子，留在光里</span><span>01 — 06</span></div><div className="shot-gallery">{shots.map((shot) => <button className="shot-thumbnail" type="button" key={shot.index} onClick={() => setPreviewShot(shot)} aria-label={`查看第${shot.index}张分镜：${shot.title}`}><img src={shot.image} alt="" /><span>0{shot.index}</span><strong>{shot.title}</strong></button>)}</div><div className="preview-bottom">风从花梢里穿过去<br /><em>大家便都慢下来。</em></div></section></div>
+    {previewShot && <div className="shot-lightbox" role="dialog" aria-modal="true" aria-label={`第${previewShot.index}张分镜：${previewShot.title}`} onClick={() => setPreviewShot(null)} onKeyDown={(event) => { if (event.key === 'Escape') setPreviewShot(null) }}><button type="button" className="lightbox-close" aria-label="关闭图片预览" onClick={() => setPreviewShot(null)}>×</button><img src={previewShot.image} alt={`${previewShot.title}。${previewShot.subtitle}`} onClick={(event) => event.stopPropagation()} /><div className="lightbox-caption"><span>0{previewShot.index} / 06 · {previewShot.title}</span><small>{previewShot.subtitle}</small></div></div>}
   </main>
 }
 
