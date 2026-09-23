@@ -16,6 +16,7 @@ button { color: inherit; }
 .quiet-button { border: 1px solid rgba(243,235,221,.28); border-radius: 999px; background: rgba(11,38,48,.15); backdrop-filter: blur(12px); cursor: pointer; padding: 8px 14px; color: rgba(243,235,221,.82); font-size: 12px; transition: .25s ease; }
 .quiet-button:hover { border-color: rgba(243,235,221,.65); background: rgba(11,38,48,.35); }
 .sound-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #f2b55b; margin-right: 7px; box-shadow: 0 0 0 0 rgba(242,181,91,.4); }
+.music-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #b4c8dd; margin-right: 7px; box-shadow: 0 0 0 0 rgba(180,200,221,.4); }
 .sound-dot + * { vertical-align: middle; }
 .chapter-rail { position: absolute; left: 4.5vw; top: 33%; z-index: 3; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 .rail-label { text-transform: uppercase; font-size: 10px; color: rgba(243,235,221,.54); letter-spacing: .28em; writing-mode: vertical-rl; position: absolute; left: -23px; top: 2px; }
@@ -89,6 +90,7 @@ button:disabled { cursor: default; }
 .quiet-button { min-height: 36px; }
 .quiet-button[aria-pressed='false'] .sound-dot { background: #b3b9b2; box-shadow: none; }
 .quiet-button[aria-pressed='true'] .sound-dot { box-shadow: 0 0 0 3px rgba(242,181,91,.15); }
+.quiet-button[aria-pressed='true'] .music-dot { box-shadow: 0 0 0 3px rgba(180,200,221,.18); }
 .petal-field { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 8px; position: static; height: auto; margin-bottom: 12px; width: 100%; }
 .petal { position: relative; inset: auto; animation: none; filter: none; transform: none; text-shadow: none; width: 100%; min-height: 119px; padding: 13px 3px 10px; gap: 5px; background: rgba(8,29,35,.42); border: 1px solid rgba(243,235,221,.22); border-radius: 38px 38px 12px 12px; color: var(--flower-color); transition: background .2s, border-color .2s, transform .2s; }
 .flower-mark { width: 43px; height: 43px; flex-shrink: 0; overflow: visible; filter: drop-shadow(0 3px 7px rgba(0,0,0,.24)); }

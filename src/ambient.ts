@@ -13,24 +13,6 @@ function randomSource(seed: number) {
   }
 }
 
-function randomEnvelope(random: () => number, sampleRate: number) {
-  let from = 0.45 + random() * 0.55
-  let to = 0.45 + random() * 0.55
-  let length = Math.round((2.5 + random() * 4.5) * sampleRate)
-  let position = 0
-  return () => {
-    if (position >= length) {
-      from = to
-      to = 0.45 + random() * 0.55
-      length = Math.round((2.5 + random() * 4.5) * sampleRate)
-      position = 0
-    }
-    const phase = position++ / length
-    const smooth = phase * phase * (3 - 2 * phase)
-    return from + (to - from) * smooth
-  }
-}
-
 /** Kept separate from Web Audio so the actual waveform can be measured offline. */
 export function synthesizeWind(seed = 0x57494e44): [Float32Array, Float32Array] {
   const length = WIND_SAMPLE_RATE * WIND_SECONDS
@@ -38,29 +20,33 @@ export function synthesizeWind(seed = 0x57494e44): [Float32Array, Float32Array] 
   const rawLength = length + overlap
   const channels: [Float32Array, Float32Array] = [new Float32Array(rawLength), new Float32Array(rawLength)]
   const random = randomSource(seed)
-  const gust = randomEnvelope(random, WIND_SAMPLE_RATE)
-  const leafEnvelopes = [randomEnvelope(random, WIND_SAMPLE_RATE), randomEnvelope(random, WIND_SAMPLE_RATE)]
   const coefficient = (frequency: number) => 1 - Math.exp(-2 * Math.PI * frequency / WIND_SAMPLE_RATE)
-  // Keep the wind body in the low mids and reduce the brittle high-band hiss.
-  const airCoefficient = coefficient(390)
-  const rumbleCoefficient = coefficient(125)
-  const leafCoefficient = coefficient(1450)
-  const leafBassCoefficient = coefficient(360)
-  let air = 0
-  let rumble = 0
-  const leaves = [0, 0]
-  const leafBass = [0, 0]
-
+  // Sparse gusts with long rests sound like distant air moving through trees.
+  // Continuous broadband noise was the source of the rain-like impression.
+  const lowPass = coefficient(720)
+  const highPass = coefficient(90)
+  let noise = 0
+  let body = 0
+  const gustStarts = new Set<number>()
+  for (let second = 1.5; second < WIND_SECONDS; second += 2.2 + random() * 2.8) {
+    gustStarts.add(Math.round(second * WIND_SAMPLE_RATE))
+  }
+  let gustUntil = 0
+  let gustStart = 0
+  let gustStrength = 0
   for (let index = 0; index < rawLength; index += 1) {
-    // A shared centre gives the breeze body; independent leaves give stereo space.
-    air += airCoefficient * ((random() * 2 - 1) - air)
-    rumble += rumbleCoefficient * (air - rumble)
-    const breeze = (air - rumble) * gust() * 1.45
-    for (let channel = 0; channel < 2; channel += 1) {
-      leaves[channel] += leafCoefficient * ((random() * 2 - 1) - leaves[channel])
-      leafBass[channel] += leafBassCoefficient * (leaves[channel] - leafBass[channel])
-      channels[channel][index] = breeze + (leaves[channel] - leafBass[channel]) * leafEnvelopes[channel]() * 0.28
+    if (gustStarts.has(index)) {
+      gustStart = index
+      gustUntil = index + Math.round((0.8 + random() * 1.8) * WIND_SAMPLE_RATE)
+      gustStrength = 0.12 + random() * 0.12
     }
+    const progress = gustUntil > index ? (index - gustStart) / Math.max(1, gustUntil - gustStart) : 1
+    const envelope = gustUntil > index ? Math.sin(Math.max(0, Math.min(1, progress)) * Math.PI) : 0
+    noise += lowPass * ((random() * 2 - 1) - noise)
+    body += highPass * (noise - body)
+    const sample = body * envelope * gustStrength
+    channels[0][index] = sample * 0.95
+    channels[1][index] = sample * 0.8
   }
 
   // Overlap the tail with the beginning. Equal-power weights avoid a quiet gap.
@@ -96,6 +82,32 @@ export function synthesizeWind(seed = 0x57494e44): [Float32Array, Float32Array] 
     for (let index = 0; index < length; index += 1) channel[index] *= normalization
   }
   return result
+}
+
+/** A quiet, non-rhythmic pentatonic music bed. It deliberately avoids drums and hiss. */
+export function synthesizeQuietMusic(): [Float32Array, Float32Array] {
+  const sampleRate = 24_000
+  const seconds = 28
+  const length = sampleRate * seconds
+  const left = new Float32Array(length)
+  const right = new Float32Array(length)
+  const notes = [220, 261.63, 293.66, 329.63, 392]
+  const step = 2.8
+  for (let index = 0; index < length; index += 1) {
+    const time = index / sampleRate
+    const noteIndex = Math.floor(time / step) % notes.length
+    const noteTime = time % step
+    const attack = Math.min(1, noteTime / 0.35)
+    const release = Math.min(1, (step - noteTime) / 1.2)
+    const envelope = attack * release
+    const frequency = notes[noteIndex]
+    const tone = Math.sin(2 * Math.PI * frequency * time) * 0.55
+      + Math.sin(2 * Math.PI * frequency * 2 * time) * 0.12
+    const value = tone * envelope * 0.075
+    left[index] = value
+    right[index] = value * 0.82
+  }
+  return [left, right]
 }
 
 export class AmbientWind {
@@ -240,5 +252,95 @@ export class AmbientWind {
   private onVisibilityChange = () => {
     if (document.hidden) this.fadeAndPause(0.15)
     else if (this.requested) void this.start()
+  }
+}
+
+export class QuietMusic {
+  private context: AudioContext | null = null
+  private source: AudioBufferSourceNode | null = null
+  private gain: GainNode | null = null
+  private active = false
+  private disposed = false
+  private operation = 0
+
+  constructor(private onStateChange?: (enabled: boolean) => void) {}
+  get enabled() { return this.active }
+
+  async toggle(): Promise<boolean> {
+    if (this.active) { this.stop(); return false }
+    return this.start()
+  }
+
+  async start(): Promise<boolean> {
+    if (this.disposed) return false
+    const operation = ++this.operation
+    try {
+      if (!this.context) this.initialize()
+      const context = this.context!
+      await context.resume()
+      if (operation !== this.operation || this.disposed) return this.active
+      this.active = true
+      this.onStateChange?.(true)
+      this.fadeTo(0.32, 1.4)
+      return true
+    } catch {
+      this.stop()
+      return false
+    }
+  }
+
+  stop() {
+    this.operation += 1
+    this.active = false
+    this.onStateChange?.(false)
+    this.fadeTo(0, 0.8)
+  }
+
+  dispose() {
+    if (this.disposed) return
+    this.disposed = true
+    this.operation += 1
+    this.source?.stop()
+    this.source?.disconnect()
+    this.gain?.disconnect()
+    if (this.context) void this.context.close().catch(() => {})
+    this.context = null
+    this.source = null
+    this.gain = null
+    this.onStateChange = undefined
+  }
+
+  private initialize() {
+    const AudioContextConstructor = window.AudioContext
+      ?? (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+    if (!AudioContextConstructor) throw new Error('Web Audio is unavailable')
+    const context = new AudioContextConstructor()
+    try {
+      const channels = synthesizeQuietMusic()
+      const buffer = context.createBuffer(2, channels[0].length, 24_000)
+      channels.forEach((channel, index) => buffer.getChannelData(index).set(channel))
+      const source = context.createBufferSource()
+      const gain = context.createGain()
+      gain.gain.value = 0
+      source.buffer = buffer
+      source.loop = true
+      source.connect(gain).connect(context.destination)
+      source.start()
+      this.context = context
+      this.source = source
+      this.gain = gain
+    } catch (error) {
+      void context.close().catch(() => {})
+      throw error
+    }
+  }
+
+  private fadeTo(value: number, seconds: number) {
+    if (!this.context || !this.gain) return
+    const now = this.context.currentTime
+    const parameter = this.gain.gain
+    if (typeof parameter.cancelAndHoldAtTime === 'function') parameter.cancelAndHoldAtTime(now)
+    else { parameter.cancelScheduledValues(now); parameter.setValueAtTime(parameter.value, now) }
+    parameter.linearRampToValueAtTime(value, now + seconds)
   }
 }
