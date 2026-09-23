@@ -2,7 +2,8 @@
 const WIND_SAMPLE_RATE = 24_000
 const WIND_SECONDS = 48
 const CROSSFADE_SECONDS = 4
-const LISTENING_GAIN = 0.28
+// Keep ambience below conversational foreground volume on small speakers.
+const LISTENING_GAIN = 0.18
 
 function randomSource(seed: number) {
   let state = seed >>> 0
@@ -40,10 +41,11 @@ export function synthesizeWind(seed = 0x57494e44): [Float32Array, Float32Array] 
   const gust = randomEnvelope(random, WIND_SAMPLE_RATE)
   const leafEnvelopes = [randomEnvelope(random, WIND_SAMPLE_RATE), randomEnvelope(random, WIND_SAMPLE_RATE)]
   const coefficient = (frequency: number) => 1 - Math.exp(-2 * Math.PI * frequency / WIND_SAMPLE_RATE)
-  const airCoefficient = coefficient(530)
-  const rumbleCoefficient = coefficient(145)
-  const leafCoefficient = coefficient(2850)
-  const leafBassCoefficient = coefficient(680)
+  // Keep the wind body in the low mids and reduce the brittle high-band hiss.
+  const airCoefficient = coefficient(390)
+  const rumbleCoefficient = coefficient(125)
+  const leafCoefficient = coefficient(1450)
+  const leafBassCoefficient = coefficient(360)
   let air = 0
   let rumble = 0
   const leaves = [0, 0]
@@ -57,17 +59,26 @@ export function synthesizeWind(seed = 0x57494e44): [Float32Array, Float32Array] 
     for (let channel = 0; channel < 2; channel += 1) {
       leaves[channel] += leafCoefficient * ((random() * 2 - 1) - leaves[channel])
       leafBass[channel] += leafBassCoefficient * (leaves[channel] - leafBass[channel])
-      channels[channel][index] = breeze + (leaves[channel] - leafBass[channel]) * leafEnvelopes[channel]() * 0.7
+      channels[channel][index] = breeze + (leaves[channel] - leafBass[channel]) * leafEnvelopes[channel]() * 0.28
     }
   }
 
   // Overlap the tail with the beginning. Equal-power weights avoid a quiet gap.
   // At the loop boundary, the two samples are adjacent in the original tail.
   const result: [Float32Array, Float32Array] = [new Float32Array(length), new Float32Array(length)]
+  const smoothed: [Float32Array, Float32Array] = [new Float32Array(rawLength), new Float32Array(rawLength)]
+  const toneCoefficient = coefficient(1750)
+  for (let channel = 0; channel < 2; channel += 1) {
+    let tone = 0
+    for (let index = 0; index < rawLength; index += 1) {
+      tone += toneCoefficient * (channels[channel][index] - tone)
+      smoothed[channel][index] = tone
+    }
+  }
   let sumSquares = 0
   let peak = 0
   for (let channel = 0; channel < 2; channel += 1) {
-    const raw = channels[channel]
+    const raw = smoothed[channel]
     const output = result[channel]
     for (let index = 0; index < length; index += 1) {
       const phase = index / overlap * Math.PI / 2
