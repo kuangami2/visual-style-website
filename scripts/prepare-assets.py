@@ -32,6 +32,13 @@ def save_web(image, name, source, crop=None):
     target = DEST / name
     image = ImageOps.exif_transpose(image).convert('RGB')
     image.save(target, 'WEBP', quality=91, method=6)
+    # Display derivatives are separate from full-resolution export assets.
+    for variant, edge, quality in (('screen', 1280, 76), ('thumb', 480, 72)):
+        preview = image.copy()
+        preview.thumbnail((edge, edge), Image.Resampling.LANCZOS)
+        stem = Path(name).stem + '-' + variant
+        preview.save(DEST / (stem + '.webp'), 'WEBP', quality=quality, method=6)
+        preview.save(DEST / (stem + '.jpg'), 'JPEG', quality=quality, optimize=True, progressive=True)
     records.append({'file': name, 'source': str(source.relative_to(ROOT)).replace('\\', '/'),
                     'size': image.size, 'crop': crop,
                     'sha256': hashlib.sha256(target.read_bytes()).hexdigest()})

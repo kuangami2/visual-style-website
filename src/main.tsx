@@ -5,6 +5,7 @@ import { BackgroundMusic } from './music'
 import { MusicControl } from './MusicControl'
 import { playPickingSound, playWeavingSound } from './interaction-sounds'
 import './styles.css'
+import { DisplayImage } from './DisplayImage'
 
 type Companion = 'tang' | 'he' | 'xi'
 
@@ -322,7 +323,7 @@ const plumReplies: Record<Companion, string> = {
 
 function SelectionMemory({ image, alt, label, line }: { image: string; alt: string; label: string; line: string }) {
   return <figure className="selection-memory" key={`${label}-${line}`}>
-    <img src={image} alt={alt} />
+    <DisplayImage src={image} alt={alt} small />
     <figcaption><span>{label}</span><p>{line}</p></figcaption>
   </figure>
 }
@@ -390,7 +391,7 @@ function FinishScreen({ companions: selectedCompanions, activity, petals, plumCh
       <div className="finish-actions">{exportUrl ? <a className="primary-action" href={exportUrl} download="wan-late-home-storyboard.zip">保存双版分镜包 <span>↓</span></a> : <button className="primary-action" onClick={onExport} disabled={exporting}>{exporting ? '正在整理六个片刻…' : '收好今天的六个片刻'} <span>{exporting ? '·' : '↓'}</span></button>}<button className="secondary-action" onClick={share}>分享这页游记 <span>↗</span></button><button className="text-action" onClick={onReset}>再走一遍</button></div>
       <p className="export-error" role="alert">{exportError}</p><p className="share-feedback" role="status">{shareMessage}</p>
       <div className="share-note">{selectedCompanions.length} 位同行者 · {activityName}<br />可保存横竖双版图片、字幕和分镜说明。链接会记住你的选择。</div>
-    </section><section className="storyboard-preview" aria-label="游记分镜预览"><div className="preview-label"><span>把日子，留在光里</span><span>01 — 06</span></div><div className="shot-gallery">{shots.map((shot) => <button className="shot-thumbnail" type="button" key={shot.index} onClick={() => setPreviewShot(shot)} aria-label={`查看第${shot.index}张分镜：${shot.title}`}><img src={shot.image} alt="" /><span>0{shot.index}</span><strong>{shot.title}</strong></button>)}</div><div className="preview-bottom">风从花梢里穿过去<br /><em>大家便都慢下来。</em></div></section></div>
+    </section><section className="storyboard-preview" aria-label="游记分镜预览"><div className="preview-label"><span>把日子，留在光里</span><span>01 — 06</span></div><div className="shot-gallery">{shots.map((shot) => <button className="shot-thumbnail" type="button" key={shot.index} onClick={() => setPreviewShot(shot)} aria-label={`查看第${shot.index}张分镜：${shot.title}`}><DisplayImage src={shot.image} alt="" small /><span>0{shot.index}</span><strong>{shot.title}</strong></button>)}</div><div className="preview-bottom">风从花梢里穿过去<br /><em>大家便都慢下来。</em></div></section></div>
     {previewShot && <div className="shot-lightbox" role="dialog" aria-modal="true" aria-label={`第${previewShot.index}张分镜：${previewShot.title}`} onClick={() => setPreviewShot(null)} onKeyDown={(event) => { if (event.key === 'Escape') setPreviewShot(null) }}><button type="button" className="lightbox-close" aria-label="关闭图片预览" onClick={() => setPreviewShot(null)}>×</button><img src={previewShot.image} alt={`${previewShot.title}。${previewShot.subtitle}`} onClick={(event) => event.stopPropagation()} /><div className="lightbox-caption"><span>0{previewShot.index} / 06 · {previewShot.title}</span><small>{previewShot.subtitle}</small></div></div>}
   </main>
 }
