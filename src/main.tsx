@@ -273,8 +273,8 @@ function App() {
   return (
     <main className="app-shell" style={{ '--chapter-tint': current.tint } as CSSProperties}>
       <div className="grain" aria-hidden="true" />
-      <section className={`scene scene-${current.id}`} style={{ '--scene-image': `url(${current.image})`, '--scene-image-mobile': `url(${current.image.replace('-v5.webp', '-mobile-v5.webp')})` } as CSSProperties} aria-labelledby="journey-title">
-        <div className="scene-shade" />
+      <section className={`scene scene-${current.id}`}  aria-labelledby="journey-title">
+        <DisplayImage key={current.image} className="scene-photo" src={current.image} mobileSrc={current.image.replace('-v5.webp', '-mobile-v5.webp')} eager alt="" /><div className="scene-shade" />
         <header className="topbar">
           <button className="wordmark" onClick={reset} aria-label="回到开头"><span>花朝</span><strong>晚些回去</strong></button>
           <div className="top-actions">
@@ -350,7 +350,7 @@ function Interaction({ chapter, petals, woven, wovenFlowers, plumChoice, duskFri
   </div>
   if (chapter === 2) return <div className="interaction">
     <p className="prompt"><span aria-hidden="true">✦</span> 这一颗青梅，给谁？</p>
-    <div className="friend-row plum-row">{companions.map((friend) => <button key={friend.id} className={`friend-card plum-friend-card friend-${friend.id} ${plumChoice === friend.id ? 'chosen' : ''}`} onClick={() => onPlum(friend.id)} aria-pressed={plumChoice === friend.id}><span className="avatar" style={{ backgroundImage: `url(${friend.portrait})`, borderColor: friend.color }} aria-hidden="true" /><span><strong>{friend.name}</strong><small>{friend.note}</small></span><i aria-hidden="true">{plumChoice === friend.id ? '✓' : '↗'}</i></button>)}</div>
+    <div className="friend-row plum-row">{companions.map((friend) => <button key={friend.id} className={`friend-card plum-friend-card friend-${friend.id} ${plumChoice === friend.id ? 'chosen' : ''}`} onClick={() => onPlum(friend.id)} aria-pressed={plumChoice === friend.id}><DisplayImage className="avatar" src={friend.portrait} small alt="" /><span><strong>{friend.name}</strong><small>{friend.note}</small></span><i aria-hidden="true">{plumChoice === friend.id ? '✓' : '↗'}</i></button>)}</div>
     <p className="choice-reply" aria-live="polite">{plumChoice ? plumReplies[plumChoice] : '选一位朋友，听听她会说些什么。'}</p>
     <button className="next-button" disabled={!plumChoice} onClick={onAdvance}>带着笑意，去湖边 <span aria-hidden="true">↗</span></button>
     {plumChoice && <SelectionMemory image={companions.find((friend) => friend.id === plumChoice)!.portrait} alt={`${companions.find((friend) => friend.id === plumChoice)!.name}的肖像`} label={`递给${companions.find((friend) => friend.id === plumChoice)!.name}`} line={choiceLines[2]} />}
@@ -360,7 +360,7 @@ function Interaction({ chapter, petals, woven, wovenFlowers, plumChoice, duskFri
   return <div className="interaction">
     <p className="prompt"><span aria-hidden="true">✦</span> 和谁并肩？可以都选 <em aria-live="polite">{duskFriends.length} 人</em></p>
     <button className="group-button" onClick={onAllFriends} aria-pressed={duskFriends.length === companions.length}>{duskFriends.length === companions.length ? '已约上所有人 ✓' : '把大家都叫来 +'}</button>
-    <div className="friend-row final-row">{companions.map((friend) => <button key={friend.id} className={`friend-card large-friend-card friend-${friend.id} ${duskFriends.includes(friend.id) ? 'chosen' : ''}`} onClick={() => onDuskFriend(friend.id)} aria-pressed={duskFriends.includes(friend.id)}><span className="avatar" style={{ backgroundImage: `url(${friend.portrait})`, borderColor: friend.color }} aria-hidden="true" /><span><strong>{friend.name}</strong><small>{friend.note}</small></span><i aria-hidden="true">{duskFriends.includes(friend.id) ? '✓' : '+'}</i></button>)}</div>
+    <div className="friend-row final-row">{companions.map((friend) => <button key={friend.id} className={`friend-card large-friend-card friend-${friend.id} ${duskFriends.includes(friend.id) ? 'chosen' : ''}`} onClick={() => onDuskFriend(friend.id)} aria-pressed={duskFriends.includes(friend.id)}><DisplayImage className="avatar" src={friend.portrait} small alt="" /><span><strong>{friend.name}</strong><small>{friend.note}</small></span><i aria-hidden="true">{duskFriends.includes(friend.id) ? '✓' : '+'}</i></button>)}</div>
     <div className="activity-row" role="group" aria-label="选择一起做的事">{duskActivities.map((item) => <button key={item.id} className={`activity-card ${duskActivity === item.id ? 'chosen' : ''}`} onClick={() => onDuskActivity(item.id)} aria-pressed={duskActivity === item.id}><b aria-hidden="true">{item.symbol}</b><span><strong>{item.title}</strong><small>{item.note}</small></span></button>)}</div>
     <p className="choice-reply" aria-live="polite">{duskFriends.length > 0 && duskActivity ? `${duskNames}坐到身边。${duskReply}` : duskReply}</p>
     <button className="next-button" disabled={duskFriends.length === 0 || !duskActivity} onClick={onFinishDusk}>{duskFriends.length === 0 ? '先选同行的人' : !duskActivity ? '再选一件小事' : '坐到天快黑'} <span aria-hidden="true">↗</span></button>
@@ -383,7 +383,7 @@ function FinishScreen({ companions: selectedCompanions, activity, petals, plumCh
       setShareMessage('复制浏览器地址栏，就能把这页游记分享出去。')
     }
   }
-  return <main className="finish-shell" style={{ '--finish-image': `url(${shots[5].image})` } as CSSProperties}><div className="grain" aria-hidden="true" />
+  return <main className="finish-shell" ><DisplayImage className="finish-photo" src={shots[5].image} mobileSrc={shots[5].mobileImage} eager alt="" /><div className="grain" aria-hidden="true" />
     <header className="topbar finish-top"><button className="wordmark" onClick={onReset} aria-label="重新开始游记"><span>花朝</span><strong>晚些回去</strong></button><div className="finish-top-actions"><span className="finish-tag">游记完成</span><MusicControl enabled={isMusicOn} error={musicError} onToggle={onToggleMusic} /></div></header>
     <div className="finish-grid"><section className="finish-copy"><div className="chapter-kicker"><span className="sun-mark" />你的花朝游记已经写好</div><h1 id="journey-title" tabIndex={-1}>晚些回去，<br /><i>也没有关系。</i></h1><p>你和{groupLabel}一起{activityName}，坐到了天快黑。六个片刻，收好这一日的光。</p>
       {petals.length > 0 && <div className="memory-flowers" aria-label="今天采下的花">{petals.map((index) => <span key={index}><FlowerMark index={index} />{flowers[index].name}</span>)}</div>}
@@ -392,7 +392,7 @@ function FinishScreen({ companions: selectedCompanions, activity, petals, plumCh
       <p className="export-error" role="alert">{exportError}</p><p className="share-feedback" role="status">{shareMessage}</p>
       <div className="share-note">{selectedCompanions.length} 位同行者 · {activityName}<br />可保存横竖双版图片、字幕和分镜说明。链接会记住你的选择。</div>
     </section><section className="storyboard-preview" aria-label="游记分镜预览"><div className="preview-label"><span>把日子，留在光里</span><span>01 — 06</span></div><div className="shot-gallery">{shots.map((shot) => <button className="shot-thumbnail" type="button" key={shot.index} onClick={() => setPreviewShot(shot)} aria-label={`查看第${shot.index}张分镜：${shot.title}`}><DisplayImage src={shot.image} alt="" small /><span>0{shot.index}</span><strong>{shot.title}</strong></button>)}</div><div className="preview-bottom">风从花梢里穿过去<br /><em>大家便都慢下来。</em></div></section></div>
-    {previewShot && <div className="shot-lightbox" role="dialog" aria-modal="true" aria-label={`第${previewShot.index}张分镜：${previewShot.title}`} onClick={() => setPreviewShot(null)} onKeyDown={(event) => { if (event.key === 'Escape') setPreviewShot(null) }}><button type="button" className="lightbox-close" aria-label="关闭图片预览" onClick={() => setPreviewShot(null)}>×</button><img src={previewShot.image} alt={`${previewShot.title}。${previewShot.subtitle}`} onClick={(event) => event.stopPropagation()} /><div className="lightbox-caption"><span>0{previewShot.index} / 06 · {previewShot.title}</span><small>{previewShot.subtitle}</small></div></div>}
+    {previewShot && <div className="shot-lightbox" role="dialog" aria-modal="true" aria-label={`第${previewShot.index}张分镜：${previewShot.title}`} onClick={() => setPreviewShot(null)} onKeyDown={(event) => { if (event.key === 'Escape') setPreviewShot(null) }}><button type="button" className="lightbox-close" aria-label="关闭图片预览" onClick={() => setPreviewShot(null)}>×</button><DisplayImage key={previewShot.image} eager src={previewShot.image} alt={`${previewShot.title}。${previewShot.subtitle}`} onClick={(event) => event.stopPropagation()} /><div className="lightbox-caption"><span>0{previewShot.index} / 06 · {previewShot.title}</span><small>{previewShot.subtitle}</small></div></div>}
   </main>
 }
 

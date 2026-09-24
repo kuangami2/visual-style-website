@@ -24,7 +24,7 @@ export function DisplayImage({ src, mobileSrc, small = false, eager = false, alt
   }, [failed])
   return <>
     <img className={className} src={url + (retry ? `?retry=${retry}` : '')} alt={alt}
-      loading={eager ? 'eager' : 'lazy'} decoding="async" fetchPriority={eager ? 'high' : 'low'}
+      loading={eager ? 'eager' : 'lazy'} decoding="async"
       onClick={onClick} onError={() => { if (!attempt) setAttempt(1); else setFailed(true) }} />
     {failed && <span className="image-retry" role="status" onClick={(event) => { event.stopPropagation(); restart() }}
       onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); restart() } }}
