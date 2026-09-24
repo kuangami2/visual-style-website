@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type MouseEvent as ReactMouseEvent } from 'react'
 import { createRoot } from 'react-dom/client'
 import JSZip from 'jszip'
 import { BackgroundMusic } from './music'
@@ -6,120 +6,26 @@ import { MusicControl } from './MusicControl'
 import { playPickingSound, playWeavingSound } from './interaction-sounds'
 import './styles.css'
 import { DisplayImage } from './DisplayImage'
+import {
+  clearJourneySnapshot,
+  parseWovenParam,
+  readJourneySnapshot,
+  serializeWoven,
+  validActivity,
+  validCompanion,
+  writeJourneySnapshot,
+  type Companion,
+  type DuskActivity,
+} from './state/journeyState'
+import { chapters, choiceLines, companions, duskActivities, flowers, plumReplies, shotsFor, asset, type Shot } from './data/story'
 
-type Companion = 'tang' | 'he' | 'xi'
-
-type Chapter = {
-  id: string
-  chapter: string
-  title: string
-  eyebrow: string
-  line: string
-  prompt: string
-  image: string
-  tint: string
+type ExportProgress = {
+  completed: number
+  total: number
+  stage: 'images' | 'packaging' | 'complete'
 }
 
-type Shot = {
-  index: number
-  title: string
-  subtitle: string
-  image: string
-  mobileImage: string
-  duration: number
-  movement: string
-  sound: string
-}
-
-type DuskActivity = 'wind' | 'wreath' | 'story'
-
-const base = import.meta.env.BASE_URL
-const asset = (name: string) => `${base}assets/${name}`
-
-const chapters: Chapter[] = [
-  {
-    id: 'flower',
-    chapter: '一 / 遇花',
-    title: '先别走，花还没看完',
-    eyebrow: '花田 · 午后四时',
-    line: '风从花梢里穿过去，大家便都慢下来。',
-    prompt: '在花田里找到三朵愿意同行的花',
-    image: asset('generated/flower-field-v5.webp'),
-    tint: '#c77a35',
-  },
-  {
-    id: 'wreath',
-    chapter: '二 / 编环',
-    title: '把今天编在一起',
-    eyebrow: '花田 · 风变轻了',
-    line: '青禾说，花环不用对称，像我们这样就很好。',
-    prompt: '点选花材，把花环慢慢编好',
-    image: asset('generated/wreath-garden-v5.webp'),
-    tint: '#d99a8d',
-  },
-  {
-    id: 'plum',
-    chapter: '三 / 分梅',
-    title: '这一颗，给谁？',
-    eyebrow: '林下 · 日影西斜',
-    line: '一颗青梅在掌心滚了滚，甜味还没有决定去处。',
-    prompt: '把青梅递给一位朋友',
-    image: asset('generated/plum-forest-v5.webp'),
-    tint: '#f2b55b',
-  },
-  {
-    id: 'dusk',
-    chapter: '四 / 等夕阳',
-    title: '再坐一会儿',
-    eyebrow: '湖畔 · 天快黑了',
-    line: '回去也没有什么要紧的事。你想和谁并肩？',
-    prompt: '约上想同行的人，一起看完落日',
-    image: asset('generated/dusk-lake-v5.webp'),
-    tint: '#7e9bae',
-  },
-]
-
-const companions: { id: Companion; name: string; note: string; color: string; image: string; portrait: string }[] = [
-  { id: 'tang', name: '阿棠', note: '把寻常小事讲得有趣', color: '#d99a8d', image: asset('generated/flower-field-v5.webp'), portrait: asset('generated/portrait-tang-v6.webp') },
-  { id: 'he', name: '青禾', note: '手很巧，会把花编得刚刚好', color: '#849f89', image: asset('generated/wreath-garden-v5.webp'), portrait: asset('generated/portrait-he-v6.webp') },
-  { id: 'xi', name: '闻溪', note: '总是先听见风和鸟鸣', color: '#96aebe', image: asset('generated/plum-forest-v5.webp'), portrait: asset('generated/portrait-xi-v6.webp') },
-]
-
-const flowers = [
-  { name: '杏花', color: '#ff93ac', symbol: '✿', note: '胭脂 · 五瓣' },
-  { name: '栀子', color: '#fff6d9', symbol: '✽', note: '月白 · 重瓣' },
-  { name: '桔梗', color: '#80c9f5', symbol: '❀', note: '天青 · 星瓣' },
-  { name: '金盏', color: '#ffc04a', symbol: '✾', note: '暖金 · 细瓣' },
-  { name: '紫藤', color: '#ca9bf2', symbol: '✽', note: '藤紫 · 花穗' },
-]
-
-const choiceLines = [
-  '花枝在指间轻轻一颤，春天便有了可以带走的形状。',
-  '把颜色一圈圈编进去，风也在花叶间慢了下来。',
-  '青梅落进掌心，酸意和笑声都分给了身边的人。',
-  '闻溪坐到身边。风把湖水吹出细纹。大家安静下来，听见同一阵晚风。',
-]
-
-const duskActivities: { id: DuskActivity; title: string; note: string; symbol: string }[] = [
-  { id: 'wind', title: '听一会儿风', note: '不说话也很好', symbol: '≈' },
-  { id: 'wreath', title: '交换花环', note: '把下午戴到天黑', symbol: '✿' },
-  { id: 'story', title: '讲一件小事', note: '只讲给同行的人听', symbol: '∿' },
-]
-
-const shotsFor = (chosen: Companion, group: Companion[] = [], activity: DuskActivity = 'wind'): Shot[] => {
-  const friend = companions.find((item) => item.id === chosen) ?? companions[1]
-  const names = [chosen, ...group.filter((id) => id !== chosen)].map((id) => companions.find((item) => item.id === id)?.name).filter(Boolean) as string[]
-  const groupLabel = names.length > 1 ? `${names.slice(0, -1).join('、')}和${names[names.length - 1]}` : friend.name
-  const activityLine = duskActivities.find((item) => item.id === activity)?.title ?? '听一会儿风'
-  return [
-    { index: 1, title: '花枝擦过镜头', subtitle: '她们在花田里等你，没人急着往前走。', image: asset('generated/storyboard-01-flower-field-v6.webp'), mobileImage: asset('generated/storyboard-01-flower-field-v6-mobile.webp'), duration: 5, movement: '前景花叶轻晃，镜头慢慢推近', sound: '风穿过草叶' },
-    { index: 2, title: '手里的花环', subtitle: '青禾说：不用编得太整齐。', image: asset('generated/storyboard-02-wreath-action-v6.webp'), mobileImage: asset('generated/storyboard-02-wreath-action-v6-mobile.webp'), duration: 5, movement: '镜头从递花的手移到歪歪的花环', sound: '衣料与花梗的细响' },
-    { index: 3, title: '一颗青梅', subtitle: '酸意先到，笑声随后才来。', image: asset('generated/storyboard-03-plum-action-v6.webp'), mobileImage: asset('generated/storyboard-03-plum-action-v6-mobile.webp'), duration: 4, movement: '从果篮摇到伸来的手', sound: '树上鸟鸣' },
-    { index: 4, title: '有人回头', subtitle: `${friend.name}在喊你，夕阳已经落到肩上。`, image: asset('generated/storyboard-04-turn-back-v6.webp'), mobileImage: asset('generated/storyboard-04-turn-back-v6-mobile.webp'), duration: 5, movement: '逆光中定格一个回头', sound: '远处溪水' },
-    { index: 5, title: '坐到天快黑', subtitle: `你和${groupLabel}一起${activityLine}，谁也没有催谁。`, image: asset('generated/storyboard-05-lakeside-linger-v6.webp'), mobileImage: asset('generated/storyboard-05-lakeside-linger-v6-mobile.webp'), duration: 6, movement: '从指尖的水纹拉到湖面与三个人', sound: '湖面水声与晚风' },
-    { index: 6, title: '晚些回去', subtitle: '把今天收好，明天还可以再打开。', image: asset('generated/storyboard-06-walk-home-v6.webp'), mobileImage: asset('generated/storyboard-06-walk-home-v6-mobile.webp'), duration: 5, movement: '跟着灯笼走远，最后停在湖边小路', sound: '风声渐远，灯笼纸穗轻响' },
-  ]
-}
+const DEFAULT_EXPORT_PROGRESS: ExportProgress = { completed: 0, total: 12, stage: 'images' }
 
 function App() {
   const [chapterIndex, setChapterIndex] = useState(0)
@@ -137,8 +43,13 @@ function App() {
   const [exporting, setExporting] = useState(false)
   const [exportError, setExportError] = useState('')
   const [exportUrl, setExportUrl] = useState<string | null>(null)
+  const [exportProgress, setExportProgress] = useState<ExportProgress>(DEFAULT_EXPORT_PROGRESS)
+  const [journeyReady, setJourneyReady] = useState(false)
   const musicRef = useRef<BackgroundMusic | null>(null)
   const exportGenerationRef = useRef(0)
+  const exportAbortRef = useRef<AbortController | null>(null)
+  const exportUrlRef = useRef<string | null>(null)
+  const skipPersistRef = useRef(false)
 
   const current = chapters[chapterIndex]
   const progress = isFinished ? 100 : Math.round(((Math.min(petals.length / 3, 1) + woven.length / 4 + (plumChoice ? 1 : 0) + (duskFriends.length && duskActivity ? 1 : 0)) / chapters.length) * 100)
@@ -148,32 +59,77 @@ function App() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    const linkedFriends = [...new Set((params.get('friends') ?? params.get('friend') ?? '').split(',').filter((id): id is Companion => companions.some((item) => item.id === id)))]
-    const linkedActivity = params.get('activity') as DuskActivity | null
-    if (linkedFriends.length > 0) {
+    const linkedFriends = [...new Set((params.get('friends') ?? params.get('friend') ?? '').split(',').filter(validCompanion))]
+    const linkedActivity = params.get('activity')
+    const hasShare = linkedFriends.length > 0
+    if (hasShare) {
+      const linkedFlowers = [...new Set((params.get('flowers') ?? '').split(',').filter(Boolean).map(Number).filter((index) => Number.isInteger(index) && index >= 0 && index < flowers.length))].slice(0, 3)
+      const linkedWoven = parseWovenParam(params.get('woven'), flowers.length)
+      const linkedPlum = params.get('plum')
       setDuskFriends(linkedFriends)
       setCompanion(linkedFriends[0])
-      const linkedFlowers = [...new Set((params.get('flowers') ?? '').split(',').filter(Boolean).map(Number).filter((index) => Number.isInteger(index) && index >= 0 && index < flowers.length))].slice(0, 3)
       setPetals(linkedFlowers)
-      const linkedPlum = params.get('plum') as Companion | null
-      if (linkedPlum && companions.some((friend) => friend.id === linkedPlum)) setPlumChoice(linkedPlum)
-      if (linkedActivity && duskActivities.some((item) => item.id === linkedActivity)) setDuskActivity(linkedActivity)
+      setWoven(linkedWoven.woven)
+      setWovenFlowers(linkedWoven.wovenFlowers)
+      if (validCompanion(linkedPlum)) setPlumChoice(linkedPlum)
+      if (validActivity(linkedActivity)) setDuskActivity(linkedActivity)
       setIsFinished(true)
+      clearJourneySnapshot()
+    } else {
+      const saved = readJourneySnapshot(flowers.length, chapters.length)
+      if (saved) {
+        setChapterIndex(saved.chapterIndex)
+        setFurthestChapter(saved.furthestChapter)
+        setPetals(saved.petals)
+        setWoven(saved.woven)
+        setWovenFlowers(saved.wovenFlowers)
+        setPlumChoice(saved.plumChoice)
+        setCompanion(saved.companion)
+        setDuskFriends(saved.duskFriends)
+        setDuskActivity(saved.duskActivity)
+      }
     }
+    setJourneyReady(true)
   }, [])
+
+  useEffect(() => {
+    if (skipPersistRef.current) {
+      skipPersistRef.current = false
+      return
+    }
+    if (!journeyReady || isFinished) return
+    writeJourneySnapshot({ version: 1, chapterIndex, furthestChapter, petals, woven, wovenFlowers, plumChoice, companion, duskFriends, duskActivity })
+  }, [journeyReady, chapterIndex, furthestChapter, petals, woven, wovenFlowers, plumChoice, companion, duskFriends, duskActivity, isFinished])
 
   useEffect(() => {
     document.getElementById('journey-title')?.focus({ preventScroll: true })
     window.scrollTo({ top: 0, behavior: 'instant' })
   }, [chapterIndex, isFinished])
 
-  useEffect(() => () => { musicRef.current?.dispose() }, [])
-
-  useEffect(() => () => { if (exportUrl) URL.revokeObjectURL(exportUrl) }, [exportUrl])
+  useEffect(() => () => {
+    musicRef.current?.dispose()
+    exportGenerationRef.current += 1
+    exportAbortRef.current?.abort()
+    if (exportUrlRef.current) {
+      URL.revokeObjectURL(exportUrlRef.current)
+      exportUrlRef.current = null
+    }
+  }, [])
 
   const toggleMusic = async () => {
     if (!musicRef.current) musicRef.current = new BackgroundMusic(setIsMusicOn, setMusicError)
     await musicRef.current.toggle()
+  }
+
+  const replaceShareUrl = (friends: Companion[], activity: DuskActivity | null) => {
+    const params = new URLSearchParams({
+      friends: friends.join(','),
+      activity: activity ?? 'wind',
+      flowers: petals.join(','),
+      woven: serializeWoven(wovenFlowers, flowers.length),
+      ...(plumChoice ? { plum: plumChoice } : {}),
+    })
+    window.history.replaceState({}, '', `${window.location.pathname}?${params}`)
   }
 
   const nextChapter = () => {
@@ -184,11 +140,15 @@ function App() {
     }
     setIsFinished(true)
     const friends = duskFriends.length > 0 ? duskFriends : [companion ?? plumChoice ?? 'he']
-    window.history.replaceState({}, '', `${window.location.pathname}?friends=${friends.join(',')}&activity=${duskActivity ?? 'wind'}`)
+    clearJourneySnapshot()
+    replaceShareUrl(friends, duskActivity)
   }
 
   const reset = () => {
     exportGenerationRef.current += 1
+    exportAbortRef.current?.abort()
+    exportAbortRef.current = null
+    skipPersistRef.current = true
     setChapterIndex(0)
     setFurthestChapter(0)
     setPetals([])
@@ -199,9 +159,16 @@ function App() {
     setDuskFriends([])
     setDuskActivity(null)
     setIsFinished(false)
+    if (exportUrlRef.current) {
+      URL.revokeObjectURL(exportUrlRef.current)
+      exportUrlRef.current = null
+    }
     setExportUrl(null)
     setExporting(false)
     setExportError('')
+    setExportProgress(DEFAULT_EXPORT_PROGRESS)
+    clearJourneySnapshot()
+    window.setTimeout(() => { skipPersistRef.current = false }, 0)
     window.history.replaceState({}, '', window.location.pathname)
   }
 
@@ -220,54 +187,107 @@ function App() {
 
   const chooseDuskFriend = (id: Companion) => setDuskFriends((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id])
   const chooseDuskActivity = (id: DuskActivity) => setDuskActivity(id)
+  const chooseWoven = (slot: number) => {
+    const previous = wovenFlowers[slot]
+    const choices = petals.filter((index) => index !== previous)
+    const flowerIndex = (choices.length ? choices : petals)[slot % Math.max(choices.length || petals.length, 1)] ?? 0
+    setWoven((current) => current.includes(slot) ? current : [...current, slot])
+    setWovenFlowers((items) => ({ ...items, [slot]: flowerIndex }))
+    playWeavingSound()
+  }
   const finishDusk = () => {
     const friends: Companion[] = duskFriends.length > 0 ? duskFriends : ['he']
     setDuskFriends(friends)
     setCompanion(friends[0])
     setIsFinished(true)
-    const params = new URLSearchParams({ friends: friends.join(','), activity: duskActivity ?? 'wind', flowers: petals.join(','), ...(plumChoice ? { plum: plumChoice } : {}) })
-    window.history.replaceState({}, '', `${window.location.pathname}?${params}`)
+    clearJourneySnapshot()
+    replaceShareUrl(friends, duskActivity)
+  }
+
+  const cancelExport = () => {
+    exportGenerationRef.current += 1
+    exportAbortRef.current?.abort()
+    exportAbortRef.current = null
+    setExporting(false)
+    setExportProgress(DEFAULT_EXPORT_PROGRESS)
   }
 
   const exportStoryboard = async () => {
     const generation = ++exportGenerationRef.current
+    exportAbortRef.current?.abort()
+    const controller = new AbortController()
+    exportAbortRef.current = controller
+    const total = shots.length * 2
+    let completed = 0
     setExporting(true)
     setExportError('')
-    try {
-    if (exportUrl) URL.revokeObjectURL(exportUrl)
-    const zip = new JSZip()
-    const imageFolder = zip.folder('images')
-    for (const shot of shots) {
-      const image = await loadImage(shot.image)
-      const horizontal = renderCrop(image, 1920, 1080, false)
-      const portrait = await loadImage(shot.mobileImage)
-      const vertical = renderCrop(portrait, 1080, 1920, true)
-      imageFolder?.file(`horizontal-${String(shot.index).padStart(2, '0')}.jpg`, await blobToArrayBuffer(await horizontal))
-      imageFolder?.file(`vertical-${String(shot.index).padStart(2, '0')}.jpg`, await blobToArrayBuffer(await vertical))
+    setExportProgress({ completed, total, stage: 'images' })
+    if (exportUrlRef.current) {
+      URL.revokeObjectURL(exportUrlRef.current)
+      exportUrlRef.current = null
     }
-    const metadata = shots.map((shot) => ({ ...shot,
-      sourceImage: shot.image,
-      image: `images/horizontal-${String(shot.index).padStart(2, '0')}.jpg`,
-      horizontalFile: `images/horizontal-${String(shot.index).padStart(2, '0')}.jpg`,
-      verticalFile: `images/vertical-${String(shot.index).padStart(2, '0')}.jpg`,
-      companions: selectedFriends.map((id) => companions.find((item) => item.id === id)?.name).filter(Boolean),
-      activity: duskActivity ?? 'wind',
-    }))
-    zip.file('storyboard.json', JSON.stringify({ version: 2, title: '晚些回去', companions: selectedFriends, activity: duskActivity ?? 'wind', flowerIds: petals, flowers: petals.map((index) => flowers[index].name), plumRecipient: plumChoice, shots: metadata }, null, 2))
-    zip.file('storyboard.csv', `\ufeff序号,镜头,字幕,时长(秒),运镜,声音,横版文件,竖版文件\n${metadata.map((shot) => [shot.index, shot.title, shot.subtitle, shot.duration, shot.movement, shot.sound, shot.horizontalFile, shot.verticalFile].map(csvCell).join(',')).join('\n')}`)
-    zip.file('subtitles.srt', shots.map((shot, index) => `${String(index + 1).padStart(2, '0')}\n${timecode(shots.slice(0, index).reduce((sum, item) => sum + item.duration, 0))} --> ${timecode(shots.slice(0, index + 1).reduce((sum, item) => sum + item.duration, 0))}\n${shot.subtitle}\n`).join('\n'))
-    zip.file('README.txt', '《晚些回去》短视频分镜包\n横屏 1920×1080 与竖屏 1080×1920 各六张 JPG。竖版来自单独生成的竖构图；画面为静态分镜，运镜和声音为后期制作建议。图片路径均相对本 ZIP 根目录。字幕、镜头运动和声音提示见 storyboard.csv / storyboard.json。\n素材由互动游记根据同行选择整理。')
-    const blob = await zip.generateAsync({ type: 'blob', compression: 'STORE' })
-    if (generation === exportGenerationRef.current) setExportUrl(URL.createObjectURL(blob))
-    } catch {
-      if (generation === exportGenerationRef.current) setExportError('有一个片刻还没装进信封，请稍后再试一次。')
+    setExportUrl(null)
+    try {
+      const zip = new JSZip()
+      const imageFolder = zip.folder('images')
+      const markImageComplete = () => {
+        completed += 1
+        if (generation === exportGenerationRef.current && !controller.signal.aborted) setExportProgress({ completed, total, stage: 'images' })
+      }
+      for (const shot of shots) {
+        throwIfAborted(controller.signal)
+        const image = await loadImage(shot.image, controller.signal)
+        throwIfAborted(controller.signal)
+        const horizontal = await renderCrop(image, 1920, 1080, false)
+        throwIfAborted(controller.signal)
+        imageFolder?.file(`horizontal-${String(shot.index).padStart(2, '0')}.jpg`, await blobToArrayBuffer(horizontal))
+        markImageComplete()
+
+        const portrait = await loadImage(shot.mobileImage, controller.signal)
+        throwIfAborted(controller.signal)
+        const vertical = await renderCrop(portrait, 1080, 1920, true)
+        throwIfAborted(controller.signal)
+        imageFolder?.file(`vertical-${String(shot.index).padStart(2, '0')}.jpg`, await blobToArrayBuffer(vertical))
+        markImageComplete()
+      }
+      throwIfAborted(controller.signal)
+      const metadata = shots.map((shot) => ({ ...shot,
+        sourceImage: shot.image,
+        image: `images/horizontal-${String(shot.index).padStart(2, '0')}.jpg`,
+        horizontalFile: `images/horizontal-${String(shot.index).padStart(2, '0')}.jpg`,
+        verticalFile: `images/vertical-${String(shot.index).padStart(2, '0')}.jpg`,
+        companions: selectedFriends.map((id) => companions.find((item) => item.id === id)?.name).filter(Boolean),
+        activity: duskActivity ?? 'wind',
+      }))
+      const wreathSlots = [0, 1, 2, 3].map((slot) => ({ slot, flowerId: wovenFlowers[slot] ?? null, flower: wovenFlowers[slot] === undefined ? null : flowers[wovenFlowers[slot]]?.name ?? null }))
+      zip.file('storyboard.json', JSON.stringify({ version: 2, export: { version: 1, status: 'complete', imageCount: total }, title: '晚些回去', companions: selectedFriends, activity: duskActivity ?? 'wind', flowerIds: petals, flowers: petals.map((index) => flowers[index].name), plumRecipient: plumChoice, woven, wovenFlowers, wreathSlots, shots: metadata }, null, 2))
+      zip.file('storyboard.csv', `\ufeff序号,镜头,字幕,时长(秒),运镜,声音,横版文件,竖版文件\n${metadata.map((shot) => [shot.index, shot.title, shot.subtitle, shot.duration, shot.movement, shot.sound, shot.horizontalFile, shot.verticalFile].map(csvCell).join(',')).join('\n')}`)
+      zip.file('subtitles.srt', shots.map((shot, index) => `${String(index + 1).padStart(2, '0')}\n${timecode(shots.slice(0, index).reduce((sum, item) => sum + item.duration, 0))} --> ${timecode(shots.slice(0, index + 1).reduce((sum, item) => sum + item.duration, 0))}\n${shot.subtitle}\n`).join('\n'))
+      zip.file('README.txt', '《晚些回去》短视频分镜包\n导出版本 1 · 状态 complete\n横屏 1920×1080 与竖屏 1080×1920 各六张 JPG。竖版来自单独生成的竖构图；画面为静态分镜，运镜和声音为后期制作建议。图片路径均相对本 ZIP 根目录。字幕、镜头运动和声音提示见 storyboard.csv / storyboard.json。\n素材由互动游记根据同行选择整理。')
+      if (generation === exportGenerationRef.current && !controller.signal.aborted) setExportProgress({ completed: total, total, stage: 'packaging' })
+      const blob = await zip.generateAsync({ type: 'blob', compression: 'STORE' })
+      throwIfAborted(controller.signal)
+      const objectUrl = URL.createObjectURL(blob)
+      if (generation === exportGenerationRef.current && !controller.signal.aborted) {
+        exportUrlRef.current = objectUrl
+        setExportUrl(objectUrl)
+        setExportProgress({ completed: total, total, stage: 'complete' })
+      } else {
+        URL.revokeObjectURL(objectUrl)
+      }
+    } catch (error) {
+      if (generation === exportGenerationRef.current) {
+        if (!isAbortError(error)) setExportError('有一个片刻还没装进信封，请稍后再试一次。')
+        setExportProgress(DEFAULT_EXPORT_PROGRESS)
+      }
     } finally {
+      if (exportAbortRef.current === controller) exportAbortRef.current = null
       if (generation === exportGenerationRef.current) setExporting(false)
     }
   }
 
   if (isFinished) {
-    return <FinishScreen companions={selectedFriends} activity={duskActivity ?? 'wind'} petals={petals} plumChoice={plumChoice} shots={shots} exporting={exporting} exportUrl={exportUrl} exportError={exportError} isMusicOn={isMusicOn} musicError={musicError} onToggleMusic={toggleMusic} onExport={exportStoryboard} onReset={reset} />
+    return <FinishScreen companions={selectedFriends} activity={duskActivity ?? 'wind'} petals={petals} wovenFlowers={wovenFlowers} plumChoice={plumChoice} shots={shots} exporting={exporting} exportProgress={exportProgress} exportUrl={exportUrl} exportError={exportError} isMusicOn={isMusicOn} musicError={musicError} onToggleMusic={toggleMusic} onExport={exportStoryboard} onCancelExport={cancelExport} onReset={reset} />
   }
 
   return (
@@ -295,7 +315,7 @@ function App() {
           <div className="chapter-count">{current.chapter}</div>
           <h1 id="journey-title" tabIndex={-1}>{current.title}</h1>
           <p className="scene-line">{current.line}</p>
-          <Interaction chapter={chapterIndex} petals={petals} woven={woven} wovenFlowers={wovenFlowers} plumChoice={plumChoice} duskFriends={duskFriends} duskActivity={duskActivity} onPetal={choosePetal} onWoven={(slot) => { const previous = wovenFlowers[slot]; const options = petals.filter((index) => index !== previous); const choices = options.length ? options : petals; const flowerIndex = choices[Math.floor(Math.random() * choices.length)] ?? 0; playWeavingSound(); setWoven((items) => items.includes(slot) ? items : [...items, slot]); setWovenFlowers((items) => ({ ...items, [slot]: flowerIndex })) }} onPlum={choosePlum} onDuskFriend={chooseDuskFriend} onDuskActivity={chooseDuskActivity} onAllFriends={() => setDuskFriends(duskFriends.length === companions.length ? [] : companions.map((friend) => friend.id))} onFinishDusk={finishDusk} onAdvance={nextChapter} />
+          <Interaction chapter={chapterIndex} petals={petals} woven={woven} wovenFlowers={wovenFlowers} plumChoice={plumChoice} duskFriends={duskFriends} duskActivity={duskActivity} onPetal={choosePetal} onWoven={chooseWoven} onPlum={choosePlum} onDuskFriend={chooseDuskFriend} onDuskActivity={chooseDuskActivity} onAllFriends={() => setDuskFriends(duskFriends.length === companions.length ? [] : companions.map((friend) => friend.id))} onFinishDusk={finishDusk} onAdvance={nextChapter} />
         </div>
 
         <div className="scene-footer"><span>一段关于花、朋友和落日的古风互动游记</span><span>{String(chapterIndex + 1).padStart(2, '0')} / 04</span></div>
@@ -313,12 +333,6 @@ function FlowerMark({ index }: { index: number }) {
     {index === 3 && <>{Array.from({ length: 12 }, (_, item) => <ellipse key={item} cx="32" cy="18" rx="4" ry="14" fill="currentColor" transform={`rotate(${item * 30} 32 32)`} />)}<circle cx="32" cy="32" r="10" fill="#6f4320" /><circle cx="29" cy="29" r="3" fill="#d58b30" /></>}
     {index === 4 && <><path d="M32 5v51" stroke="#91b590" strokeWidth="3" />{[[24, 14], [39, 18], [24, 28], [39, 32], [27, 42], [35, 47], [32, 57]].map(([x, y], item) => <ellipse key={item} cx={x} cy={y} rx={item === 6 ? 5 : 8} ry="7" fill="currentColor" opacity={1 - item * .035} />)}</>}
   </svg>
-}
-
-const plumReplies: Record<Companion, string> = {
-  tang: '阿棠眯着眼笑：这颗酸得正好，醒一醒春困。',
-  he: '青禾接过青梅，把花环往你这边轻轻推了推。',
-  xi: '闻溪先分了一半给你：好东西，要一起尝。',
 }
 
 function SelectionMemory({ image, alt, label, line }: { image: string; alt: string; label: string; line: string }) {
@@ -368,9 +382,12 @@ function Interaction({ chapter, petals, woven, wovenFlowers, plumChoice, duskFri
   </div>
 }
 
-function FinishScreen({ companions: selectedCompanions, activity, petals, plumChoice, shots, exporting, exportUrl, exportError, isMusicOn, musicError, onToggleMusic, onExport, onReset }: { companions: Companion[]; activity: DuskActivity; petals: number[]; plumChoice: Companion | null; shots: Shot[]; exporting: boolean; exportUrl: string | null; exportError: string; isMusicOn: boolean; musicError: string; onToggleMusic: () => void; onExport: () => void; onReset: () => void }) {
+function FinishScreen({ companions: selectedCompanions, activity, petals, wovenFlowers, plumChoice, shots, exporting, exportProgress, exportUrl, exportError, isMusicOn, musicError, onToggleMusic, onExport, onCancelExport, onReset }: { companions: Companion[]; activity: DuskActivity; petals: number[]; wovenFlowers: Record<number, number>; plumChoice: Companion | null; shots: Shot[]; exporting: boolean; exportProgress: ExportProgress; exportUrl: string | null; exportError: string; isMusicOn: boolean; musicError: string; onToggleMusic: () => void; onExport: () => void; onCancelExport: () => void; onReset: () => void }) {
   const [shareMessage, setShareMessage] = useState('')
   const [previewShot, setPreviewShot] = useState<Shot | null>(null)
+  const closeRef = useRef<HTMLButtonElement | null>(null)
+  const dialogRef = useRef<HTMLDivElement | null>(null)
+  const triggerRef = useRef<HTMLButtonElement | null>(null)
   const names = selectedCompanions.map((id) => companions.find((item) => item.id === id)?.name).filter(Boolean) as string[]
   const groupLabel = names.length > 1 ? `${names.slice(0, -1).join('、')}和${names[names.length - 1]}` : names[0] ?? '青禾'
   const activityName = duskActivities.find((item) => item.id === activity)?.title ?? '听一会儿风'
@@ -383,26 +400,86 @@ function FinishScreen({ companions: selectedCompanions, activity, petals, plumCh
       setShareMessage('复制浏览器地址栏，就能把这页游记分享出去。')
     }
   }
+  const openPreview = (shot: Shot, event: ReactMouseEvent<HTMLButtonElement>) => {
+    triggerRef.current = event.currentTarget
+    setPreviewShot(shot)
+  }
+  const closePreview = () => setPreviewShot(null)
+  useEffect(() => {
+    if (!previewShot) return
+    closeRef.current?.focus()
+    const dialog = dialogRef.current
+    if (!dialog) return
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        closePreview()
+        return
+      }
+      if (event.key !== 'Tab') return
+      const focusable = [...dialog.querySelectorAll<HTMLElement>('button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+      if (focusable.length === 0) {
+        event.preventDefault()
+        dialog.focus()
+        return
+      }
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+    dialog.addEventListener('keydown', handleKeyDown)
+    return () => {
+      dialog.removeEventListener('keydown', handleKeyDown)
+      window.setTimeout(() => triggerRef.current?.focus(), 0)
+    }
+  }, [previewShot])
   return <main className="finish-shell" ><DisplayImage className="finish-photo" src={shots[5].image} mobileSrc={shots[5].mobileImage} eager alt="" /><div className="grain" aria-hidden="true" />
     <header className="topbar finish-top"><button className="wordmark" onClick={onReset} aria-label="重新开始游记"><span>花朝</span><strong>晚些回去</strong></button><div className="finish-top-actions"><span className="finish-tag">游记完成</span><MusicControl enabled={isMusicOn} error={musicError} onToggle={onToggleMusic} /></div></header>
     <div className="finish-grid"><section className="finish-copy"><div className="chapter-kicker"><span className="sun-mark" />你的花朝游记已经写好</div><h1 id="journey-title" tabIndex={-1}>晚些回去，<br /><i>也没有关系。</i></h1><p>你和{groupLabel}一起{activityName}，坐到了天快黑。六个片刻，收好这一日的光。</p>
       {petals.length > 0 && <div className="memory-flowers" aria-label="今天采下的花">{petals.map((index) => <span key={index}><FlowerMark index={index} />{flowers[index].name}</span>)}</div>}
       {plumFriend && <p className="memory-line">那颗青梅给了{plumFriend.name}，花环里留着你的配色。</p>}
-      <div className="finish-actions">{exportUrl ? <a className="primary-action" href={exportUrl} download="wan-late-home-storyboard.zip">保存双版分镜包 <span>↓</span></a> : <button className="primary-action" onClick={onExport} disabled={exporting}>{exporting ? '正在整理六个片刻…' : '收好今天的六个片刻'} <span>{exporting ? '·' : '↓'}</span></button>}<button className="secondary-action" onClick={share}>分享这页游记 <span>↗</span></button><button className="text-action" onClick={onReset}>再走一遍</button></div>
+      {Object.keys(wovenFlowers).length > 0 && <p className="wreath-memory-line">花环四处编进了{Object.values(wovenFlowers).map((index) => flowers[index]?.name).filter(Boolean).join('、')}。</p>}
+      <div className="finish-actions">{exportUrl ? <a className="primary-action" href={exportUrl} download="wan-late-home-storyboard.zip">保存双版分镜包 <span>↓</span></a> : <button className={`primary-action ${exporting ? 'exporting' : ''}`} onClick={exporting ? onCancelExport : onExport} aria-busy={exporting}>{exporting ? '取消整理' : '收好今天的六个片刻'} <span>{exporting ? '×' : '↓'}</span></button>}<button className="secondary-action" onClick={share}>分享这页游记 <span>↗</span></button><button className="text-action" onClick={onReset}>再走一遍</button></div>
+      {(exporting || exportProgress.stage === 'complete') && <p className="export-progress" role="status" aria-live="polite">{exportProgress.stage === 'packaging' ? `正在打包 · ${exportProgress.completed}/${exportProgress.total}` : exportProgress.stage === 'complete' ? `双版分镜包已准备好 · ${exportProgress.completed}/${exportProgress.total}` : `正在整理 ${exportProgress.completed}/${exportProgress.total}`}</p>}
       <p className="export-error" role="alert">{exportError}</p><p className="share-feedback" role="status">{shareMessage}</p>
       <div className="share-note">{selectedCompanions.length} 位同行者 · {activityName}<br />可保存横竖双版图片、字幕和分镜说明。链接会记住你的选择。</div>
-    </section><section className="storyboard-preview" aria-label="游记分镜预览"><div className="preview-label"><span>把日子，留在光里</span><span>01 — 06</span></div><div className="shot-gallery">{shots.map((shot) => <button className="shot-thumbnail" type="button" key={shot.index} onClick={() => setPreviewShot(shot)} aria-label={`查看第${shot.index}张分镜：${shot.title}`}><DisplayImage src={shot.image} alt="" small /><span>0{shot.index}</span><strong>{shot.title}</strong></button>)}</div><div className="preview-bottom">风从花梢里穿过去<br /><em>大家便都慢下来。</em></div></section></div>
-    {previewShot && <div className="shot-lightbox" role="dialog" aria-modal="true" aria-label={`第${previewShot.index}张分镜：${previewShot.title}`} onClick={() => setPreviewShot(null)} onKeyDown={(event) => { if (event.key === 'Escape') setPreviewShot(null) }}><button type="button" className="lightbox-close" aria-label="关闭图片预览" onClick={() => setPreviewShot(null)}>×</button><DisplayImage key={previewShot.image} eager src={previewShot.image} alt={`${previewShot.title}。${previewShot.subtitle}`} onClick={(event) => event.stopPropagation()} /><div className="lightbox-caption"><span>0{previewShot.index} / 06 · {previewShot.title}</span><small>{previewShot.subtitle}</small></div></div>}
+    </section><section className="storyboard-preview" aria-label="游记分镜预览"><div className="preview-label"><span>把日子，留在光里</span><span>01 — 06</span></div><div className="shot-gallery">{shots.map((shot) => <button className="shot-thumbnail" type="button" key={shot.index} onClick={(event) => openPreview(shot, event)} aria-label={`查看第${shot.index}张分镜：${shot.title}`}><DisplayImage src={shot.image} alt="" small /><span>0{shot.index}</span><strong>{shot.title}</strong></button>)}</div><div className="preview-bottom">风从花梢里穿过去<br /><em>大家便都慢下来。</em></div></section></div>
+    {previewShot && <div ref={dialogRef} className="shot-lightbox" role="dialog" aria-modal="true" aria-labelledby={`lightbox-title-${previewShot.index}`} aria-describedby={`lightbox-description-${previewShot.index}`} tabIndex={-1} onClick={(event) => { if (event.target === event.currentTarget) closePreview() }}><button ref={closeRef} type="button" className="lightbox-close" aria-label="关闭图片预览" onClick={closePreview}>×</button><DisplayImage key={previewShot.image} eager src={previewShot.image} alt={`${previewShot.title}。${previewShot.subtitle}`} onClick={(event) => event.stopPropagation()} /><div className="lightbox-caption"><span id={`lightbox-title-${previewShot.index}`}>0{previewShot.index} / 06 · {previewShot.title}</span><small id={`lightbox-description-${previewShot.index}`}>{previewShot.subtitle}</small></div></div>}
   </main>
 }
 
-function loadImage(src: string) {
+function isAbortError(error: unknown) {
+  return error instanceof Error && error.name === 'AbortError'
+}
+
+function throwIfAborted(signal: AbortSignal) {
+  if (signal.aborted) {
+    const error = new Error('Export cancelled')
+    error.name = 'AbortError'
+    throw error
+  }
+}
+
+function loadImage(src: string, signal?: AbortSignal) {
   return new Promise<HTMLImageElement>((resolve, reject) => {
     const image = new Image()
-    const timer = window.setTimeout(() => { image.src = ''; reject(new Error('Image timeout')) }, 30_000)
+    const timer = window.setTimeout(() => { cleanup(); image.src = ''; reject(new Error('Image timeout')) }, 30_000)
+    const abort = () => { cleanup(); image.src = ''; const error = new Error('Export cancelled'); error.name = 'AbortError'; reject(error) }
+    const cleanup = () => { window.clearTimeout(timer); signal?.removeEventListener('abort', abort) }
     image.crossOrigin = 'anonymous'
-    image.onload = () => { window.clearTimeout(timer); resolve(image) }
-    image.onerror = () => { window.clearTimeout(timer); reject(new Error('Image unavailable')) }
+    image.onload = () => { cleanup(); resolve(image) }
+    image.onerror = () => { cleanup(); reject(new Error('Image unavailable')) }
+    if (signal?.aborted) {
+      abort()
+      return
+    }
+    signal?.addEventListener('abort', abort, { once: true })
     image.src = src
   })
 }
@@ -428,4 +505,3 @@ function timecode(seconds: number) { const minutes = Math.floor(seconds / 60); c
 export default App
 
 createRoot(document.getElementById('root')!).render(<App />)
-

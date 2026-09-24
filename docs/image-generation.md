@@ -56,9 +56,9 @@ node scripts/generate-images.mjs --resume --slug wreath-garden-v4
 node scripts/generate-images.mjs --size 1024x1024 --quality medium
 ```
 
-## 当前上线的 v4 素材
+## 当前上线的素材
 
-正式场景使用 `scripts/prompts/*-v4.txt`：四张 1536×1024 横图和四张 1024×1536 竖图。v3 是中间试稿，保留供比较；网页使用 v4。
+正式场景使用 `scripts/prompts/*-v4.txt` 生成的 v5 文件：四张 1536×1024 横图和四张 1024×1536 竖图。六张分镜和对应竖构图使用 v6 文件；历史源图仍保留供比较，网页不再发布旧 v4/v5 派生图。
 
 v4 在暖金侧逆光、青蓝阴影和花叶散景之外，进一步指定透光的象牙白轻纱、珊瑚/玉绿/天青内裙、肌肤的局部明暗与清晰发丝高光。手机图独立生成三人紧凑构图，避免强裁横图丢失人物。提示词固定角色装束和面部描述；独立生成画面仍可能存在细微相貌差异。
 
@@ -76,4 +76,4 @@ python -m pip install Pillow
 npm run assets:prepare
 ```
 
-该脚本输出 8 张 WebP 场景和 3 张头像至 `public/assets/generated/`，总计约 2.2 MiB；`assets/web-manifest.json` 记录源图、尺寸、裁切坐标和哈希。不会改变原始图的光影或色彩。以后切换版本时需同步此脚本和前端路径。
+该脚本输出当前运行所需的 23 张源 WebP，以及 screen/thumb WebP/JPEG 派生图至 `public/assets/generated/`；`assets/web-manifest.json` 记录源图、尺寸、裁切坐标和哈希。不会改变原始图的光影或色彩。`python scripts/prepare-assets.py --clean` 会在重新生成后删除已知素材族的过期派生图；`npm run assets:check -- --strict` 会阻止缺图、尺寸错误、哈希错误、格式错误和未清理的发布图片进入构建。

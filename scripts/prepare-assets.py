@@ -1,4 +1,9 @@
-"""Make web copies and character portraits from the approved generated masters."""
+"""Make web copies and character portraits from the approved generated masters.
+
+The default command only writes the approved derivatives. Pass ``--clean`` to
+remove stale derivatives from the known asset families after preparation.
+"""
+import argparse
 from pathlib import Path
 import hashlib
 import json
@@ -18,7 +23,23 @@ STORYBOARD = (
     'storyboard-06-walk-home-v6', 'storyboard-06-walk-home-v6-mobile',
 )
 PORTRAITS = ('tang', 'he', 'xi')
+DERIVED_EXTENSIONS = {'.webp', '.jpg'}
+FAMILY_PREFIXES = tuple(
+    [f'{scene}-' for scene in SCENES]
+    + [f'storyboard-{index:02d}-' for index in range(1, 7)]
+    + [f'portrait-{person}-' for person in PORTRAITS]
+)
 records = []
+expected_files = set()
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        '--clean', action='store_true',
+        help='remove stale WebP/JPEG derivatives from known generated asset families',
+    )
+    return parser.parse_args()
 
 
 def master(stem):
@@ -39,10 +60,14 @@ def save_web(image, name, source, crop=None):
         stem = Path(name).stem + '-' + variant
         preview.save(DEST / (stem + '.webp'), 'WEBP', quality=quality, method=6)
         preview.save(DEST / (stem + '.jpg'), 'JPEG', quality=quality, optimize=True, progressive=True)
+        expected_files.update({f'{stem}.webp', f'{stem}.jpg'})
+    expected_files.add(name)
     records.append({'file': name, 'source': str(source.relative_to(ROOT)).replace('\\', '/'),
                     'size': image.size, 'crop': crop,
                     'sha256': hashlib.sha256(target.read_bytes()).hexdigest()})
 
+
+args = parse_args()
 
 for scene in SCENES:
     for variant in ('v5', 'mobile-v5'):
@@ -62,3 +87,22 @@ for person in PORTRAITS:
 
 (ROOT / 'assets' / 'web-manifest.json').write_text(json.dumps(records, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 print(f'Prepared {len(records)} approved web assets; total {sum((DEST / r["file"]).stat().st_size for r in records) / 1024:.0f} KiB')
+
+
+def is_safe_stale_candidate(path):
+    """Only classify files produced by this script's known asset families."""
+    if path.suffix.lower() not in DERIVED_EXTENSIONS:
+        return False
+    return path.name.startswith(FAMILY_PREFIXES)
+
+
+stale = [
+    path for path in DEST.iterdir()
+    if path.is_file() and is_safe_stale_candidate(path) and path.name not in expected_files
+]
+if stale and args.clean:
+    for path in stale:
+        path.unlink()
+    print(f'Cleaned {len(stale)} stale derived asset{"s" if len(stale) != 1 else ""}.')
+elif stale:
+    print(f'Found {len(stale)} stale derived asset{"s" if len(stale) != 1 else ""}; rerun with --clean to remove.')

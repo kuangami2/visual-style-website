@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run assets:check -- --strict && tsc -b && vite build",
     "preview": "vite preview",
     "images:check": "node scripts/generate-images.mjs --dry-run",
-    "assets:prepare": "python scripts/prepare-assets.py"
+    "assets:prepare": "python scripts/prepare-assets.py",
+    "assets:check": "node scripts/check-assets.mjs",
+    "test:e2e": "node tests/e2e/smoke.cjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
@@ -20,6 +22,7 @@
   "devDependencies": {
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "playwright": "^1.55.1",
     "typescript": "^5.7.2"
   }
 }

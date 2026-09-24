@@ -11,8 +11,8 @@ export function DisplayImage({ src, mobileSrc, small = false, eager = false, alt
   useEffect(() => {
     const media = window.matchMedia('(max-width: 600px)')
     const update = () => setMobile(media.matches)
-    media.addListener(update)
-    return () => media.removeListener(update)
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
   }, [])
   useEffect(() => { setAttempt(0); setFailed(false); setRetry(0) }, [selected])
   const url = selected.replace(/\.webp$/, `-${small ? 'thumb' : 'screen'}.${attempt ? 'jpg' : 'webp'}`)
@@ -26,8 +26,6 @@ export function DisplayImage({ src, mobileSrc, small = false, eager = false, alt
     <img className={className} src={url + (retry ? `?retry=${retry}` : '')} alt={alt}
       loading={eager ? 'eager' : 'lazy'} decoding="async"
       onClick={onClick} onError={() => { if (!attempt) setAttempt(1); else setFailed(true) }} />
-    {failed && <span className="image-retry" role="status" onClick={(event) => { event.stopPropagation(); restart() }}
-      onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); restart() } }}
-      tabIndex={0} role-description="重新加载图片">图片未加载，点此重试</span>}
+    {failed && <button type="button" className="image-retry" aria-label="重新加载图片" onClick={(event) => { event.stopPropagation(); restart() }}>图片未加载，点此重试</button>}
   </>
 }

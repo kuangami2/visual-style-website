@@ -21,10 +21,19 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
           cache: npm
       - run: npm ci
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - run: npm run assets:check -- --strict
+      - name: Write bundle size report
+        run: du -ah dist | sort -h | tail -n 25 > dist-size.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist-size-report
+          path: dist-size.txt
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
